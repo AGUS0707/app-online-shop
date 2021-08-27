@@ -1,5 +1,12 @@
 .app{
-
+    font-family: Open Sans,Arial,Helvetica,sans-serif,Heiti;
+    position: relative;
+}
+.app a{
+    text-decoration: none;
+}
+Link{
+    text-decoration: none!important;
 }
 .container{
     min-width: 90.6%;

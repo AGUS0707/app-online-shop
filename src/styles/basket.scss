@@ -1,0 +1,349 @@
+.shoppingCard{
+  background-color: #f2f2f2;
+  padding-top: 40px;
+  .container{
+    .row{
+      .col-md-9{
+        .shoppingCardLeft{
+          .shoppingCardLeftHeader{
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            .shoppingCardText{
+              font-size: 24px;
+              font-weight: 700;
+              margin-bottom: 20px;
+            }
+            .shoppingAllSelect{
+              .check{
+                position: relative;
+                width: 18px;
+                height: 18px;
+                border-radius: 4px;
+                border: 1px solid #ff4747;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .checkedImg{
+                  input[type="checkbox"]{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 18px;
+                    height: 18px;
+                    z-index: 2;
+                    opacity: 0;
+                  }
+                }
+              }
+              .checked{
+                background-color: #ff4747;
+                padding: 1.7px;
+                .checkedImg{
+                  mask-image: url("../images/check.svg");
+                  mask-size: 100% 100%;
+                  background-color: #fff;
+                  width: 15px!important;
+                  height: 15px!important;
+                }
+              }
+              .checkText{
+                margin-left: 17px;
+              }
+            }
+          }
+          .shoppingCardList{
+            background-color: #fff;
+            margin-bottom: 20px;
+            padding: 20px 30px;
+            border-radius: 8px;
+            .shoppingCardItem{
+              .shoppingCardItemHeader{
+                .shoppingCardContact{
+                  a{
+                    mask-image: url("../images/envelope.svg");
+                    margin-right: 10px;
+                    width: 20px;
+                    height: 20px;
+                    mask-size: 100% 100%;
+                    background-color: #333;
+                  }
+                  span{
+                    font-size: 15px;
+                  }
+                }
+              }
+              .shoppingCardItemMain{
+                display: flex;
+                .shoppingCardItemMainLeft{
+                  width: 24%;
+                  .shoppingProductCheck{
+                    .shoppingProductCheckk{
+                      position: relative;
+                      width: 18px;
+                      height: 18px;
+                      border-radius: 4px;
+                      border: 1px solid #ff4747;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      margin-right: 20px;
+                      .checkedImg{
+                        input[type="checkbox"]{
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          width: 18px;
+                          height: 18px;
+                          z-index: 2;
+                          opacity: 0;
+                        }
+                      }
+                    }
+                    .shoppingProductChecked{
+                      background-color: #ff4747;
+                      padding: 1.7px;
+                      .checkedImg{
+                        mask-image: url("../images/check.svg");
+                        mask-size: 100% 100%;
+                        background-color: #fff;
+                        width: 15px!important;
+                        height: 15px!important;
+                      }
+                    }
+                  }
+                }
+                .shoppingCardItemMainCenter{
+                  width: 55%;
+                  .shoppingProductLink{
+                    text-decoration: none;
+                    p{
+                      font-size: 14px;
+                      line-height: 13px;
+                      margin-bottom: 20px;
+                    }
+                  }
+                  .price{
+                    font-size: 16px;
+                    line-height: 24px;
+                    font-weight: 900;
+                  }
+                  .sale{
+                    margin-bottom: 3px;
+                    img{
+                      width: 43px;
+                      height: 14px;
+                      margin-right: 15px;
+                    }
+                    span{
+                      font-size: 13px;
+                    }
+                  }
+                  .percentSale{
+                    margin-bottom: 6px;
+                    padding: 0 5px;
+                    background: #fff1f1;
+                    border-radius: 2px;
+                    color: #ff4747;
+                    font-weight: 500;
+                    font-size: 12px;
+                  }
+                  .deliveryText{
+                    font-size: 12px;
+                    color: #2a2a2a;
+                    letter-spacing: 0;
+                    line-height: 18px;
+                    span{
+                      color: #2e9cc3;
+                      font-weight: 600;
+                      line-height: 18px;
+                      font-size: 12px;
+                      margin-right: 6px;
+                    }
+                  }
+                }
+                .shoppingCardItemMainRight{
+                  width: 21%;
+                  .deleteHeartIcons{
+                    margin-left: 89px;
+                    margin-bottom: 27px;
+                    .deleteIcon, .heartIcon{
+                      width: 22px;
+                      height: 22px;
+                      img{
+                        width: 100%;
+                        height: 100%;
+                      }
+                    }
+                    .deleteIcon{
+                      margin-left: 15px;
+                    }
+                  }
+                  .productCount{
+                    margin-left: 76px;
+                    margin-bottom: 8px;
+                    button{
+                      width: 24px;
+                      height: 24px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      padding: 6px;
+                      border: none;
+                      border-radius: 50%;
+                      background-color: #f2f2f2;
+                      img{
+                        width: 100%;
+                        height: 100%;
+                      }
+                    }
+                    span{
+                      margin: 0 10px;
+                    }
+                  }
+                  .limitText{
+                    color: #ff7f01;
+                    font-size: 12px;
+                    font-weight: 600;
+                    line-height: 16px;
+                    text-align: end;
+                  }
+                }
+              }
+              .d-flex{
+                .purchaseButton{
+                  border-style: solid;
+                  background-color: #ff4747;
+                  border-color: transparent;
+                  display: block;
+                  border-radius: 4px;
+                  padding: 0 50px;
+                  line-height: 34px;
+                  font-size: 14px;
+                  border-width: 1px;
+                  color: #fff;
+                  margin-top: 40px;
+                }
+              }
+            }
+          }
+        }
+        .payment{
+          background-color: #fff;
+          padding: 30px 30px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+          .paymentLeft{
+            width: 50%;
+            border-right: 1px solid #f2f2f2;
+            padding-right: 30px;
+            h4{
+              font-size: 14px;
+              text-align: center;
+              font-weight: 700;
+              margin-bottom: 23px;
+            }
+            .paymentIcons{
+              .paymentIcon{
+                width: 130px;
+                height: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img{
+                  width: 100%;
+                  height: 100%;
+                }
+              }
+              .paymentIcon:first-child{
+                margin-right: 18px;
+              }
+            }
+          }
+          .paymentRight{
+            width: 50%;
+            padding-left: 30px;
+            .security{
+              margin-top: -10px;
+              margin-bottom: 23px;
+              .securityContent{
+                .securityIcon{
+                  width: 28px;
+                  height: 28px;
+                  margin-right: 11px;
+                  img{
+                    width: 100%;
+                    height: 100%;
+                  }
+                }
+                .securityText{
+                  font-size: 14px;
+                  font-weight: 700;
+                }
+              }
+            }
+          }
+          .securityDescription{
+            text-align: center;
+            line-height: 18px;
+            font-size: 12px;
+          }
+        }
+      }
+      .col-md-3{
+        padding: 0;
+        .shoppingCardRight{
+          position: sticky;
+          top: 0;
+          background-color: #fff;
+          padding: 20px 20px;
+          border-radius: 8px;
+          margin-bottom: 20px;
+          h3{
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+          }
+          .totalPrice{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            .totalPriceText, .totalPriceNumber{
+              font-size: 14px;
+              color: #333;
+            }
+          }
+          .deliveryText{
+            font-size: 14px;
+          }
+          .total{
+            margin-bottom: 25px;
+            .totalText{
+              font-size: 14px;
+              font-weight: bold;
+            }
+            .totalNumber{
+              font-size: 24px;
+              font-weight: bold;
+            }
+          }
+          .totalPurchaseButton{
+            display: flex;
+            justify-content: center;
+            button{
+              line-height: 42px;
+              font-size: 16px;
+              color: #fff;
+              padding: 1px 87px;
+              background-color: #ff4747;
+              border: none;
+              border-radius: 8px;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.unsubscribeButtons>a{
+  padding: 2.7px 24px;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.unsubscribeButtons{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+
+  .unsubscribeButtons1{
+    color: #fff;
+    background-color: #ff4747;
+    margin-right: 14px;
+
+  }
+  .unsubscribeButtons2{
+    background-color: #f9f9f9;
+    color: #666;
+  }
+}

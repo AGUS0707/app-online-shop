@@ -1,0 +1,145 @@
+.icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+
+  mask-size: 100%;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-size: 100%;
+  -webkit-mask-repeat: no-repeat;
+  background-color: black;
+
+
+  &.icon-search{
+    mask-image: url("../images/search.png");
+    -webkit-mask-image: url("../images/search.png");
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+  }
+  &.icon-cart{
+    mask-image: url("../images/shopping-cart.png");
+    -webkit-mask-image: url("../images/shopping-cart.png");
+    background-color: black;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+}
+
+.search{
+  background-color: white;
+  padding: 20px 0;
+
+  .container{
+    padding: 0;
+    h1{
+      cursor: pointer;
+    }
+    .qidiruv{
+      background-color: red;
+      padding: 2px;
+      border-radius: 3px;
+
+      input{
+        border-radius: 0;
+        box-shadow: none;
+        width: 500px!important;
+        border: none;
+        &::placeholder{
+          font-size: 12px;
+        }
+        &:focus{
+          box-shadow: none;
+          border: none;
+        }
+      }
+      select{
+        border-radius: 0;
+        width: 150px;
+        cursor: pointer;
+        box-shadow: none;
+        option{
+          cursor: pointer!important;
+        }
+
+      }
+      .icon-search{
+
+      }
+    }
+
+    .search-bottom{
+        .nav{
+          padding: 10px 0 0 0;
+          .nav-item{
+            .nav-link{
+              color: #999;
+              border-right: 1px solid darkgray;
+              padding: 4px 8px;
+              font-size: 12px;
+              &:hover{
+                color: red;
+              }
+            }
+            &:first-child{
+              .nav-link{
+                padding-left: 0;
+              }
+            }
+            &:last-child{
+              .nav-link{
+                border-right: none;
+              }
+            }
+          }
+        }
+    }
+
+    .korzinka{
+      .icon{
+        &:hover{
+          background-color: red;
+        }
+      }
+      position: relative;
+      .count{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background-color: red;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        color: white;
+        position: absolute;
+        right: -5px;
+        top: -5px;
+      }
+    }
+
+    .navplus{
+      h1{
+        font-size: 14px;
+      }
+      p{
+        font-size: 12px;
+      }
+      .follow{
+        color: white!important;
+        font-size: 10px;
+        background-color: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        padding: 5px;
+        cursor: pointer;
+      }
+    }
+  }
+}

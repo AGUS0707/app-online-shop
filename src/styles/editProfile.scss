@@ -1,0 +1,105 @@
+.editProfile{
+  .container{
+    .row{
+      .col-8{
+        .form{
+          //border: 1px solid #e8e8e8;
+          padding: 80px;
+          border-radius: 3px;
+          .nameInput{
+            display: flex;
+            margin-bottom: 24px;
+            align-items: center;
+            .form-control{
+             border-color: #333;
+              height: 30px;
+            }
+            .form-control:focus{
+              box-shadow: none;
+
+            }
+            label{
+              span{
+                color: #ff4747;
+                font-size: 17px;
+                margin-right: 4px;
+              }
+              margin-right: 20px;
+              font-weight: bold;
+            }
+          }
+          .checkbox{
+            margin-bottom: 20px;
+            display: flex;
+            .checkboxLeft{
+              font-weight: bold;
+              span{
+                color: #ff4747;
+                font-size: 17px;
+                margin-right: 4px;
+              }
+            }
+            .checkboxRight{
+              margin-left: 15px;
+              label:first-child{
+                margin-right: 30px;
+              }
+              label{
+                input{
+                  margin-left: 5px;
+                }
+              }
+            }
+          }
+          .electronPochta{
+            margin-bottom: 20px;
+            display: flex;
+            .userNameElectron{
+              margin-left: 80px;
+            }
+            .electronText{
+              font-weight: bold;
+              span{
+                color: #ff4747;
+                font-size: 17px;
+                margin-right: 4px;
+              }
+            }
+          }
+          .phoneNumberInput{
+            margin-bottom: 20px;
+            display: flex;
+            label{
+              font-weight: bold;
+              margin-right: 30px;
+              span{
+                color: #ff4747;
+                font-size: 17px;
+                margin-right: 4px;
+              }
+            }
+            input{
+              height: 30px;
+              border: 1px solid #333;
+              &:focus{
+                border-color:#333 ;
+                box-shadow: none;
+              }
+            }
+          }
+          .birthday{
+            label{
+              font-weight: bold;
+              margin-right: 10px;
+              span{
+                color: #ff4747;
+                font-size: 17px;
+                margin-right: 4px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

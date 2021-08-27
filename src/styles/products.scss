@@ -1,0 +1,23 @@
+.container{
+  .col-2{
+    padding: 0 10px!important;
+    .card{
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+  }
+  p {
+    color: black;
+    font-size: 15px;
+    margin-bottom: 0;
+
+  }
+  h6 {
+    font-weight: 800;
+    color: black;
+  }
+  h5{
+    color: darkgray;
+    font-size: 12px;
+  }
+}

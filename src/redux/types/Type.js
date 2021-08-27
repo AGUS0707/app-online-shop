@@ -1,0 +1,4 @@
+
+export const SET_STATE = "CATEGORY/SET_STATE";
+export const SET_STATE1 = "PRODUCT/SET_STATE";
+export const SET_STATE2 = "ADDRES/SET_STATE";

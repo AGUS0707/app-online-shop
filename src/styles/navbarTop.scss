@@ -1,0 +1,347 @@
+.navbar-top{
+  background-color: #fafafa;
+  font-size: 12px;
+  .signInModalNone{
+    display: none;
+  }
+  .signInModalBlock{
+    display: block;
+    position: absolute;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.25);
+    .signInModalBlock1{
+      height: 100vh !important;
+      width: 100% !important;
+      .modalContent{
+        position: fixed;
+        z-index: 1200;
+        width: 32%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        border-radius: 9px;
+      }
+      .modalBody{
+        position: relative;
+        padding: 30px 35px;
+        box-sizing: border-box;
+        h3{
+          text-align: center;
+        }
+        .logInLinks>a{
+          border-bottom: 2px solid transparent;
+        }
+        .logInLinks{
+          display: flex;
+          justify-content: center;
+          margin-bottom: 14px;
+          .active{
+            border-bottom-color:#ff4747;
+          }
+          a{
+            font-size: 15px;
+            color: #000;
+            font-weight: 500;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 10px 10px;
+          }
+        }
+      }
+    }
+  }
+  .container{
+    display: flex;
+    justify-content: flex-end;
+    .navbarNav{
+      margin: 0;
+      padding: 12px 0;
+      list-style-type: none;
+      display: flex;
+      .nav-item{
+        border-right: 1px solid rgba(58, 28, 37, 0.31);
+        padding: 0 20px;
+      }
+      .nav-item:first-child{
+        a{
+          position: relative;
+          text-decoration: none;
+          color: #333;
+          ul{
+            background-color: #fff;
+            width: 108%;
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            li{
+              padding: 7px 5px;
+              a{
+                display: block;
+              }
+              &:hover{
+                background-color: #fafafa;
+              }
+            }
+          }
+          &:hover{
+            color: #ff4747;
+            ul{
+              list-style-type: none;
+              display: block;
+            }
+          }
+        }
+        span{
+          margin-left: 3px;
+          img{
+            width: 10px;
+            height: 7px;
+          }
+        }
+        &:hover{
+          span{
+            img{
+              transform: rotateX(180deg);
+            }
+          }
+        }
+      }
+      .nav-item:nth-child(2){
+        a{
+          color: #333;
+          text-decoration: none;
+          &:hover{
+            color: #ff4747;
+          }
+        }
+        a:first-child{
+          margin-right: 20px;
+          &:hover{
+            span{
+              img{
+                transform: rotateX(180deg);
+              }
+            }
+          }
+        }
+        span{
+          margin-left: 3px;
+          img{
+            width: 10px;
+            height: 7px;
+          }
+        }
+      }
+      .nav-item:nth-child(3){
+        button{
+          background-color: transparent;
+          border: none;
+          display: flex;
+          &:hover{
+            color: #ff4747;
+          }
+          .language{
+            img{
+              width: 25px;
+              height: 16px;
+              margin-right: 4px;
+            }
+            span{
+              margin-right: 4px;
+            }
+          }
+          img{
+            width: 10px;
+            height: 7px;
+          }
+        }
+        button:hover{
+          .arrowDown{
+            transform: rotateX(180deg);
+          }
+        }
+      }
+      .nav-item:nth-child(4){
+        border-right: none;
+        display: flex;
+        .wishList{
+          margin-right: 15px;
+          &:hover{
+            a{
+              color: #ff4747;
+              span{
+                background-color: #ff4747;
+              }
+            }
+          }
+          a{
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            span{
+              width: 15px ;
+              height: 15px;
+              mask-image: url("../images/heart.svg");
+              mask-size: 100%;
+              background-color: #333;
+              margin-right:5px ;
+            }
+          }
+        }
+        .account{
+          display: flex;
+          z-index: 12;
+          position: relative;
+          .accountText{
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            margin-right: 15px;
+            span{
+              mask-image: url("../images/user (1).svg");
+              width: 15px;
+              height: 15px;
+              mask-size: 100%;
+              background-color: #333333;
+              margin-right: 5px;
+            }
+          }
+          span{
+            img{
+              width: 10px;
+              height: 7px;
+            }
+          }
+          .accountBar{
+            padding-top: 20px ;
+            padding-bottom: 20px;
+            background-color: #fff;
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 230px;
+            box-shadow: 0 2px 8px 0 rgba(0, 0, 0 , 0.1);
+            border: 1px solid #e8e8e8;
+            .userNone{
+              display: block;
+              p{
+                text-align: center;
+                font-size: 15px;
+                white-space: nowrap;
+                margin-bottom: 14px;
+              }
+              .unsubscribeButtons{
+
+              }
+            }
+            .userBlock{
+              display: none;
+            }
+            .userContact{
+              display: flex;
+              .userContactContent{
+                display: flex;
+                align-items: center;
+                .userNamee{
+                  display: flex;
+                  justify-content: center;
+                  font-size: 16.5px;
+                  line-height: 16px;
+                  color: #656565;;
+                  font-weight: 700;
+                }
+                .userNameNone{
+                  display: none;
+                }
+                .userContactImg{
+                  width: 30px;
+                  height: 30px;
+                  display: flex;
+                  border-radius: 50%;
+                  overflow: hidden;
+                  justify-content: center;
+                  align-items: center;
+                  margin: 0 14px;
+                  img{
+                    width: 100%;
+                    height: 100%;
+                  }
+                }
+              }
+              .userContactImgNone{
+                display: none;
+              }
+            }
+            .sign-out-none{
+              display: none;
+              text-align: center;
+            }
+            .sign-out-block{
+              display: block;
+              margin-top: 6px;
+              border: none;
+              font-size: 15.8px;
+              text-decoration: none;
+              margin-left: 13px;
+              margin-bottom: 14px;
+              &:hover{
+                cursor: pointer;
+              }
+            }
+            hr{
+              margin: 0 14px;
+            }
+            .hrNone{
+              display: none;
+            }
+            .accountMenu{
+              padding: 0;
+              list-style-type: none;
+              margin: 0;
+              .accountMenuItem{
+                padding: 0;
+                margin: 0;
+                .accountMenuItemLink{
+                  padding: 3px 13px;
+                  transition: all 0.2s;
+                  display: block;
+                  color: #333;
+                  line-height: 32px;
+                  white-space: nowrap;
+                  text-decoration: none;
+                  &:hover{
+                    background-color: #fafafa;
+                  }
+                }
+              }
+            }
+          }
+          &:hover{
+            .arrowDown{
+              img{
+                transform: rotateX(180deg);
+              }
+            }
+            .accountBar{
+              display: block;
+            }
+          }
+        }
+        .account:hover>a{
+            color: #ff4747;
+            span{
+              background-color: #ff4747;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.topRanking{
+  color: #222;
+  padding: 15px 0;
+  .container{
+    .topRankingSection{
+      display: flex;
+      .topRankingLeft{
+        width: 19.1%;
+      }
+      .topRankingRight{
+        width: 80.9%;
+        a{
+          color: #222;
+          font-size: 16px;
+          text-decoration: none;
+          padding: 0 15px;
+          box-sizing: border-box;
+          transition: color 0.1s;
+          font-weight: 700;
+          &:hover{
+            color: #ff4747;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+.userAddPhotos{
+  background-color: #fff;
+  .container{
+    h3{
+      margin-top: 40px;
+    }
+    .row{
+      .col-md-8{
+        border: 1px dashed #e9e9e9;
+        padding: 46px;
+        .uploadImg{
+          width: 100px !important;
+          height: 100px !important;
+          margin-bottom: 20px;
+          img{
+            width: 100%;
+            height: 100%;
+          };
+        }
+        .addPhotos{
+          margin-top: 30px;
+          border: 1px solid #222;
+        }
+        label{
+          input::-webkit-file-upload-button{
+            display: none;
+            color: white;
+            background: #1CB6E0;
+            border: none;
+            padding: 7px 15px;
+            font-weight: 700;
+            border-radius: 3px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 10pt;
+          }
+          input::before{
+            content: 'Rasm yuklang';
+            display: inline-block;
+            background: linear-gradient(top, #f9f9f9, #e3e3e3);
+            border: 1px solid #999;
+            border-radius: 3px;
+            padding: 5px 8px;
+            outline: none;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            cursor: pointer;
+            text-shadow: 1px 1px #fff;
+            font-weight: 700;
+            font-size: 10pt;
+          }
+        }
+      }
+      .col-md-4{
+
+      }
+    }
+  }
+}
