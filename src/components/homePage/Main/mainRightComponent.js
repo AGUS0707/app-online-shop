@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 
 function MainRightComponent(props) {
 
+    // console.log(props)
+
     const [sign, setSign]=React.useState(true);
     const [modal, setModal]=useState(false);
     const openModal=()=>{
@@ -51,7 +53,7 @@ function MainRightComponent(props) {
                             </Link>
                         </div>
                     </div>
-                    <Modal setSign={setSign} sign={sign} modal={modal} setModal={setModal}/>
+                    <Modal history={props.history} setSign={setSign} sign={sign} modal={modal} setModal={setModal}/>
                 </div>
                 <div className={` profile ${props.userCheckReducer.userCheck===true? "profile-block":"profile-none"}`}>
                     <div className="profile-icons-content">

@@ -1,14 +1,18 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link} from "react-router-dom";
 import useStateRef from "react-usestateref";
 import {toast} from "react-toastify";
 import axios from "axios";
 import {connect} from "react-redux";
 import {API_PATH} from "../../../tools/constants"
+import {useHistory} from "react-router-dom"
+
+
 function Sign(props) {
 
     const passwordRef=useRef(null);
     const emailRef=useRef(null);
+    const history = useHistory();
     const [aFormCheck, setaFormCheck]=useState(false);
     const [user, setUser, userRef]=useStateRef({
         email:0,
@@ -20,13 +24,13 @@ function Sign(props) {
     const [validPassword, setValidPassword]=useState(false);
 
 
-    const closeModall = () => {
+    function closeModall  () {
         props.setModal(false);
         emailRef.current.value=null;
         passwordRef.current.value=null;
         setValidEmail(false);
         setValidPassword(false);
-    };
+    }
     const handleInputChange=(e)=>{
         if (e.target.name==="password"){
             setValidPassword(false);
@@ -67,17 +71,29 @@ function Sign(props) {
         axios.post(API_PATH+'login', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
             .then((response)=>{
                 if (response.data!==0){
+                    if (response.data.role_id === "1"){
+                        closeModall();
+                        history.push("/admin/profile");
+                    }
+                    if (response.data.role_id==="3"){
+                        closeModall();
+                        history.push("/seller")
+                    }
+                    if (response.data.role_id==="4"){
+                        closeModall();
+                        history.push("/")
+                    }
                     let localstorageUser;
                     localstorageUser={
                         id:response.data.id,
-                        email:response.data.phone,
-                        phone: response.data.phone,
-                        photo: response.data.photo,
-                        alt_name:response.data.alt_name
+                        email:response.data.email,
+                        photo:response.data.photo,
+                        phone:response.data.phone,
+                        alt_name:response.data.alt_name,
+                        role_id:response.data.role_id
                     };
                     props.addUserrr(localstorageUser);
                     props.addUserCheck(true);
-                    closeModall();
                     toast.success("Kirish muvofiqiyatli yakunlandi");
                 }else{
                     toast.error("Bunday foydalanuvchi topilmadi")
@@ -96,19 +112,29 @@ function Sign(props) {
                 axios.post(API_PATH+'login', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
                     .then((response)=>{
                         if (response.data!==0){
+                            if (response.data.role_id === "1"){
+                                closeModall();
+                                history.push("/admin/profile");
+                            }
+                            if (response.data.role_id==="3"){
+                                closeModall();
+                                history.push("/seller")
+                            }
+                            if (response.data.role_id==="4"){
+                                closeModall();
+                                history.push("/")
+                            }
                             let localstorageUser;
                             localstorageUser={
                                 id:response.data.id,
                                 email:response.data.email,
                                 photo:response.data.photo,
                                 phone:response.data.phone,
-                                alt_name:response.data.alt_name
+                                alt_name:response.data.alt_name,
+                                role_id:response.data.role_id
                             };
                             props.addUserCheck(true);
                             props.addUserrr(localstorageUser);
-                            closeModall();
-                            emailRef.current.value=null;
-                            passwordRef.current.value=null;
                             toast.success("Kirish muvofiqiyatli yakunlandi");
                         }else {
                             toast.error("Bunday foydalanuvchi topilmadi")
@@ -147,7 +173,9 @@ function Sign(props) {
                 <div className={`avForm ${aFormCheck? "avFormNone": " "} `} >
                     <input type="text"  ref={emailRef}  onChange={handleInputChange} className={`form-control ${validEmail? "validationInput" : ""}`}  name="email" placeholder="Email address"  />
                     <input type="password"  ref={passwordRef}  onChange={handleInputChange} className={`form-control   ${validPassword? "validationInput": " "}`} name="password" placeholder="Password"  />
-                    <button type="submit" className="signInButton" onClick={addUser}>Sign In</button>
+                    {/*<Link to={props.userReducer.userObject.role_id === "1" ? "/admin/profile" : props.userReducer.userObject.role_id === "3" ? "/seller" : "/"}>*/}
+                        <button type="submit" className="signInButton" onClick={addUser}>Sign In</button>
+                        {/*</Link>*/}
                 </div>
                 <div className={` ${aFormCheck? "blockInput": " noneInput"}`}>
                     <input type="text" placeholder={"Sms kodni kiriting"} className={`form-control `}/>
@@ -199,5 +227,8 @@ function mapDispatchToProps(dispatch) {
         }
     }
 }
+function mapStateToProps(state) {
+    return state
+}
 
-export default connect(null, mapDispatchToProps) (Sign);
+export default connect(mapStateToProps, mapDispatchToProps) (Sign);

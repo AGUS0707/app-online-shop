@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Detail from "./Detail";
 import {AvField, AvForm} from "availity-reactstrap-validation";
 
@@ -11,6 +11,7 @@ const DetailAdd = (props) => {
     useEffect(()=>{
         props.getCategory()
     },[])
+
 
     return (
         <Detail history={props.history}>
@@ -30,14 +31,15 @@ const DetailAdd = (props) => {
                     <div className="col-10 offset-1">
                         <AvField type="text" label="detail-uz" placeholder="detail_uz" name="detail_uz" required/>
                         <AvField type="text" label="detail-ru" placeholder="detail-ru" name="detail_ru" required/>
-                        <AvField type="select" label="category-id" name="category_id" required>
-                            <option>Categorys</option>
+                        <AvField type="select" name="category_id" label="Head Category">
+                            <option>Head Categorys</option>
                             {
                                 props.category.map((item)=>{
                                     return <option value={item.id}>{item.category_uz}</option>
                                 })
                             }
                         </AvField>
+
                         <AvField type="select" label="is-active" name="is_active" required>
                             <option>Choose</option>
                             <option value="1">Active</option>

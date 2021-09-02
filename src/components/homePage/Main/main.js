@@ -3,8 +3,13 @@ import "../../../styles/main.scss";
 import AliceCarouselComponent from "./aliceCarousel";
 import Category from "./category";
 import MainRightComponent from "./mainRightComponent";
+import SubCategory from "./SubCategory";
 
-function Main() {
+import {connect} from "react-redux";
+
+function Main(props) {
+
+    // console.log(props)
 
     return (
         <div className="main">
@@ -15,9 +20,17 @@ function Main() {
                     </div>
                     <div className="mainCenter">
                        <AliceCarouselComponent/>
+
+                        {
+                            props.category.map((item)=>{
+                                return item.category_id == props.subCategoryId && props.subCategoryOpen ?  <SubCategory/> : ""
+                            })
+
+                        }
+
                     </div>
                     <div className="mainRight">
-                        <MainRightComponent/>
+                        <MainRightComponent history={props.history}/>
                     </div>
                 </div>
             </div>
@@ -25,4 +38,12 @@ function Main() {
     );
 }
 
-export default Main;
+const mapStateToProps = (state) =>{
+    return {
+        category: state.category.category,
+        subCategoryOpen: state.category.subCategoryOpen,
+        subCategoryId: state.category.subCategoryId,
+    }
+}
+
+export default connect(mapStateToProps, null)(Main) ;

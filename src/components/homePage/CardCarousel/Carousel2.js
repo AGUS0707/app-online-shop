@@ -6,7 +6,9 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import "../../../styles/carousel.scss"
 import Card from "./Card";
-import Sorts2 from "../../ProductMore/Sorts";
+import Sorts2 from "../../ProductMore/Sorts2";
+
+import {connect} from "react-redux";
 
 const responsive = {
     0: { items: 1 },
@@ -15,74 +17,11 @@ const responsive = {
 };
 
 
-function Carousel () {
+function Carousel (props) {
 
-    const [productList, setProductList]=React.useState([
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url: "images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url: "images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url: "images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
-        {
-            url:"images/cardimg2.webp"
-        },
 
-    ])
+
+    let productList = props.product.slice(props.product.length-18, props.product.length)
 
     let filterList=[]
     let items=[]
@@ -92,7 +31,7 @@ function Carousel () {
             {filterList=productList.slice((index+1)*6-6, (index+1)*6)}
             return  <div className="item" data-value={index.toString()}>
                 {filterList.map((item2)=>{
-                    return <Card img={item2.url}/>
+                    return <Card img={item2.photo_list[0].url}/>
 
                 })}
             </div>
@@ -123,4 +62,12 @@ function Carousel () {
     );
 };
 
-export default Carousel;
+const mapStateToProps = (state) => {
+    return {
+        product: state.product.product,
+        oneProduct: state.product.oneProduct
+    }
+}
+
+
+export default connect(mapStateToProps, null)(Carousel) ;

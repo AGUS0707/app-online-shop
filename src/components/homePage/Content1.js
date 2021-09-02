@@ -7,7 +7,7 @@ const Content1 = () => {
         <div className="container content1 d-flex align-items-center justify-content-center">
             <div className="d-flex align-items-center" style={{width: "400px"}}>
                 <div>
-                    <Link to="/admin/product/products"><img src="/images/card1.webp" alt=""/></Link>
+                    <img src="/images/card1.webp" alt=""/>
                 </div>
                 <div className="ml-3">
                     <h3>Katta qiymatli <br/> narsalar</h3>

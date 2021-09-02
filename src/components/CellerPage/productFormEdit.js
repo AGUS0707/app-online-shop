@@ -7,7 +7,7 @@ import axios from "axios";
 import {API_PATH} from "../../tools/constants";
 import {connect} from "react-redux";
 
-function ProductForm(props) {
+function ProductFormEdit(props) {
 
     let product=props.productReducerSeller.productObject;
     let { Editor } = require('@tinymce/tinymce-react');
@@ -41,7 +41,7 @@ function ProductForm(props) {
             setCategoryList(response.data);
         });
         axios.get(API_PATH+'brand').then((response)=>{
-           setBrandList(response.data)
+            setBrandList(response.data)
         })
     }, []);
 
@@ -71,21 +71,21 @@ function ProductForm(props) {
             }
         }else{
             if (e.target.name==="file")
-            toast.error("Boldi brat qoshormang")
+                toast.error("Boldi brat qoshormang")
         }
     };
     const [deleteButton, setDeleteButton ]=useState(false);
-   function deleteImg(id) {
-       let newArray;
-       newArray=imgList.filter((item, index)=>{
-           if (id!==index)
-               return item
-       });
-       setImgList(newArray);
-   }
-   function clickButton(e) {
-       console.log(e.currentTarget.childNodes[0]);
-       imgList.forEach((item, index)=>{
+    function deleteImg(id) {
+        let newArray;
+        newArray=imgList.filter((item, index)=>{
+            if (id!==index)
+                return item
+        });
+        setImgList(newArray);
+    }
+    function clickButton(e) {
+        console.log(e.currentTarget.childNodes[0]);
+        imgList.forEach((item, index)=>{
             if (e.currentTarget.id==index){
                 if (e.currentTarget.childNodes[0].className.includes("blockButton")){
                     e.currentTarget.childNodes[0].classList.remove("blockButton")
@@ -93,9 +93,9 @@ function ProductForm(props) {
                     e.currentTarget.childNodes[0].classList.add("blockButton")
                 }
             }
-       })
+        })
 
-   }
+    }
     const imgListFunction=()=> {
         if (imgCheck){
             return <>
@@ -193,7 +193,7 @@ function ProductForm(props) {
 
         if (imgList.length>0&&product.product_uz.length>0&&product.product_ru.length>0&&product.price.length>0&&product.amount.length>0&&product.min_order.length>0&&product.description_uz.length>0&&product.description_ru.length>0&&product.category_id.length>0&&product.brand_id.length>0&&product.is_sale.length>0&&product.sale_price.length>0&&product.serial_number.length>0&&product.xarakteristika.length>0&&imgList.length>0){
             const formDate=new FormData();
-            formDate.append('id', props.userReducer.userObject.id);
+            formDate.append('id', product.id);
             formDate.append('product_uz', product.product_uz);
             formDate.append('product_ru', product.product_ru);
             formDate.append('price', product.price);
@@ -211,7 +211,7 @@ function ProductForm(props) {
             imgList.forEach((item, index)=>{
                 formDate.append(`file${+index}`, item);
             });
-            axios.post(API_PATH+'crproduct', formDate)
+            axios.post(API_PATH+'upproduct', formDate)
                 .then((response)=>{
                     console.log(response);
                     toast.success("Muvofiqiyatli qoshildi")
@@ -267,12 +267,12 @@ function ProductForm(props) {
                                 <div><span>*</span>Description_uz</div>
                             </div>
                             <div className="col-sm-10">
-                               <Editor
-                                   id="uz"
-                                   onEditorChange={editorChangeUz}
-                                   tagName="textarea"
-                                   initialValue={product.description_uz}
-                               />
+                                <Editor
+                                    id="uz"
+                                    onEditorChange={editorChangeUz}
+                                    tagName="textarea"
+                                    initialValue={product.description_uz}
+                                />
                             </div>
                         </div>
                     </div>
@@ -419,43 +419,8 @@ function ProductForm(props) {
                     <hr/>
                 </div>
                 break;
-            // case 4 :
-            //     return <div className={`menu4`}>
-            //         <div className={`form-group ${brand_idCheck? "menusValid": " "}`}>
-            //             <div className="row">
-            //                 <div className="col-sm-2 d-flex align-items-center justify-content-end">
-            //                     <div><span>*</span>Brand</div>
-            //                 </div>
-            //                 <div className="col-sm-10">
-            //                     <select  className="form-control" defaultValue={product.brand_id} name="brand_id" onChange={handleInputChange}>
-            //                         <option value="">Choose</option>
-            //                         {brandList.map((item)=>{
-            //                             return <option value={item.id}>{item.brand_name}</option>
-            //                         })}
-            //                     </select>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //         <hr/>
-            //         <div className={`form-group ${is_activeCheck? "menusValid": " "}`}>
-            //             <div className="row">
-            //                 <div className="col-sm-2 d-flex align-items-center justify-content-end">
-            //                     <div><span>*</span>Is_active</div>
-            //                 </div>
-            //                 <div className="col-sm-10">
-            //                     <select name="is_active" defaultValue={product.is_active} onChange={handleInputChange} className="form-control">
-            //                         <option value="">Choose</option>
-            //                         <option value="1">activ</option>
-            //                         <option value="0">activ emas</option>
-            //                     </select>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //         <hr/>
-            //     </div>
-            //     break;
             case 4 :
-                return <div className={`menu1`}>
+                return <div className={`menu4`}>
                     <div className={`form-group ${is_saleCheck? "menusValid": " "}`}>
                         <div className="row">
                             <div className="col-sm-2 d-flex align-items-center justify-content-end">
@@ -512,10 +477,9 @@ function ProductForm(props) {
                 return <div>
 
                 </div>
-            break
+                break
         }
     }
-
     return (
         <div className="product">
             <div className="productHeader d-flex justify-content-between">
@@ -575,7 +539,7 @@ function mapDispatchToProps(dispatch) {
     return {
         changeProduct:function (product) {
             dispatch({
-                type: "PRODUCT",
+                type: "UP_PRODUCT",
                 payload:product
             })
         }
@@ -585,4 +549,4 @@ function mapStateToProps(state) {
     return state
 }
 
-export default connect(mapStateToProps, mapDispatchToProps) (ProductForm);
+export default connect(mapStateToProps, mapDispatchToProps) (ProductFormEdit);

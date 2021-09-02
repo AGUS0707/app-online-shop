@@ -18,7 +18,16 @@ const initialState  = {
     detaildata: [],
     valuedata:[],
     formData: [],
-    a:[]
+    a:[],
+
+//    homepage
+
+    product: [],
+    oneProduct:{},
+    photo_list: [],
+    url: "",
+    htmlString: "",
+    onePhoto_list: []
 };
 
 

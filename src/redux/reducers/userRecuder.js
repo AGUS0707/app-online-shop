@@ -29,6 +29,13 @@ export default function userReducer(state={userObject:localstorageGetItem()}, ac
             };
             localStorage.setItem("user", JSON.stringify(state.userObject));
             break;
+        case "UPDATE_USER" :
+            state={
+                ...state,
+                userObject: action.payload
+            };
+            localStorage.setItem("user", JSON.stringify(state.userObject));
+            break;
         default : return state
     }
     return state

@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {connect} from "react-redux";
 import axios from "axios";
 import {API_PATH} from '../../../tools/constants';
-import {toast} from "react-toastify";
+
 function EditProfile(props) {
     const [editUser, setEditUser]=React.useState({});
 
@@ -50,6 +50,7 @@ function EditProfile(props) {
         if (firstNameRef.current.value.length>0&&lastNameRef.current.value.length>0&&phoneRef.current.value.length>0&&dateRef.current.value.length>0&&(maleGenderRef.current.checked===true||femaleGenderRef.current.checked===true)){
             axios.post(API_PATH+'upuser', {id:id, fristname:editUser.fristname, lastname:editUser.lastname, gender:editUser.gender, phone:editUser.phone, birthdate:editUser.birthdate})
                 .then((response)=>{
+                    console.log(response.data);
                     props.userUpdateFunction(response.data);
                     setCheck(true);
                 })
@@ -73,7 +74,7 @@ function EditProfile(props) {
                                 Profil muvofiqiyatli ynagilandi
                             </div>
                         </div>
-                        <div className="form"  >
+                        <div className="form"    >
                             <div className={`nameInput ${firstNameValid? "nameInputValid": " "}`}>
                                 <label htmlFor="name"><span>*</span>Ism</label>
                                 <input ref={firstNameRef} type="text" name="fristname" id="name" onChange={handleInputChange} className="form-control" defaultValue={user.fristname===null?" ": user.fristname}  />
@@ -88,10 +89,10 @@ function EditProfile(props) {
                                 </div>
                                 <div className="checkboxRight">
                                     <label htmlFor="male">Erkak
-                                        <input ref={maleGenderRef} type="radio" id="male" value="1" onChange={handleInputChange}   className="form-check-inline" name="gender" defaultChecked={user.gender===null? false: user.gender==="1"? true: false} />
+                                        <input  ref={maleGenderRef} type="radio" id="male" value="1" onChange={handleInputChange}   className="form-check-inline" name="gender" defaultChecked={user.gender===null? false: user.gender==="1"? true: false} />
                                     </label>
                                     <label htmlFor="female">Ayol
-                                        <input ref={femaleGenderRef} type="radio" value="0" id="female" onChange={handleInputChange} className="form-check-inline" name="gender" defaultChecked={user.gender===null? false: user.gender==="0"? true: false} />
+                                        <input  ref={femaleGenderRef} type="radio" value="0" id="female" onChange={handleInputChange} className="form-check-inline" name="gender" defaultChecked={user.gender===null? false: user.gender==="0"? true: false} />
                                     </label>
                                 </div>
                             </div>
@@ -105,14 +106,14 @@ function EditProfile(props) {
                             </div>
                             <div className={`phoneNumberInput ${phoneValid? "phoneNumberInputValid": " "}`}>
                                 <label htmlFor="phone"><span>*</span>Tel</label>
-                                <input ref={phoneRef} type="number" id="phone" onChange={handleInputChange} name="phone" className="form-control" defaultValue={user.phone===null?"": user.phone} />
+                                <input  ref={phoneRef} type="number" id="phone" onChange={handleInputChange} name="phone" className="form-control" defaultValue={user.phone===null?"": user.phone} />
                             </div>
                             <div className={`birthday ${dateValid? "birthdayValid": " "}`}>
                                 <label htmlFor="date"><span>*</span>Tugilgan sanasi</label>
-                                <input ref={dateRef} type="date" onChange={handleInputChange} name="birthdate" id="date" defaultValue={user.birthdate===null?"": user.birthdate} />
+                                <input  ref={dateRef} type="date" onChange={handleInputChange} name="birthdate" id="date" defaultValue={user.birthdate===null?"": user.birthdate} />
                             </div>
                             <div className="submitButton" >
-                                <button type="submit" onClick={updateUser}>
+                                <button type="submit" onClick={updateUser}  >
                                     Tayyor
                                 </button>
                             </div>

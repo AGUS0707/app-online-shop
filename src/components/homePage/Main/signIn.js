@@ -4,11 +4,16 @@ import Sign from "./sign";
 import "../../../styles/signIn.scss";
 
 function SignIn(props) {
+    function Tekshir(){
+        if (props.history!==undefined)
+            return props.history
+    }
+    console.log(props)
 
     if (props.sign===true){
         return (
             <>
-                <Sign setModal={props.setModal}/>
+                <Sign history={Tekshir} setModal={props.setModal}/>
             </>
         );
     }else if (props.sign===false){return (

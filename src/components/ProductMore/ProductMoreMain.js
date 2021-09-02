@@ -1,58 +1,48 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Link} from "react-router-dom";
 
-const ProductMoreMain = () => {
+import {connect} from "react-redux";
 
-    const [src, setSrc] = useState("/images/computer2.webp")
+import {set_state1} from "../../redux/actions/productAction";
+import axios from "axios";
+import {API_PATH} from "../../tools/constants";
+
+import parse from 'html-react-parser';
+
+const ProductMoreMain = (props) => {
+
     const [count, setCount] = useState(1)
-    const [price, setPrice] = useState(9664.34)
+    const [price, setPrice] = useState(props.oneProduct.price)
     const [price1, setPrice1] = useState({
         piece: 8010,
-        price1: 464546.5454
+        price1: ""
     })
     const [url, setUrl] = useState("/images/like.png")
-    let defaultprice = 9664.34
+    let defaultprice = props.oneProduct.price
+
+    function url1(id) {
+        props.photo_list.map((item)=>{
+            return item.id === id ? props.set_state1({onePhoto_list: item.url}) : ""
+        })
+    }
 
     return (
         <div className="container productmain p-0">
             <div className="row">
                 <div className="col-4">
                     <div className="card border-0">
-                        <img src={src} className="w-100 card-img-top" alt=""/>
+                        <img src={props.onePhoto_list} className="w-100 card-img-top" alt=""/>
                         <div className="card-body">
                             <div className="d-flex align-items-center justify-content-center py-3">
-                                <div className={`card1 ${src === "/images/computer2.webp" ? "active" : ""}`}
-                                     onMouseOver={() => {
-                                         setSrc("/images/computer2.webp")
-
-                                     }}>
-                                    <img src="/images/computer2.webp" alt=""/>
-                                </div>
-                                <div className={`card1 ${src === "/images/computer1.webp" ? "active" : ""}`}
-                                     onMouseOver={() => {
-                                         setSrc("/images/computer1.webp")
-                                     }}>
-                                    <img src="/images/computer1.webp" alt=""/>
-                                </div>
-                                <div className={`card1 ${src === "/images/computer3.webp" ? "active" : ""}`}
-                                     onMouseOver={() => {
-                                         setSrc("/images/computer3.webp")
-                                     }}>
-                                    <img src="/images/computer3.webp" alt=""/>
-                                </div>
-                                <div className={`card1 ${src === "/images/computer4.webp" ? "active" : ""}`}
-                                     onMouseOver={() => {
-                                         setSrc("/images/computer4.webp")
-                                     }}>
-                                    <img src="/images/computer4.webp" alt=""/>
-                                </div>
-                                <div className={`card1 ${src === "/images/computer5.webp" ? "active" : ""}`}
-                                     onMouseOver={() => {
-                                         setSrc("/images/computer5.webp")
-                                     }}>
-                                    <img src="/images/computer5.webp" alt=""/>
-                                </div>
+                               {
+                                   props.photo_list.map((item, index)=>{
+                                       return  <div className={`card1 ${props.onePhoto_list === item.url ? "active" : ""}`}
+                                                    onMouseOver={()=>url1(item.id)}>
+                                           <img src={item.url} alt=""/>
+                                       </div>
+                                   })
+                               }
                             </div>
 
 
@@ -60,8 +50,8 @@ const ProductMoreMain = () => {
                     </div>
                 </div>
                 <div className="col-6">
-                    <h3>Core i7 Laptop 15.6 inch 8G/16G RAM 128G/256G/512G/1TB SSD Notebook Computer Metal Body IPS
-                        Backlit Keyboard Laptop Gaming
+                    <h3>
+                        {parse(props.htmlString)}
                     </h3>
 
                     <div className="d-flex align-items-center">
@@ -78,19 +68,19 @@ const ProductMoreMain = () => {
 
                     <div className="line"></div>
 
-                    <p style={{fontSize: "25px"}}>{price1.price1} rubl</p>
+                    <p style={{fontSize: "25px"}}>{props.oneProduct.price} so'm</p>
 
                     <h5>Color:</h5>
 
                     <div className="row">
                         <div className="col-4">
                             <div className="cpu" onClick={() => {
-                                setPrice1({piece: 2010, price1: 465464.2321321})
+                                setPrice1({piece: props.oneProduct.amount, price1: props.oneProduct.price})
                             }}><h6>8GB RAM 128G SSD</h6></div>
                         </div>
                         <div className="col-4">
                             <div className="cpu" onClick={() => {
-                                setPrice1({piece: 7878, price1: 9878789.2321321})
+                                setPrice1({piece: props.oneProduct.amount, price1: 9878789.2321321})
                             }}><h6>8GB RAM 128G SSD</h6></div>
                         </div>
                         <div className="col-4">
@@ -133,7 +123,7 @@ const ProductMoreMain = () => {
                     </div>
 
                     <div className="price">
-                        <h1>Shipping: {price} rubl.</h1>
+                        <h1>Shipping: {price} so'm.</h1>
                         <h2>Estimated Delivery: 1 - 2 clock</h2>
                     </div>
 
@@ -181,4 +171,15 @@ const ProductMoreMain = () => {
     );
 };
 
-export default ProductMoreMain;
+const mapStateToProps = (state) => {
+    return{
+        oneProduct: state.product.oneProduct,
+        product: state.product.product,
+        photo_list: state.product.photo_list,
+        url: state.product.url,
+        htmlString: state.product.htmlString,
+        onePhoto_list: state.product.onePhoto_list,
+    }
+}
+
+export default connect(mapStateToProps, {set_state1})(ProductMoreMain) ;

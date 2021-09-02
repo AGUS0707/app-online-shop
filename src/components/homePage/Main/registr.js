@@ -64,7 +64,7 @@ function Registr(props) {
             email: 0
         };
         setUser(newwUser);
-        axios.post(API_PATH+'cruser', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
+        axios.post(API_PATH+'register', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
             .then((response)=>{
                 let localstorageUser;
                 localstorageUser={
@@ -72,7 +72,8 @@ function Registr(props) {
                     email:response.data.phone,
                     phone: response.data.phone,
                     photo: response.data.photo,
-                    alt_name:response.data.alt_name
+                    alt_name:response.data.alt_name,
+                    role_id:response.data.role_id
                 };
                 props.addUserrr(localstorageUser);
                 props.addUserCheck(true);
@@ -89,8 +90,9 @@ function Registr(props) {
                     phone: 0
                 };
                 setUser(newwwUser);
-                axios.post(API_PATH+'cruser', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
+                axios.post(API_PATH+'register', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
                     .then((response)=>{
+                        console.log(response)
                         if (response.data===1){
                             toast.error("bunday foydalanuvchi mavjud");
                         }else {
@@ -101,7 +103,8 @@ function Registr(props) {
                                 email:response.data.email,
                                 phone:response.data.phone,
                                 photo:response.data.photo,
-                                alt_name:response.data.alt_name
+                                alt_name:response.data.alt_name,
+                                role_id:response.data.role_id
                             };
                             props.addUserCheck(true);
                             props.addUserrr(localstorageUser);

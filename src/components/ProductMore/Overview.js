@@ -1,25 +1,28 @@
 import React from 'react';
 
-const Overview = () => {
+import parse from 'html-react-parser'
+
+const Overview = (props) => {
     return (
         <div className="overview">
             <h1>Dropshipping</h1>
 
-            <h3>Hi Dear,
-                Welcome to our store, we can provide dropshipping and wholesale,if you have any request,
-                please contact us, we will give you the best price and service!</h3>
+            <h3>{props.oneProduct.product_uz}</h3>
 
-            <p>
-                Warning, because different countries have different import regulations, our price does not include any
-                taxes. Buyers are responsible for customs clearance. We do not accept orders that are unwilling to clear
-                customs by themselves. ,Thank you for your cooperation.</p>
+            {parse(props.htmlstring)}
 
             <div className="row">
-                <div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>
-                <div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>
-                <div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>
-                <div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>
-                <div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>
+               {
+                   props.photo_list.map((item)=>{
+
+                       return  <div className="col-4 offset-4"><img src={item.url} className="mt-4 w-100" alt=""/></div>
+
+                   })
+               }
+                {/*<div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>*/}
+                {/*<div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>*/}
+                {/*<div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>*/}
+                {/*<div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>*/}
             </div>
         </div>
     );

@@ -4,6 +4,12 @@ import SignIn from "./signIn";
 
 function Modal(props) {
 
+    // console.log(props)
+    function Tekshir(){
+        if (props.history!==undefined)
+            return props.history
+    }
+
     return (
         <>
             <div className={props.modal?"signInModalBlock": "signInModalNone"}>
@@ -15,7 +21,7 @@ function Modal(props) {
                                 <Link to="/" className={`registrLink ${props.sign? "": "active"}`} onClick={()=>props.setSign(false)}>Register</Link>
                                 <Link to="/" className={`signInLink ${props.sign? "active": ""}`}  onClick={()=>props.setSign(true)} >Sign In</Link>
                             </div>
-                            <SignIn  sign={props.sign} setModal={props.setModal}/>
+                            <SignIn history={Tekshir}  sign={props.sign} setModal={props.setModal}/>
                         </div>
                     </div>
                 </div>

@@ -2,18 +2,32 @@ import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
+import {connect} from "react-redux";
 
 function BrandList(props) {
-
+    useEffect(()=>{
+        axios.get(API_PATH+'brand').then((response)=>{
+            props.addBrandList(response.data)
+            console.log(response.data)
+        })
+    }, []);
     const [checked, setChecked]=useState(false);
     const filterBrand=(id)=> {
-        props.brandList.forEach((item)=>{
+        props.brandListReducer.brandList.forEach((item)=>{
             if (id===item.id){
-                props.setFilterBrandObject(item)
+                let newObject={
+                    brand_name:item.brand_name,
+                    is_active:item.is_active,
+                    file:item.file
+                };
+                props.updateBrandObject(newObject);
             }
         })
     };
-    const [filterObject, setFilterObject]=useState({})
+    const [filterObject, setFilterObject]=useState({
+        filterBrandName:" ",
+        date:" "
+    });
     const handleInputChange=(e)=>{
         let newArray={
             ...filterObject,
@@ -21,18 +35,43 @@ function BrandList(props) {
         };
         setFilterObject(newArray)
     };
+    console.log(filterObject);
     const filterList=()=>{
-        let thisDay=Date.now().getFullYear();
-        console.log(thisDay);
+        let yil=filterObject.date.slice(0, 4);
+        let oy=filterObject.date.slice(5, 7);
+        let kun=filterObject.date.slice(8, 10);
+        let filterDate= new Date(`${yil}-${oy}-${kun}`).getTime();
         let newArray=[];
-        newArray=props.brandList.filter((item)=>{
-            if (item.brand_name.toUpperCase().includes(filterObject.filterBrandName.toUpperCase())){
-                return item
-            }
-        });
-        props.setBrandList(newArray)
+        if (filterObject.filterBrandName!==" "||filterObject.date!==" "){
+            newArray=props.brandListReducer.brandList.filter((item)=>{
+                // console.log(item.brand_name.toUpperCase().includes(filterObject.filterBrandName.toUpperCase()));
+                let createTime=new Date(item.created_at.slice(0, 10)).getTime();
+                console.log(createTime);
+                if (item.brand_name.toUpperCase().trim().includes(filterObject.filterBrandName.toUpperCase())||filterDate<createTime){
+                    return item;
+                }
+            });
+            props.updateBrandList(newArray)
+        }
+        if (filterObject.filterBrandName!==" "&&filterObject.date!==" "){
+            let array=[];
+            array=props.brandListReducer.brandList.filter((item)=>{
+                // console.log(item.brand_name.toUpperCase().includes(filterObject.filterBrandName.toUpperCase()));
+                let createTime=new Date(item.created_at.slice(0, 10)).getTime();
+                console.log(createTime);
+                if (item.brand_name.toUpperCase().trim().includes(filterObject.filterBrandName.toUpperCase())&&filterDate<createTime){
+                    return item;
+                }
+            });
+            props.updateBrandList(array)
+        }
     };
-    console.log(props.brandList);
+    function brandObjectClear() {
+        props.updateBrandObject({
+            brand_name:"",
+            is_active:""
+        })
+    }
     return (
         <div className="brand">
             <div className="brandHeader d-flex justify-content-between">
@@ -48,10 +87,10 @@ function BrandList(props) {
                 </div>
                 <div className="brandHeaderRight d-flex justify-content-end">
                     <div className="brandHeaderRightContent d-flex ">
-                        <Link to="/seller/brand/form1">
+                        <Link to="/seller/brand/form" className="otishImg" onClick={brandObjectClear}>
                             <span className="img"></span>
                         </Link>
-                        <Link>
+                        <Link className="deleteImg">
                             <span className="img"></span>
                         </Link>
                     </div>
@@ -79,7 +118,7 @@ function BrandList(props) {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {props.brandList.map((item, index)=>{
+                                    {props.brandListReducer.brandList.map((item, index)=>{
                                         return <tr key={index}>
                                             <td className="text-left"><input type="checkbox" defaultChecked={checked}  className='form-control'/></td>
                                             <td className="text-left ">{item.id}</td>
@@ -109,7 +148,7 @@ function BrandList(props) {
                                         <hr/>
                                         <label htmlFor="date">
                                             Sana
-                                            <input type="date" id="date" name="date" className="form-control"/>
+                                            <input type="date" onChange={handleInputChange} id="date" name="date" className="form-control"/>
                                         </label>
                                         <hr/>
                                         <div className="filterButton d-flex justify-content-end">
@@ -128,5 +167,29 @@ function BrandList(props) {
         </div>
     );
 }
-
-export default BrandList;
+function mapDispatchToProps(dispatch) {
+    return {
+        addBrandList:function (brandList) {
+            dispatch({
+                type:"BRAND_LIST",
+                payload:brandList
+            })
+        },
+        updateBrandList:function(brandList){
+          dispatch({
+              type: "UPDATE_BRAND_LIST",
+              payload:brandList
+          })
+        },
+        updateBrandObject:function (object) {
+            dispatch({
+                type: "UPDATE_BRAND",
+                payload: object
+            })
+        }
+    }
+}
+function mapStateToProps(state) {
+    return state
+}
+export default connect(mapStateToProps, mapDispatchToProps) (BrandList);

@@ -7,7 +7,7 @@ import Orders from "./components/AdminPage/order/Orders";
 import Statistics from "./components/AdminPage/system/Statistics";
 import Client from "./components/CellerPage/Client";
 import Market from "./components/CellerPage/Market";
-import Products from "./components/AdminPage/product/Products";
+import Products from "./components/AdminPage/product/products/Products";
 import Comments from "./components/AdminPage/system/Comments";
 import Returns from "./components/AdminPage/order/Returns";
 import Settings from "./components/AdminPage/system/Settings";
@@ -51,6 +51,8 @@ import RoleAdd from "./components/AdminPage/system/role/RoleAdd";
 import RoleEdit from "./components/AdminPage/system/role/RoleEdit";
 import ShoppingCard from "./components/homePage/shoppingCard";
 import CellerLayout from "./components/CellerPage/CellerLayout";
+import ProductAdd from "./components/AdminPage/product/products/ProductAdd";
+import NotFound from "./components/homePage/NotFound";
 
 
 function App() {
@@ -59,7 +61,8 @@ function App() {
           <Router>
               <Switch>
                   <Route path="/" exact  component={Home}/>
-                  <Route path="/product" exact component={Productmore}/>
+
+                  <Route path="/product/view/:url" exact component={Productmore}/>
                   <Route path="/home/shopping" exact component={ShoppingCard}/>
                   <Route path="/seller" component={CellerLayout}/>
                   <Route path="/product/buynow" exact component={BuyNow}/>
@@ -80,6 +83,7 @@ function App() {
                   <Route path="/admin/product/model/add" exact component={ModelAdd}/>
                   <Route path="/admin/product/model/edit" exact component={ModelEdit}/>
                   <Route path="/admin/product/products" exact component={Products}/>
+                  <Route path="/admin/product/products/add" exact component={ProductAdd}/>
                   <Route path="/admin/product/detail" exact component={Detail}/>
                   <Route path="/admin/product/detail/add" exact component={DetailAdd}/>
                   <Route path="/admin/product/detail/edit" exact component={DetailEdit}/>
@@ -120,6 +124,9 @@ function App() {
                   <Route path="/admin/system/blogs" exact component={Blogs}/>
                   <Route path="/admin/system/statistics" exact component={Statistics}/>
                   <Route path="/admin/system/settings" exact component={Settings}/>
+
+                  <Route component={NotFound}/>
+
               </Switch>
           </Router>
           <ToastContainer/>

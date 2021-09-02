@@ -7,7 +7,7 @@ const Card = (props) => {
                 <Link to="/product" className="text-decoration-none">
                     <div className="card border-0">
                         <div className="card-body p-2">
-                            <img src={props.img} className="w-100" alt=""/>
+                            <img src={props.img} height="150" className="w-100" alt=""/>
                             <div className="d-flex align-items-center mt-2">
                                 <div className="price d-flex align-items-center">
                                     <img src="/images/diagramma.webp" alt=""/>

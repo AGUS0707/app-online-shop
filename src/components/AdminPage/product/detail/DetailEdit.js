@@ -24,7 +24,7 @@ const DetailEdit = (props) => {
                     <div className="col-10 offset-1">
                         <AvField type="text" label="detail_uz" placeholder="Detail-Name" name="detail_uz"/>
                         <AvField type="text" label="detail_ru" placeholder="Detail-Name" name="detail_ru"/>
-                        <AvField type="text" label="detail_ru" placeholder="Detail-Name" name="id" className="d-none"/>
+                        <AvField type="text" placeholder="Detail-Name" name="id" className="d-none"/>
                         <AvField type="select" label="category_id" name="category_id">
                             <option>Categorys</option>
                             {

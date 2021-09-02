@@ -584,7 +584,7 @@
         }
         .productHeaderRight{
           .productHeaderRightContent{
-            a:first-child, button:first-child{
+            .plusImg, .saveImg{
               color: #fff;
               background-color: #1e91cf;
               border-color: #197bb0;
@@ -601,7 +601,7 @@
                 background-color: #fff;
               }
             }
-            a:nth-child(2){
+            .copyImg{
               background-color: #fff;
               border-color: #ddd;
               padding: 10px 13px;
@@ -618,7 +618,7 @@
                 background-color: #666;
               }
             }
-            a:nth-child(3),  button:nth-child(2){
+            .deleteImg,  .previosImg{
               color: #fff;
               background-color: #e3503e;
               border-color: #dd3520;
@@ -638,7 +638,7 @@
             a{
               text-decoration: none;
             }
-            button:first-child{
+            .saveImg{
               background-color: #1e91cf;
               border: none;
               margin-right: 8px;
@@ -647,7 +647,7 @@
                 background-color: #fff;
               }
             }
-            button:nth-child(2){
+            .previosImg{
               background-color: #fff;
               border: none;
               .img{
@@ -725,6 +725,8 @@
               }
             }
             .col-md-3{
+              position: sticky !important;
+              top: 0 !important;
               .filterContent{
                 border: 1px solid #dcdcdc;
                 .filterHeader{
@@ -965,6 +967,7 @@
                     }
                     padding: 8px;
                     .productImgListItem{
+                      position: relative;
                       width: 108px;
                       height: 108px;
                       display: flex;
@@ -979,6 +982,50 @@
                       img{
                         width: 100%;
                         height: 100%;
+                      }
+                      .positionAbsolute{
+                        visibility: hidden;
+                        position: absolute;
+                        width: 40px;
+                        height: 40px;
+                        //border: 1px solid #dcdcdc;
+                        top: 3%;
+                        left: 112%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: 30;
+                        .positionRelative{
+                          border: 1px solid #fcfcfc ;
+                          position: relative;
+                          width: 100%;
+                          height: 100%;
+                          background-size: 100% 100%;
+                          z-index: 5;
+                          display: flex;
+                          align-items: center;
+                          justify-content: center;
+                          background-color: #ff4747;
+                          i{
+                            font-size: 18px;
+                            color: #fff;
+                          }
+                          .before{
+                            position: absolute;
+                            font-size: 300px;
+                            display: block;
+
+                            z-index: 10;
+                            border: 10px solid #ff4747;
+                            border-top-color: transparent;
+                            border-bottom-color: transparent;
+                            border-left-color: transparent;
+                            right: 100%;
+                          }
+                        }
+                      }
+                      .blockButton{
+                        visibility: visible;
                       }
                     }
                   }
@@ -1034,44 +1081,44 @@
                   }
                 }
               }
+              //.menu4{
+              //  .form-group{
+              //    padding: 0 15px;
+              //    .row{
+              //      .col-sm-2{
+              //        div{
+              //          font-weight: 600;
+              //          span{
+              //            margin-right: 3px;
+              //            color: #ff4747;
+              //          }
+              //        }
+              //      }
+              //      .col-sm-10{
+              //        select{
+              //          padding: 8px 13px;
+              //          font-size: 13.6px;
+              //          box-shadow: inset 0 1px 1px rgba(0,  0,  0, 0.08);
+              //          color: #555;
+              //          border: 1px solid #ccc;
+              //          border-radius: 3px;
+              //          height: 36px;
+              //        }
+              //        select:focus{
+              //          border-color: #66afe9;
+              //          outline: 0;
+              //          box-shadow: inset 0 1px 1px rgba(0, 0, 0 , 0.08), 0 0 8px rgba(102, 175 ,233 , 0.6);
+              //        }
+              //        select:hover{
+              //          border: 1px solid #b9b9b9;
+              //          border-top-color: #a0a0a0;
+              //          box-shadow: inset 0 1px 2px rgba(0, 0 ,0, 0.1);
+              //        }
+              //      }
+              //    }
+              //  }
+              //}
               .menu4{
-                .form-group{
-                  padding: 0 15px;
-                  .row{
-                    .col-sm-2{
-                      div{
-                        font-weight: 600;
-                        span{
-                          margin-right: 3px;
-                          color: #ff4747;
-                        }
-                      }
-                    }
-                    .col-sm-10{
-                      select{
-                        padding: 8px 13px;
-                        font-size: 13.6px;
-                        box-shadow: inset 0 1px 1px rgba(0,  0,  0, 0.08);
-                        color: #555;
-                        border: 1px solid #ccc;
-                        border-radius: 3px;
-                        height: 36px;
-                      }
-                      select:focus{
-                        border-color: #66afe9;
-                        outline: 0;
-                        box-shadow: inset 0 1px 1px rgba(0, 0, 0 , 0.08), 0 0 8px rgba(102, 175 ,233 , 0.6);
-                      }
-                      select:hover{
-                        border: 1px solid #b9b9b9;
-                        border-top-color: #a0a0a0;
-                        box-shadow: inset 0 1px 2px rgba(0, 0 ,0, 0.1);
-                      }
-                    }
-                  }
-                }
-              }
-              .menu5{
                 .saleGroupNone{
                   display: none;
                 }
@@ -1201,7 +1248,7 @@
         }
         .brandHeaderRight{
           .brandHeaderRightContent{
-            a:first-child, button:first-child{
+            .otishImg, .saveImg{
               color: #fff;
               background-color: #1e91cf;
               border-color: #197bb0;
@@ -1219,7 +1266,7 @@
                 background-color: #fff;
               }
             }
-            a:nth-child(2), button:nth-child(2){
+            .deleteImg, .previosImg{
               color: #fff;
               background-color: #e3503e;
               border-color: #dd3520;
@@ -1239,7 +1286,7 @@
             a{
               text-decoration: none;
             }
-            button:first-child{
+            .saveImg{
               background-color: #1e91cf;
               border: none;
               .img{
@@ -1247,7 +1294,7 @@
                 background-color: #fff;
               }
             }
-            button:nth-child(2){
+            .previosImg{
               background-color: #fff;
               border: none;
               .img{
@@ -1306,14 +1353,14 @@
                       td:last-child{
                         height: 100%;
                         a{
-                          width: 65%;
+                          width: 45%;
                           margin:  0 auto;
                           text-decoration: none;
                           color: #fff;
                           background-color: #1e91cf;
                           border: none;
                           border-radius: 3px;
-                          padding: 15px 0;
+                          padding: 13px 0;
                           display: flex;
                           justify-content: center;
                           align-items: center;
@@ -1511,6 +1558,21 @@
                       width: 100%;
                       height: 100%;
                     }
+                  }
+                }
+              }
+            }
+            .validBrand{
+              .row{
+                .col-sm-10{
+                  .brandImg{
+                    border-color: #ff4747;
+                  }
+                  input{
+                    border-color: #ff4747;
+                  }
+                  select{
+                    border-color: #ff4747;
                   }
                 }
               }

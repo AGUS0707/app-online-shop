@@ -13,6 +13,10 @@ const CategoryAdd = (props) => {
         props.set_state({submenu1: !props.submenu1})
     }
 
+    useEffect(()=>{
+        props.getCategory()
+    }, [])
+
 
     return (
         <Category history={props.history}>
@@ -33,6 +37,11 @@ const CategoryAdd = (props) => {
                         <AvField type="text" label="category-uz" name="category_uz" placeholder="Category-uz" className="form-control w-100" required/>
                         <AvField type="text" label="category-ru" name="category_ru" placeholder="Category-ru" className="form-control w-100" required/>
                         <AvField type="text" label="index" name="index" placeholder="Index" className="form-control w-100" required/>
+                        <AvField type="select" label="is_active" name="is_active" placeholder="Active" className="form-control w-100" required>
+                            <option>Choose</option>
+                            <option value="1">Active</option>
+                            <option value="0">NoActive</option>
+                        </AvField>
 
 
                         <AvField type="select" label="Which category" name="category_id" onChange={(e)=>
@@ -86,6 +95,7 @@ const mapStateToProps = (state) => {
         submenu: state.category.submenu,
         submenu1: state.category.submenu1,
         submenu2: state.category.submenu2,
+        value: state.category.value
     }
 };
 

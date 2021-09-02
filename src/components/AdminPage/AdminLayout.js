@@ -139,7 +139,7 @@ const AdminLayout = (props) => {
            setIcon("icon-bottom")
        } else if (props.history.location.pathname === "/admin/product/model" || props.history.location.pathname === "/admin/product/model/add" || props.history.location.pathname === "/admin/product/model/edit"){
            setCollapse(true)
-           setIcon("icon-bottom")}else if (props.history.location.pathname === "/admin/product/products"){
+           setIcon("icon-bottom")}else if (props.history.location.pathname === "/admin/product/products" || props.history.location.pathname === "/admin/product/products/add"){
            setCollapse(true)
            setIcon("icon-bottom")} else if (props.history.location.pathname === "/admin/product/detail" || props.history.location.pathname === "/admin/product/detail/add" || props.history.location.pathname === "/admin/product/detail/edit"){
            setCollapse(true)
@@ -228,7 +228,7 @@ const AdminLayout = (props) => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={toggle} className={`nav-link d-flex align-items-center ${props.history.location.pathname === "/admin/product/brand" || props.history.location.pathname === "/admin/product/brand/add" || props.history.location.pathname === "/admin/product/brand/edit" || props.history.location.pathname === "/admin/product/model" || props.history.location.pathname === "/admin/product/model/add" || props.history.location.pathname === "/admin/product/model/edit" || props.history.location.pathname === "/admin/product/products" || props.history.location.pathname === "/admin/product/detail" || props.history.location.pathname === "/admin/product/detail/add" || props.history.location.pathname === "/admin/product/detail/edit" || props.history.location.pathname === "/admin/product/value" || props.history.location.pathname === "/admin/product/value/add" || props.history.location.pathname === "/admin/product/value/edit" ? "active" : ""}`}>
+                            <Link onClick={toggle} className={`nav-link d-flex align-items-center ${props.history.location.pathname === "/admin/product/brand" || props.history.location.pathname === "/admin/product/brand/add" || props.history.location.pathname === "/admin/product/brand/edit" || props.history.location.pathname === "/admin/product/model" || props.history.location.pathname === "/admin/product/model/add" || props.history.location.pathname === "/admin/product/model/edit" || props.history.location.pathname === "/admin/product/products" || props.history.location.pathname === "/admin/product/products/add" || props.history.location.pathname === "/admin/product/detail" || props.history.location.pathname === "/admin/product/detail/add" || props.history.location.pathname === "/admin/product/detail/edit" || props.history.location.pathname === "/admin/product/value" || props.history.location.pathname === "/admin/product/value/add" || props.history.location.pathname === "/admin/product/value/edit" ? "active" : ""}`}>
                                 <span className="icon icon-products mr-2"></span>
                                 Product
                                 <span className={`icon ${icon} ml-auto`}></span>
@@ -256,7 +256,7 @@ const AdminLayout = (props) => {
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link  to="/admin/product/products" className={`nav-link d-flex align-items-center ${props.history.location.pathname === "/admin/product/products" ? "active2" : ""}`}>
+                                        <Link  to="/admin/product/products" className={`nav-link d-flex align-items-center ${props.history.location.pathname === "/admin/product/products" || props.history.location.pathname === "/admin/product/products/add" ? "active2" : ""}`}>
                                             <span className="icon icon-tworight"></span>
                                             <p className="mb-0 ml-3">Products</p>
                                         </Link>

@@ -18,7 +18,14 @@ const initialState  = {
     rolename: [],
     selectedItemrole:{},
     roleid2: "",
-    roleopen: false
+    roleopen: false,
+
+//    homepage
+
+    subCategoryOpen: false,
+    subCategoryId: "",
+    subCategory: []
+
 };
 
 

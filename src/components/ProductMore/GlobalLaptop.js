@@ -1,14 +1,15 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Overview from "./Overview";
 import CustomerReviews from "./CustomerReviews";
 import Products from "../homePage/Products";
 import Footer from "../homePage/footer";
 import Spesification from "./Spesification";
 
-const GlobalLaptop = () => {
+import {connect} from "react-redux";
+
+const GlobalLaptop = (props) => {
 
     const [count, setCount] = useState(1)
-
     return (
         <div className="globallaptop">
 
@@ -96,7 +97,7 @@ const GlobalLaptop = () => {
 
 
                     {
-                        count === 1 ? <Overview/> : count === 2 ? <CustomerReviews/> : count === 3 ? <Spesification/> : ""
+                        count === 1 ? <Overview htmlstring={props.htmlString} oneProduct={props.oneProduct} photo_list={props.photo_list}/> : count === 2 ? <CustomerReviews/> : count === 3 ? <Spesification brand={props.oneProduct}/> : ""
                     }
 
 
@@ -109,10 +110,22 @@ const GlobalLaptop = () => {
 
 
             </div>
+
             <Products/>
             <Footer/>
+
         </div>
     );
 };
 
-export default GlobalLaptop;
+const mapStateToProps = (state) => {
+    return {
+        oneProduct: state.product.oneProduct,
+        product: state.product.product,
+        photo_list: state.product.photo_list,
+        url: state.product.url,
+        htmlString: state.product.htmlString,
+    }
+}
+
+export default connect(mapStateToProps, null)(GlobalLaptop);

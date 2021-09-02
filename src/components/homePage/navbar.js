@@ -4,6 +4,8 @@ import "../../styles/navbarTop.scss";
 import LoginsLink from "./Main/loginsLink";
 import {connect} from "react-redux";
 import Modal from "./Main/modal"
+import axios from "axios";
+import {API_PATH} from "../../tools/constants";
 function Navbar(props) {
     const [sign, setSign]=React.useState(true);
     const [modal, setModal]=useState(false);
@@ -24,6 +26,7 @@ function Navbar(props) {
     function clearUser() {
        props.clearUserCheck(false);
        props.clearUserRedux({});
+       axios.get(API_PATH+'logout')
     }
 
     return (

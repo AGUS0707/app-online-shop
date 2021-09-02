@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import AdminLayout from "../../AdminLayout";
 
-import {Modal, ModalBody, ModalHeader} from "reactstrap";
-
 import {connect} from "react-redux";
-import {getDetail, deleteDetail, set_state1} from "../../../../redux/actions/productAction";
+import {getDetail, set_state1} from "../../../../redux/actions/productAction";
 import {Link} from "react-router-dom";
 
 
@@ -84,7 +82,7 @@ const Detail = (props) => {
                                             <td>{item.category_id}</td>
                                             <td>{item.is_active}</td>
                                             <td className="d-flex align-items-center border-0"><Link to="/admin/product/detail/edit"><button className="btn btn-info" onClick={() => {props.set_state1({selectedItemDetail: item})}}><span className="icon icon-edit"></span></button></Link>
-                                                <button className="btn btn-danger ml-2" onClick={() => props.set_state1({selectedIndexDetail: item.id, open1: true})}><span className="icon icon-delete"></span></button></td>
+                                                </td>
                                         </tr>
                                     })
 
@@ -94,18 +92,6 @@ const Detail = (props) => {
                         </div>
                     </div> : ""
                 }
-
-                <Modal isOpen={props.open1} toggle={() => props.set_state1({open1: false})}>
-                    <ModalHeader>
-                        <h3>Rostdan xam o'chirmoqchimisiz ?</h3>
-                    </ModalHeader>
-                    <ModalBody className="d-flex justify-content-between">
-                        <button type="button" className="btn btn-danger" onClick={props.deleteDetail}>Ha</button>
-                        <button type="button" className="btn btn-warning"
-                                onClick={() => props.set_state1({open1: false})}>Yo'q
-                        </button>
-                    </ModalBody>
-                </Modal>
 
                 {props.children}
 
@@ -118,11 +104,9 @@ const Detail = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        open1: state.product.open1,
         detaildata: state.product.detaildata,
-        selectedIndexDetail: state.product.selectedIndexDetail,
         selectedItemDetail: state.product.selectedItemDetail
     }
 }
 
-export default connect(mapStateToProps, {getDetail, deleteDetail, set_state1})(Detail)  ;
+export default connect(mapStateToProps, {getDetail, set_state1})(Detail)  ;

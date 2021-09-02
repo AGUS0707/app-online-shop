@@ -56,7 +56,7 @@ export const deleteCategory = () => (dispatch, getstate) => {
         })
 };
 export const getCategory = () => (dispatch) => {
-    axios.get( API_PATH + "category")
+    axios.get( API_PATH + "categorys")
         .then((res) => {
             dispatch(set_state({category: res.data}))
         })

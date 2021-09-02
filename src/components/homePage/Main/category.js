@@ -1,7 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
-function Category() {
+import {connect} from "react-redux";
+
+import {getCategory, set_state} from "../../../redux/actions/categoryAction";
+
+function Category(props) {
+
+    const [subCategory, setSubCategory] = useState([])
+
+    useEffect(()=>{
+        props.getCategory()
+
+    },[])
+
+
+
     return (
         <div className="category">
             <div className="categoryContent">
@@ -11,39 +25,37 @@ function Category() {
                 <Link to={"/"}>Categories</Link>
             </div>
             <ul className="categoryList">
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Elektronika</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Xojalik Mollari</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Maishiy taexnikalar</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Kiyim kechaklar</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Oyinchoqlar</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Avtomobil qismlari</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Elektronika</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Xojalik Mollari</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Maishiy taexnikalar</Link>
-                </li>
-                <li className="categoryListItem">
-                    <Link to={"/"} className="categoryListItemLink">Kiyim kechaklar</Link>
-                </li>
-            </ul>
+                {
+                    props.category.map((item, index)=>{
+
+                        return item.category_id === "0" ?  <li className={`categoryListItem ${props.subCategoryId === item.id ? "active" : ""}`}>
+                            <div className="categoryListItemLink" onClick={()=>
+                            {
+                                props.set_state({subCategoryOpen: true, subCategoryId: item.id })
+
+
+                            }
+                            }>{item.category_uz}</div>
+                        </li> : ""
+
+                    })
+                }
+
+                </ul>
         </div>
     );
 }
 
-export default Category;
+const mapStateToProps = (state) => {
+    return {
+
+        category: state.category.category,
+        subCategoryOpen: state.category.subCategoryOpen,
+        subCategoryId: state.category.subCategoryId,
+        subCategory: state.category.subCategory
+
+    }
+};
+
+
+export default connect(mapStateToProps, {getCategory, set_state})(Category) ;

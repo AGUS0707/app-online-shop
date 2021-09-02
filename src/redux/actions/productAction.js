@@ -25,6 +25,7 @@ export const deleteBrand = () => (dispatch, getstate) => {
         .then((res) => {
             toast.success("O'chdi")
             dispatch(set_state1({open1: false}))
+            dispatch(getBrand())
         })
         .catch(()=>{
             toast.error("Tizimda xatolik")
@@ -50,12 +51,12 @@ export const getDetail = () => (dispatch) => {
             dispatch(set_state1({detaildata: res.data}))
         })
 }
-export const deleteDetail = () => (dispatch,getsatte) => {
-    axios.post(API_PATH +"deldetail", {id:getsatte().product.selectedIndexDetail})
-        .then((res) => {
-            dispatch(set_state1({open1:false}))
-        })
-};
+// export const deleteDetail = () => (dispatch,getsatte) => {
+//     axios.post(API_PATH +"deldetail", {id:getsatte().product.selectedIndexDetail})
+//         .then((res) => {
+//             dispatch(set_state1({open1:false}))
+//         })
+// };
 export function upDetail(event, errors, values, history) {
     return function (dispatch) {
         axios.post(API_PATH + "updetail", values)
@@ -120,14 +121,14 @@ export const getValue = () => (dispatch) => {
             dispatch(set_state1({valuedata: res.data}))
         })
 }
-export const deleteValue = () => (dispatch,getsatte) => {
-    axios.post(API_PATH +"delvalue", {id:getsatte().product.selectedIndexValue})
-        .then((res) => {
-            dispatch(set_state1({open1:false}))
-            toast.success("O'chdi brat")
-        })
-
-};
+// export const deleteValue = () => (dispatch,getsatte) => {
+//     axios.post(API_PATH +"delvalue", {id:getsatte().product.selectedIndexValue})
+//         .then((res) => {
+//             dispatch(set_state1({open1:false}))
+//             toast.success("O'chdi brat")
+//         })
+//
+// };
 export function upValue(event, errors, values, history) {
     return function (dispatch) {
         axios.post(API_PATH + "upvalue", values)
