@@ -27,7 +27,7 @@ const Productmore = (props) => {
         props.product.filter((item)=>{
             if (item.id == props.history.location.pathname.slice(props.history.location.pathname.search(":") + 1, props.history.location.pathname.length)) {
                 console.log(props.history.location.pathname.slice(props.history.location.pathname.search(":") + 1, props.history.location.pathname.length))
-                return props.set_state1({oneProduct: item, photo_list: item.photo_list, onePhoto_list:item.photo_list[0].url, htmlString: item.description_uz})
+                return props.set_state1({oneProduct: item, photo_list: item.photo_list, onePhoto_list:item.photo_list[0].url, htmlString: item.description_uz, valueList: item.value, detailList: item.detail})
             }
         })
 
@@ -51,6 +51,8 @@ const mapStateToProps = (state) =>{
         photo_list: state.product.photo_list,
         // onePhoto_list: state.product.onePhoto_list,
         htmlString: state.product.htmlString,
+        detailList: state.product.detailList,
+        valueList: state.product.valueList,
     }
 }
 

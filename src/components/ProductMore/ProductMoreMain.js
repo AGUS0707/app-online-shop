@@ -70,35 +70,26 @@ const ProductMoreMain = (props) => {
 
                     <p style={{fontSize: "25px"}}>{props.oneProduct.price} so'm</p>
 
-                    <h5>Color:</h5>
+                    {
+                        props.detailList.map((item)=>{
+                            return <div>
+                                <h5>{item.detail_uz}:</h5>
 
-                    <div className="row">
-                        <div className="col-4">
-                            <div className="cpu" onClick={() => {
-                                setPrice1({piece: props.oneProduct.amount, price1: props.oneProduct.price})
-                            }}><h6>8GB RAM 128G SSD</h6></div>
-                        </div>
-                        <div className="col-4">
-                            <div className="cpu" onClick={() => {
-                                setPrice1({piece: props.oneProduct.amount, price1: 9878789.2321321})
-                            }}><h6>8GB RAM 128G SSD</h6></div>
-                        </div>
-                        <div className="col-4">
-                            <div className="cpu" onClick={() => {
-                                setPrice1({piece: 3232, price1: 9898.2321321})
-                            }}><h6>8GB RAM 128G SSD</h6></div>
-                        </div>
-                        <div className="col-4">
-                            <div className="cpu" onClick={() => {
-                                setPrice1({piece: 787, price1: 21121.2321321})
-                            }}><h6>8GB RAM 128G SSD</h6></div>
-                        </div>
-                        <div className="col-4">
-                            <div className="cpu" onClick={() => {
-                                setPrice1({piece: 2010, price1: 87987.2321321})
-                            }}><h6>8GB RAM 128G SSD</h6></div>
-                        </div>
-                    </div>
+                                {
+                                    props.valueList.map((item1)=>{
+                                        return item.detail_id === item1.value_id ? <div className="d-flex align-items-center">
+                                                <div className="cpu" onClick={() => {
+                                                    setPrice1({piece: props.oneProduct.amount, price1: props.oneProduct.price})
+                                                }}><h6>{item1.value_uz}</h6></div>
+                                            </div> : ""
+
+                                    })
+                                }
+                            </div>
+                        })
+                    }
+
+
                     <div className="count">
                         <h3>Quantity:</h3>
                         <div className="d-flex align-items-center">
@@ -130,7 +121,7 @@ const ProductMoreMain = (props) => {
 
                     <div className="buy d-flex align-items-center">
                         <div className="buynow d-flex align-items-center justify-content-center">
-                            <Link to="/product/buynow" className="text-decoration-none"><p>Buy Now</p></Link>
+                            <Link to={`/product/buynow` + ":" + props.history.location.pathname.slice(props.history.location.pathname.search(":") + 1, props.history.location.pathname.length)} className="text-decoration-none"><p>Buy Now</p></Link>
 
                         </div>
                         <div className="addcart d-flex align-items-center justify-content-center">
@@ -179,6 +170,8 @@ const mapStateToProps = (state) => {
         url: state.product.url,
         htmlString: state.product.htmlString,
         onePhoto_list: state.product.onePhoto_list,
+        detailList: state.product.detailList,
+        valueList: state.product.valueList,
     }
 }
 

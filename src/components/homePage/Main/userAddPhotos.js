@@ -2,17 +2,20 @@ import React from 'react';
 import axios from "axios";
 import {connect} from "react-redux";
 import {API_PATH} from "../../../tools/constants";
-
 function UserAddPhotos(props) {
     const [checkButton, setCheckButton]=React.useState(false);
     const [check, setCheck]=React.useState(false);
     const [fff, setFff]=React.useState();
    const [url, setUrl]=React.useState("https://is.alicdn.com/images/eng/style/css_images/myalibaba/mempic_nophoto.gif");
    function photoChange(e) {
-       setUrl(URL.createObjectURL(e.target.files[0]));
-       setFff(e.target.files[0]);
-       if (e.target.files[0]!==null){
-           setCheckButton(true);
+       if (e.target.files[0]!==undefined){
+           setUrl(URL.createObjectURL(e.target.files[0]));
+           setFff(e.target.files[0]);
+           if (e.target.files[0]!==null){
+               setCheckButton(true);
+           }
+       }else{
+          setUrl("https://is.alicdn.com/images/eng/style/css_images/myalibaba/mempic_nophoto.gif")
        }
    }
     function addPhotos() {

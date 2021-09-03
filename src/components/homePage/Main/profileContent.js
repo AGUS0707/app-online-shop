@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "../../../styles/profileContent.scss";
 import {Link, Switch, Route} from "react-router-dom";
 import UserAddPhotos from "./userAddPhotos";
@@ -13,7 +13,6 @@ import ShippingAddress from "./shippingAddress";
 import ShippingAddressForm from "./shippingAddressForm";
 import WishList from "../wishList";
 function ProfileContent(props) {
-
     return (
         <div className="profileContent">
             <div className="container">
@@ -50,7 +49,7 @@ function ProfileContent(props) {
                             <Route path="/home/profile/edit-password" component={PasswordUpdate}/>
                             <Route path="/home/profile/receive-email" component={ReceiveEmail}/>
                             <Route path="/home/profile/orders" component={Orders}/>
-                            <Route path="/home/profile/shipping-address" exact component={ShippingAddress}/>
+                            <Route path="/home/profile/shipping-address" exact component={ShippingAddress }/>
                             <Route path="/home/profile/shipping-address/form" component={ShippingAddressForm}/>
                             <Route path="/home/profile/wish-list" component={WishList}/>
                         </Switch>

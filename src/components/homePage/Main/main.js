@@ -21,12 +21,8 @@ function Main(props) {
                     <div className="mainCenter">
                        <AliceCarouselComponent/>
 
-                        {
-                            props.category.map((item)=>{
-                                return item.category_id == props.subCategoryId && props.subCategoryOpen ?  <SubCategory/> : ""
-                            })
+                        {props.subCategoryOpen ?  <SubCategory/> : ""}
 
-                        }
 
                     </div>
                     <div className="mainRight">

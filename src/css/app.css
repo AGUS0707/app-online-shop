@@ -11,3 +11,6 @@ Link{
 .container{
     min-width: 90.6%;
 }
+body{
+    overflow-x: hidden;
+}

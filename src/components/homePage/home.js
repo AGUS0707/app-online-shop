@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+    import React, {useEffect} from 'react';
 import Navbar from "./navbar";
 import Search from "./Search";
 import Content1 from "./Content1";

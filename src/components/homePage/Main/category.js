@@ -33,7 +33,6 @@ function Category(props) {
                             {
                                 props.set_state({subCategoryOpen: true, subCategoryId: item.id })
 
-
                             }
                             }>{item.category_uz}</div>
                         </li> : ""

@@ -65,7 +65,7 @@ function App() {
                   <Route path="/product/view/:url" exact component={Productmore}/>
                   <Route path="/home/shopping" exact component={ShoppingCard}/>
                   <Route path="/seller" component={CellerLayout}/>
-                  <Route path="/product/buynow" exact component={BuyNow}/>
+                  <Route path="/product/buynow:id" exact component={BuyNow}/>
                   <Route path="/home/profile" component={Profile}/>
 
                   <Route path="/admin/login" exact component={Login}/>

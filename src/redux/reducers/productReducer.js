@@ -27,7 +27,9 @@ const initialState  = {
     photo_list: [],
     url: "",
     htmlString: "",
-    onePhoto_list: []
+    onePhoto_list: [],
+    detailList:[],
+    valueList:[]
 };
 
 
