@@ -54,79 +54,92 @@ import CellerLayout from "./components/CellerPage/CellerLayout";
 import ProductAdd from "./components/AdminPage/product/products/ProductAdd";
 import NotFound from "./components/homePage/NotFound";
 
+import {connect} from "react-redux";
+import BasketOrders from "./components/homePage/basketOrders";
+import Categories from "./components/homePage/Categories";
 
-function App() {
+
+function App(props) {
+    let user=props.userReducer.userObject;
   return (
       <div className="app">
           <Router>
               <Switch>
-                  <Route path="/" exact  component={Home}/>
 
+                  <Route path="/" exact  component={Home}/>
                   <Route path="/product/view/:url" exact component={Productmore}/>
                   <Route path="/home/shopping" exact component={ShoppingCard}/>
-                  <Route path="/seller" component={CellerLayout}/>
-                  <Route path="/product/buynow:id" exact component={BuyNow}/>
+                  <Route path="/home/shopping/orders"  component={BasketOrders}/>
+                  <Route path="/product/buynow" exact component={BuyNow}/>
                   <Route path="/home/profile" component={Profile}/>
 
-                  <Route path="/admin/login" exact component={Login}/>
+                  <Route path="/category/:url2" component={Categories}/>
 
-                  <Route path="/admin/profile" exact component={AdminMenu}/>
-                  <Route path="/admin/category" exact component={Category}/>
-                  <Route path="/admin/category/add" exact component={CategoryAdd}/>
-                  <Route path="/admin/category/edit" exact component={CategoryEdit}/>
+                  <Route path="/seller"  component={CellerLayout}/>
 
-                  {/*Product*/}
-                  <Route path="/admin/product/brand" exact component={Brand}/>
-                  <Route path="/admin/product/brand/add" exact component={BrandAdd}/>
-                  <Route path="/admin/product/brand/edit" exact component={BrandEdit}/>
-                  <Route path="/admin/product/model" exact component={Model}/>
-                  <Route path="/admin/product/model/add" exact component={ModelAdd}/>
-                  <Route path="/admin/product/model/edit" exact component={ModelEdit}/>
-                  <Route path="/admin/product/products" exact component={Products}/>
-                  <Route path="/admin/product/products/add" exact component={ProductAdd}/>
-                  <Route path="/admin/product/detail" exact component={Detail}/>
-                  <Route path="/admin/product/detail/add" exact component={DetailAdd}/>
-                  <Route path="/admin/product/detail/edit" exact component={DetailEdit}/>
-                  <Route path="/admin/product/value" exact component={Value}/>
-                  <Route path="/admin/product/value/add" exact component={ValueAdd}/>
-                  <Route path="/admin/product/value/edit" exact component={ValueEdit}/>
+                  {/*{*/}
+                  {/*    user.role_id==="1" ? <>*/}
+
+                          <Route path="/admin/profile" exact component={AdminMenu}/>
+                          <Route path="/admin/category" exact component={Category}/>
+                          <Route path="/admin/category/add" exact component={CategoryAdd}/>
+                          <Route path="/admin/category/edit" exact component={CategoryEdit}/>
+
+                          {/*Product*/}
+                          <Route path="/admin/product/brand" exact component={Brand}/>
+                          <Route path="/admin/product/brand/add" exact component={BrandAdd}/>
+                          <Route path="/admin/product/brand/edit" exact component={BrandEdit}/>
+                          <Route path="/admin/product/model" exact component={Model}/>
+                          <Route path="/admin/product/model/add" exact component={ModelAdd}/>
+                          <Route path="/admin/product/model/edit" exact component={ModelEdit}/>
+                          <Route path="/admin/product/products" exact component={Products}/>
+                          <Route path="/admin/product/products/add" exact component={ProductAdd}/>
+                          <Route path="/admin/product/detail" exact component={Detail}/>
+                          <Route path="/admin/product/detail/add" exact component={DetailAdd}/>
+                          <Route path="/admin/product/detail/edit" exact component={DetailEdit}/>
+                          <Route path="/admin/product/value" exact component={Value}/>
+                          <Route path="/admin/product/value/add" exact component={ValueAdd}/>
+                          <Route path="/admin/product/value/edit" exact component={ValueEdit}/>
 
 
-                  {/*Payment*/}
-                  <Route path="/admin/payment/payments" exact component={Payments}/>
-                  <Route path="/admin/payment/currency" exact component={Currency}/>
-                  <Route path="/admin/payment/payment-system" exact component={PaymentSystem}/>
+                          {/*Payment*/}
+                          <Route path="/admin/payment/payments" exact component={Payments}/>
+                          <Route path="/admin/payment/currency" exact component={Currency}/>
+                          <Route path="/admin/payment/payment-system" exact component={PaymentSystem}/>
 
-                  {/*Addres*/}
-                  <Route path="/admin/addres/country" exact component={Country}/>
-                  <Route path="/admin/addres/country/add" exact component={CountryAdd}/>
-                  <Route path="/admin/addres/country/edit" exact component={CountryEdit}/>
-                  <Route path="/admin/addres/region" exact component={Region}/>
-                  <Route path="/admin/addres/region/add" exact component={RegionAdd}/>
-                  <Route path="/admin/addres/region/edit" exact component={RegionEdit}/>
-                  <Route path="/admin/addres/district" exact component={District}/>
-                  <Route path="/admin/addres/district/add" exact component={DistrictAdd}/>
-                  <Route path="/admin/addres/district/edit" exact component={DistrictEdit}/>
+                          {/*Addres*/}
+                          <Route path="/admin/addres/country" exact component={Country}/>
+                          <Route path="/admin/addres/country/add" exact component={CountryAdd}/>
+                          <Route path="/admin/addres/country/edit" exact component={CountryEdit}/>
+                          <Route path="/admin/addres/region" exact component={Region}/>
+                          <Route path="/admin/addres/region/add" exact component={RegionAdd}/>
+                          <Route path="/admin/addres/region/edit" exact component={RegionEdit}/>
+                          <Route path="/admin/addres/district" exact component={District}/>
+                          <Route path="/admin/addres/district/add" exact component={DistrictAdd}/>
+                          <Route path="/admin/addres/district/edit" exact component={DistrictEdit}/>
 
-                  {/*Order*/}
-                  <Route path="/admin/order/orders" exact component={Orders}/>
-                  <Route path="/admin/order/returns" exact component={Returns}/>
+                          {/*Order*/}
+                          <Route path="/admin/order/orders" exact component={Orders}/>
+                          <Route path="/admin/order/returns" exact component={Returns}/>
 
-                  {/*Clients*/}
-                  <Route path="/admin/client/clients" exact component={Clients}/>
-                  <Route path="/admin/client/sellers" exact component={Sellers}/>
+                          {/*Clients*/}
+                          <Route path="/admin/client/clients" exact component={Clients}/>
+                          <Route path="/admin/client/sellers" exact component={Sellers}/>
 
-                  {/*System*/}
-                  <Route path="/admin/system/role" exact component={Role}/>
-                  <Route path="/admin/system/role/add" exact component={RoleAdd}/>
-                  <Route path="/admin/system/role/edit" exact component={RoleEdit}/>
-                  <Route path="/admin/system/comments" exact component={Comments}/>
-                  <Route path="/admin/system/blogs" exact component={Blogs}/>
-                  <Route path="/admin/system/statistics" exact component={Statistics}/>
-                  <Route path="/admin/system/settings" exact component={Settings}/>
+                          {/*System*/}
+                          <Route path="/admin/system/role" exact component={Role}/>
+                          <Route path="/admin/system/role/add" exact component={RoleAdd}/>
+                          <Route path="/admin/system/role/edit" exact component={RoleEdit}/>
+                          <Route path="/admin/system/comments" exact component={Comments}/>
+                          <Route path="/admin/system/blogs" exact component={Blogs}/>
+                          <Route path="/admin/system/statistics" exact component={Statistics}/>
+                          <Route path="/admin/system/settings" exact component={Settings}/>
+
+                  {/*    </> : ""*/}
+                  {/*}*/}
+
 
                   <Route component={NotFound}/>
-
               </Switch>
           </Router>
           <ToastContainer/>
@@ -134,7 +147,12 @@ function App() {
   );
 }
 
-export default App;
+function mapStateToProps(state) {
+    return state
+}
+
+
+export default connect(mapStateToProps, null)(App) ;
 
 
 // blog  comment ordrer return > order

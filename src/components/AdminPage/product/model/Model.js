@@ -12,10 +12,14 @@ const Model = (props) => {
 
 
     useEffect(()=>{
-        if (props.history.location.pathname === "/admin/product/model"){
-            props.getModel()
+        if (user.role_id === "1"){
+            if (props.history.location.pathname === "/admin/product/model"){
+                props.getModel()
+            }
         }
     },[])
+
+    let user=props.userReducer;
 
     return (
         <AdminLayout history={props.history}>
@@ -110,7 +114,8 @@ const mapStateToProps = (state) => {
         open2:state.product.open2,
         data:state.product.data,
         modeldata:state.product.modeldata,
-        selectedItemModel: state.product.selectedItemModel
+        selectedItemModel: state.product.selectedItemModel,
+        userReducer: state.userReducer.userObject
     }
 }
 

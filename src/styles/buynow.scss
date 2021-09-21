@@ -38,11 +38,11 @@
 }
 
   .buynow{
-    overflow-x: hidden;
-    overflow-y: hidden;
+    //overflow-x: hidden;
+    //overflow-y: hidden;
     .container{
       .row{
-        .col-8{
+        .col-9{
           p{
             cursor: pointer;
           }
@@ -56,6 +56,45 @@
             width: 50px;
             height: 50px;
             background-color: red;
+          }
+        }
+        .col-3{
+          position: sticky;
+          .buyProduct{
+            position: sticky;
+            top: 10px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 0.25rem;
+
+            h3{
+              font-size: 25px;
+              font-weight: bold;
+              margin-bottom: 15px;
+            }
+            .line{
+              width: 100%;
+              background-color: darkgray;
+              height: 1px;
+              margin: 20px 0;
+            }
+            button{
+              line-height: 42px;
+              font-size: 16px;
+              color: #fff;
+              padding: 1px 87px;
+              background-color: #ff4747;
+              border: none;
+              border-radius: 8px;
+              white-space: nowrap;
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+              margin-top: 10px;
+              &:focus{
+                box-shadow: none;
+              }
+            }
           }
         }
         .col-2{

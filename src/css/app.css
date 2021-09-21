@@ -14,3 +14,10 @@ Link{
 body{
     overflow-x: hidden;
 }
+@media screen and (min-width:1600px){
+    .app{
+        width: 1600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

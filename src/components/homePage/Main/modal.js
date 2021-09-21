@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import SignIn from "./signIn";
-
+import "../../../styles/modal.scss"
 function Modal(props) {
 
     // console.log(props)
@@ -18,8 +18,8 @@ function Modal(props) {
                         <div className="modalBody">
                             <h3>Logotip</h3>
                             <div className="logInLinks">
-                                <Link to="/" className={`registrLink ${props.sign? "": "active"}`} onClick={()=>props.setSign(false)}>Register</Link>
-                                <Link to="/" className={`signInLink ${props.sign? "active": ""}`}  onClick={()=>props.setSign(true)} >Sign In</Link>
+                                <Link  className={`registrLink ${props.sign? "": "active"}`} onClick={()=>props.setSign(false)}>Register</Link>
+                                <Link className={`signInLink ${props.sign? "active": ""}`}  onClick={()=>props.setSign(true)} >Sign In</Link>
                             </div>
                             <SignIn history={Tekshir}  sign={props.sign} setModal={props.setModal}/>
                         </div>

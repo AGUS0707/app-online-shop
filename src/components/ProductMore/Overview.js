@@ -15,14 +15,10 @@ const Overview = (props) => {
                {
                    props.photo_list.map((item)=>{
 
-                       return  <div className="col-4 offset-4"><img src={item.url} className="mt-4 w-100" alt=""/></div>
+                       return  <div className="col-6 offset-3"><img src={item.url} className="mt-4 w-100" alt=""/></div>
 
                    })
                }
-                {/*<div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>*/}
-                {/*<div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>*/}
-                {/*<div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>*/}
-                {/*<div className="col-6"><img src="/images/cardimg2.webp" className="mt-4 w-100" alt=""/></div>*/}
             </div>
         </div>
     );

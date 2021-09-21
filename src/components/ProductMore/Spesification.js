@@ -5,8 +5,13 @@ const Spesification = (props) => {
         <div className="row spesification">
 
                      <div className="col-6">
-                       <h2>Brand Name: <b>{props.brand_uz}</b></h2>
-                   </div>
+                       <h2>Brand Name: <b>{props.brand.brand_name}</b></h2>
+                       <h2>Categor Name: <b>{props.brand.category_uz}</b></h2>
+                    </div>
+
+            <div className="col-6">
+                <h2>Xarakteristikasi: <b>{props.brand.xarakteristika}</b></h2>
+            </div>
 
 
 

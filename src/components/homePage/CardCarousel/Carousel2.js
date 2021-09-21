@@ -9,6 +9,9 @@ import Card from "./Card";
 import Sorts2 from "../../ProductMore/Sorts2";
 
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+
+import {set_state1} from "../../../redux/actions/productAction";
 
 const responsive = {
     0: { items: 1 },
@@ -25,13 +28,28 @@ function Carousel (props) {
 
     let filterList=[]
     let items=[]
+    const generateUrl = (text) => text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
+    function aa(id, user_id) {
+        window.scrollTo(0, 0)
+        localStorage.setItem("id", JSON.stringify({
+            id: id,
+            user_id: user_id
+        }))
+        props.product.forEach(( item)=>{
+            if (id===item.id){
+                props.set_state1({oneProduct: item, photo_list: item.photo_list, onePhoto_list:item.photo_list[0].url, htmlString: item.description_uz, valueList: item.value, detailList: item.detail})
+            }
+        })
+    }
+
 
     items=productList.map((item, index)=>{
         if (index<3){
             {filterList=productList.slice((index+1)*6-6, (index+1)*6)}
             return  <div className="item" data-value={index.toString()}>
                 {filterList.map((item2)=>{
-                    return <Card img={item2.photo_list[0].url}/>
+                    return <Link to={"/product/view/" + generateUrl(item2.product_uz)} onClick={(id, user_id)=>aa(item2.id, item2.id)} className="text-decoration-none"><Card img={item2.photo_list[0].url} price={item2.price}/></Link>
 
                 })}
             </div>
@@ -65,9 +83,15 @@ function Carousel (props) {
 const mapStateToProps = (state) => {
     return {
         product: state.product.product,
-        oneProduct: state.product.oneProduct
+        oneProduct: state.product.oneProduct,
+        productUrl: state.product.productUrl,
+        photo_list: state.product.photo_list,
+        onePhoto_list: state.product.onePhoto_list,
+        htmlString: state.product.htmlString,
+        valueList: state.product.valueList,
+        detailList: state.product.detailList,
     }
 }
 
 
-export default connect(mapStateToProps, null)(Carousel) ;
+export default connect(mapStateToProps, {set_state1})(Carousel) ;

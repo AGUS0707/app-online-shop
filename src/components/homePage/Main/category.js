@@ -4,15 +4,13 @@ import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 
 import {getCategory, set_state} from "../../../redux/actions/categoryAction";
+import {toast} from "react-toastify";
+import SubCategory from "./SubCategory";
 
 function Category(props) {
 
     const [subCategory, setSubCategory] = useState([])
 
-    useEffect(()=>{
-        props.getCategory()
-
-    },[])
 
 
 
@@ -34,7 +32,13 @@ function Category(props) {
                                 props.set_state({subCategoryOpen: true, subCategoryId: item.id })
 
                             }
-                            }>{item.category_uz}</div>
+                            }>
+                                {item.category_uz}
+                                {
+                                    props.subCategoryOpen ? <SubCategory/> : ""
+                                }
+
+                            </div>
                         </li> : ""
 
                     })

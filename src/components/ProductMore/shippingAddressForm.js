@@ -4,6 +4,7 @@ import {getRegion, getDistrict} from "../../redux/actions/addresAction";
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
 import {toast} from "react-toastify";
+import Cookies from "js-cookie";
 
 function ShippingAddressForm(props) {
     // console.log(localStorage.getItem("user"))
@@ -35,7 +36,7 @@ function ShippingAddressForm(props) {
 
     function AddAddres () {
        if (product.name.length > 0 && product.phone.length > 0 && product.region_id.length !== undefined && product.district_id.length !== undefined && product.index.length > 0 && product.street.length  > 0){
-           axios.post(API_PATH + "craddress", product)
+           axios.post(API_PATH + "craddress", product, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                .then((res)=>{
                    props.setOpen(false)
                    props.setAddress(res.data)

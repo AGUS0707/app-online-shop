@@ -8,8 +8,13 @@ import {saveDistrict, getRegion} from "../../../../redux/actions/addresAction";
 
 const DistrictAdd = (props) => {
 
+    let user=props.userReducer;
+
+
     useEffect(()=>{
-        props.getRegion()
+        if (user.role_id === "1"){
+            props.getRegion()
+        }
     },[])
 
     return (
@@ -53,6 +58,8 @@ export const mapStateToProps = (state) => {
     return {
 
         region: state.address.region,
+        userReducer: state.userReducer.userObject
+
 
     }
 }

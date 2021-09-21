@@ -1,0 +1,39 @@
+
+
+.payments{
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  .tolov{
+    margin-right: 18px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    &:hover{
+      border: 2px solid #ff9a00;
+    }
+    width: 150px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    //border: 1px solid black;
+    img{
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .qiwi{
+      width: 250px;
+      height: 100px;
+    }
+  }
+  .tolov:nth-child(2){
+    padding: 15px 10px;
+    width: 200px;
+  }
+  .active{
+    border: 2px solid #ff9a00;
+    box-shadow: none;
+  }
+}

@@ -4,8 +4,10 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import "../../../styles/mainRightComponentCarousel.scss";
 import axios from "axios";
 import {API_PATH} from "../../../tools/constants";
+import {set_state1} from "../../../redux/actions/productAction";
 
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 const responsive = {
     0: { items: 1 },
@@ -25,27 +27,23 @@ function MainRightComponentCarousel(props) {
 
     // const [productList, setProductList]=React.useState();
 let productList = props.product.slice(props.product.length-6, props.product.length)
-    // setProductList(props.product.slice(props.product.length-6, props.product.length));
+
+    const generateUrl = (text) => text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
+    function aa(id, user_id) {
+        window.scrollTo(0, 0)
+        localStorage.setItem("id", JSON.stringify({
+            id: id,
+            user_id: user_id
+        }))
+        props.product.forEach(( item)=>{
+            if (id===item.id){
+                props.set_state1({oneProduct: item, photo_list: item.photo_list, onePhoto_list:item.photo_list[0].url, htmlString: item.description_uz, valueList: item.value, detailList: item.detail})
+            }
+        })
+    }
 
 
-        // {
-        //     url:"images/page.webp"
-        // },
-        // {
-        //     url: "images/page1.webp"
-        // },
-        // {
-        //     url:"images/page2.webp"
-        // },
-        // {
-        //     url:"images/page2.webp"
-        // },
-        // {
-        //     url:"images/page2.webp"
-        // },
-        // {
-        //     url:"images/page2.webp"
-        // }
 
     let filterList=[];
     let items=[];
@@ -55,13 +53,15 @@ let productList = props.product.slice(props.product.length-6, props.product.leng
             // console.log(filterList)
             return  <div className="item" data-value={index.toString()}>
                 {filterList.map((item2)=>{
-                    return <div className="itemContent">
-                        <div className="itemImgContent">
-                            <img src={item2.photo_list[0].url} alt={item2.photo_list[0].alt_name}/>
+                    return <Link to={"/product/view/" + generateUrl(item2.product_uz)} className="text-decoration-none" onClick={(id, user_id)=>aa(item2.id, item2.user_id)}>
+                        <div className="itemContent">
+                            <div className="itemImgContent">
+                                <img src={item2.photo_list[0].url} alt={item2.photo_list[0].alt_name}/>
+                            </div>
+                            <div className="price text-dark">8.3$</div>
+                            <div className="sold text-dark">9 Sold</div>
                         </div>
-                        <div className="price">8.3$</div>
-                        <div className="sold">9 Sold</div>
-                    </div>
+                    </Link>
                 })}
             </div>
         }
@@ -91,4 +91,4 @@ const mapStateToProps = (state) =>{
     }
 }
 
-export default connect(mapStateToProps, null)(MainRightComponentCarousel) ;
+export default connect(mapStateToProps, {set_state1})(MainRightComponentCarousel) ;

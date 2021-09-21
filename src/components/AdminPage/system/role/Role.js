@@ -9,9 +9,14 @@ import {Link} from "react-router-dom";
 
 const Role = (props) => {
 
+    let user=props.userReducer;
+
+
     useEffect(()=>{
-        if (props.history.location.pathname === "/admin/system/role"){
-            props.getRole()
+        if (user.role_id === "1"){
+            if (props.history.location.pathname === "/admin/system/role"){
+                props.getRole()
+            }
         }
     }, [])
 
@@ -130,6 +135,8 @@ export const mapStateToProps = (state) => {
         rolename: state.category.rolename,
         selectedItemrole: state.category.selectedItemrole,
         roleid2: state.category.roleid2,
+        userReducer: state.userReducer.userObject
+
     }
 }
 

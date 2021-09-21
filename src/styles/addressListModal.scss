@@ -1,0 +1,94 @@
+.modalAddressList{
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  .modalContent{
+    height: 85vh;
+    overflow-y: scroll;
+    width: 63%;
+    position: fixed;
+    top: 0;
+    left:50%;
+    z-index: 1000;
+    transition: all 0.25s;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    border-radius: 4px;
+    &::-webkit-scrollbar{
+      width: 1px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+    .addressListCard{
+      padding: 20px 30px;
+      .cancelImg{
+        position: relative;
+        top: -10px;
+        left: 99.8%;
+        width: 15px;
+        height: 15px;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+      h3{
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 34px;
+      }
+      .addressList{
+        .addressListItem{
+          padding: 12px 20px;
+          margin-bottom: 20px;
+          border: 0.7px solid #d7d7d7;
+          border-radius: 4px;
+          outline: 0;
+          .row{
+            .col-8{
+              font-size: 14px;
+              .name{
+                font-weight: 700;
+                margin-bottom: 6px;
+              }
+              .village{
+
+              }
+            }
+            .col-4{
+              padding-left: 50px;
+              button{
+                border-style: solid;
+                background-color: #ff4747;
+                border-color: transparent;
+                border-radius: 4px;
+                padding: 0 25px;
+                line-height: 30px;
+                font-size: 12px;
+                border-width: 1px;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.modalAddressListBlock{
+  visibility: visible;
+  .modalContent{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+}

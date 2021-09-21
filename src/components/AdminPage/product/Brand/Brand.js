@@ -12,10 +12,14 @@ import {Link} from "react-router-dom";
 const Brand = (props) => {
 
     useEffect(() => {
-        if (props.history.location.pathname === "/admin/product/brand"){
-            props.getBrand()
+        if (user.role_id === "1"){
+            if (props.history.location.pathname === "/admin/product/brand"){
+                props.getBrand()
+            }
         }
     }, [])
+
+    let user=props.userReducer;
 
 
     return (
@@ -126,6 +130,7 @@ const mapStateToProps = (state) => {
         data: state.product.data,
         selectedIndex: state.product.selectedIndex,
         selectedItem: state.product.selectedItem,
+        userReducer: state.userReducer.userObject
     }
 }
 

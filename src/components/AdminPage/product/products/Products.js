@@ -3,15 +3,20 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import {API_PATH} from "../../../../tools/constants";
 import AdminLayout from "../../AdminLayout";
+import {connect} from "react-redux";
 
 
 function Products(props) {
     const [product, setProduct] = useState([])
+    let user=props.userReducer.userObject;
     useEffect(()=>{
-        axios.get(API_PATH+'product').then((response)=>{
-            setProduct(response.data)
-            // console.log(product)
-        })
+       if (user.role_id === "1"){
+           axios.get(API_PATH+'product').then((response)=>{
+               setProduct(response.data)
+               // console.log(product)
+           })
+       }
+        console.log(product)
     }, [])
     return (
         <AdminLayout history={props.history}>
@@ -78,9 +83,10 @@ function Products(props) {
                                             <tbody>
                                            {
                                                product.map((item)=>{
+                                                   // console.log(item.photo_list)
                                                    return <tr>
                                                        <td className="text-left"><input type="checkbox" className='form-control'/></td>
-                                                       <td className="text-center"><img src={item.photo_list[0].url} width={"45px"} height={"45px"} alt="no image"/></td>
+                                                       <td className="text-center"><img src="" width={"45px"} height={"45px"} alt="no image"/></td>
                                                        <td className="text-left ">Apple sinema weqfqf</td>
                                                        <td>{item.product_uz}</td>
                                                        <td className="text-right">
@@ -159,4 +165,8 @@ function Products(props) {
     );
 }
 
-export default Products;
+function mapStateToProps(state) {
+    return state
+}
+
+export default connect(mapStateToProps, null)(Products) ;

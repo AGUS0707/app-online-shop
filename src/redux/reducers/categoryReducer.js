@@ -20,6 +20,10 @@ const initialState  = {
     roleid2: "",
     roleopen: false,
 
+//    loader
+
+    setIsLoadingCat: true,
+
 //    homepage
 
     subCategoryOpen: false,

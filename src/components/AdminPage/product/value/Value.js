@@ -8,9 +8,13 @@ import {Link} from "react-router-dom";
 
 const Value = (props) => {
 
+    let user=props.userReducer;
+
     useEffect(()=>{
-        if (props.history.location.pathname === "/admin/product/value") {
-            props.getValue()
+        if (user.role_id === "1"){
+            if (props.history.location.pathname === "/admin/product/value") {
+                props.getValue()
+            }
         }
     }, [])
 
@@ -110,7 +114,8 @@ const mapStateToProps = (state) => {
 
     return {
         valuedata:state.product.valuedata,
-        selectedItemvalue: state.product.selectedItemvalue
+        selectedItemvalue: state.product.selectedItemvalue,
+        userReducer: state.userReducer.userObject
     }
 
 }

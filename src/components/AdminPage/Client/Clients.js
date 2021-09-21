@@ -5,15 +5,21 @@ import {getUsers, set_state, getRole} from "../../../redux/actions/categoryActio
 import {AvForm, AvField} from "availity-reactstrap-validation"
 import axios from "axios";
 import {API_PATH} from "../../../tools/constants";
+import Cookies from "js-cookie";
 
 
 
 const Clients = (props) => {
 
+    let user=props.userReducer;
+
+
     useEffect(()=> {
 
-        props.getUsers()
-        props.getRole()
+        if (user.role_id === "1"){
+            props.getUsers()
+            props.getRole()
+        }
 
     }, [])
 
@@ -54,10 +60,11 @@ const Clients = (props) => {
                                         // props.set_state({roleid: item.id})
                                         console.log(e.target.value)
                                         console.log(item.id)
-                                        axios.post(API_PATH + "upuserrole", {id: item.id, role_id: e.target.value})
+                                        axios.post(API_PATH + "upuserrole", {id: item.id, role_id: e.target.value}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                                             .then((res)=> {
                                                 console.log(res)
                                                 props.getUsers()
+                                                props.getRole()
                                             })
 
                                     }}>
@@ -99,7 +106,9 @@ const mapStateToProps = (state) => {
         role: state.category.role,
         rolevalue: state.category.rolevalue,
         roleid: state.category.roleid,
-        rolename: state.category.rolename
+        rolename: state.category.rolename,
+        userReducer: state.userReducer.userObject
+
     }
 }
 

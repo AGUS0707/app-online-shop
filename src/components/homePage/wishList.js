@@ -11,7 +11,7 @@ function WishList(props) {
                 <div className="wishListCategory">
                     <div className="row">
                         <div className="col-md-12">
-                            <div className="wishListCategoryContent">
+                            <div className="wishListCategoryContent d-flex align-items-center">
                                 <select name="category" className="form-control">
                                     <option value="tur">Turkum</option>
                                     <option value="ona">Ona va bola</option>
@@ -35,21 +35,21 @@ function WishList(props) {
                                     <Link to="/">Kichkintoy o'g'il bolalar etiklari yumshoq tuvali poyabzal, yulduzlar
                                         bilan, sirg'almaydigan kichkintoylar, yangi tug'ilgan chaqaloqlar uchun oddiy
                                         poyafzal</Link>
-                                    <div className="wishListPrice">
+                                    <div className="wishListPrice d-flex align-items-center">
                                         <p>US $ 3.71 - US $ 4.74 <span>/ Parcha</span></p>
                                         <button>3 kun qoldi</button>
                                     </div>
                                     <div className="oldPrice">
                                         US $ 5.98 - US $ 7.65 / Parcha
                                     </div>
-                                    <div className="priceTo">
+                                    <div className="priceTo d-flex align-items-center">
                                        <div className="priceToImg">
                                            <img src="http://ae01.alicdn.com/kf/Hc3d16824b07d45e1b49ab6dfd3836b83h.png"
                                                 alt="no image"/>
                                        </div>
                                              <span>3.59 AQSh dollar</span>
                                     </div>
-                                    <div className="wishListOrders">
+                                    <div className="wishListOrders d-flex align-items-center">
                                         <div className="starGroup">
                                             <img src="/images/star (1).svg" alt="no image"/>
                                             <img src="/images/star (1).svg" alt="no image"/>
@@ -61,16 +61,16 @@ function WishList(props) {
                                             Buyurtmalar (11777)
                                         </div>
                                     </div>
-                                    <div className="sellerConnect">
-                                        <div className="sellerConnectLeft">
+                                    <div className="sellerConnect d-flex align-items-center">
+                                        <div className="sellerConnectLeft d-flex align-items-center">
                                             <div className="shopLeftIcon"></div>
-                                            <Link to="/">Mercior rasmiy dokani </Link>
+                                            <Link to="/" className="text-decoration-none">Mercior rasmiy dokani </Link>
                                         </div>
-                                        <div className="sellerConnectRight">
+                                        <div className="sellerConnectRight d-flex align-items-center">
                                             <div className="shopRightIcon">
 
                                             </div>
-                                            <Link to="/">Sotuvchi bilan boglanish</Link>
+                                            <Link to="/" className="text-decoration-none">Sotuvchi bilan boglanish</Link>
                                         </div>
                                     </div>
                                     <div className="sellerCupon">

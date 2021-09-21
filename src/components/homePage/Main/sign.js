@@ -6,6 +6,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {API_PATH} from "../../../tools/constants"
 import {useHistory} from "react-router-dom"
+import Cookies from "js-cookie";
 
 
 function Sign(props) {
@@ -98,6 +99,7 @@ function Sign(props) {
                 }else{
                     toast.error("Bunday foydalanuvchi topilmadi")
                 }
+                Cookies.set('jwt', response.data.token)
             });
     }
 
@@ -129,7 +131,7 @@ function Sign(props) {
                                 id:response.data.id,
                                 email:response.data.email,
                                 photo:response.data.photo,
-                                phone:response.data.phone,
+                                phone:"",
                                 alt_name:response.data.alt_name,
                                 role_id:response.data.role_id
                             };
@@ -139,6 +141,7 @@ function Sign(props) {
                         }else {
                             toast.error("Bunday foydalanuvchi topilmadi")
                         }
+                        Cookies.set('jwt', response.data.token)
                     });
 
             }else if (validate()){
@@ -195,16 +198,16 @@ function Sign(props) {
                 </button>
                 <div className="signIcons">
                     <div className="signIcon">
-                        <img src="images/vkontakte.svg" alt="no images"/>
+                        <img src="/images/vkontakte.svg" alt="no images"/>
                     </div>
                     <div className="signIcon">
-                        <img src="images/facebook (1).svg" alt="no images"/>
+                        <img src="/images/facebook (1).svg" alt="no images"/>
                     </div>
                     <div className="signIcon">
-                        <img src="images/odnoklassniki.svg" alt="no images"/>
+                        <img src="/images/odnoklassniki.svg" alt="no images"/>
                     </div>
                     <div className="signIcon">
-                        <img src="images/google.svg" alt="no images"/>
+                        <img src="/images/google.svg" alt="no images"/>
                     </div>
                 </div>
             </div>

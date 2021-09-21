@@ -1,11 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {connect} from "react-redux";
 import axios from "axios";
 import {API_PATH} from '../../../tools/constants';
+import Cookies from "js-cookie";
 
 function EditProfile(props) {
     const [editUser, setEditUser]=React.useState({});
-
     const firstNameRef=useRef(null);
     const lastNameRef=useRef(null);
     const maleGenderRef=useRef(null);
@@ -16,11 +16,19 @@ function EditProfile(props) {
     const [check, setCheck]=useState(false);
 
 
+    let user=props.userReducer.userObject;   // qisqartma
+
+    console.log(editUser);
     const [firstNameValid, setFirstNameValid]=useState(false);
     const [lastNameValid, setLastNameValid]=useState(false);
     const [phoneValid, setPhoneValid]=useState(false);
     const [dateValid, setDateValid]=useState(false);
     const [genderValid, setGenderValid]=useState(true);
+
+
+    useEffect(()=>{
+        setEditUser(user);
+    }, []);
     function handleInputChange(e) {
         const user={
             ...editUser,
@@ -48,16 +56,17 @@ function EditProfile(props) {
             setDateValid(true);
         let id=props.userReducer.userObject.id;
         if (firstNameRef.current.value.length>0&&lastNameRef.current.value.length>0&&phoneRef.current.value.length>0&&dateRef.current.value.length>0&&(maleGenderRef.current.checked===true||femaleGenderRef.current.checked===true)){
-            axios.post(API_PATH+'upuser', {id:id, fristname:editUser.fristname, lastname:editUser.lastname, gender:editUser.gender, phone:editUser.phone, birthdate:editUser.birthdate})
+            axios.post(API_PATH+'upuser', {id:id, fristname:editUser.fristname, lastname:editUser.lastname, gender:editUser.gender, phone:editUser.phone, birthdate:editUser.birthdate}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                 .then((response)=>{
                     console.log(response.data);
                     props.userUpdateFunction(response.data);
                     setCheck(true);
+                    setEditUser(response.data);
                 })
         }
     }
 
-    let user=props.userReducer.userObject;
+
 
     return (
         <div className="editProfile">
@@ -106,7 +115,7 @@ function EditProfile(props) {
                             </div>
                             <div className={`phoneNumberInput ${phoneValid? "phoneNumberInputValid": " "}`}>
                                 <label htmlFor="phone"><span>*</span>Tel</label>
-                                <input  ref={phoneRef} type="number" id="phone" onChange={handleInputChange} name="phone" className="form-control" defaultValue={user.phone===null?"": user.phone} />
+                                <input  ref={phoneRef} type="text" id="phone" onChange={handleInputChange} name="phone" className="form-control" defaultValue={user.phone===null?"": user.phone} />
                             </div>
                             <div className={`birthday ${dateValid? "birthdayValid": " "}`}>
                                 <label htmlFor="date"><span>*</span>Tugilgan sanasi</label>

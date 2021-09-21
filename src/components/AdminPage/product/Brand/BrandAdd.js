@@ -5,6 +5,7 @@ import {AvForm, AvField} from "availity-reactstrap-validation"
 import axios from "axios";
 import {API_PATH} from "../../../../tools/constants";
 import {toast} from "react-toastify";
+import Cookies from "js-cookie";
 
 const BrandAdd = (props) => {
 
@@ -38,7 +39,7 @@ const BrandAdd = (props) => {
             data.append('brand_name',object.brand_name)
             data.append('is_active',object.is_active)
 
-            axios.post(API_PATH + "crbrand", data)
+            axios.post(API_PATH + "crbrand", data, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                 .then((res) => {
                     toast.success("Qo'shildi")
                     history.push("/admin/product/brand")

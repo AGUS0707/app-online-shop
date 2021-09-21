@@ -46,39 +46,57 @@
     margin-top: 20px;
     margin-bottom: 12px;
   }
+
+
+
   .profile{
+
+
+
     .profile-icons-content{
       display: flex;
       justify-content: space-around;
-      .profile-icons-mask{
+      .profile-icons-mask1, .profile-icons-mask2, .profile-icons-mask3, .profile-icons-mask4, .profile-icons-mask1_1{
         width: 50px;
         height: 50px;
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
-        .profile-img{
+        .profile-img1, .profile-img2, .profile-img3, .profile-img4, .profile-img1_1{
           mask-size: 100% 100%;
           background-color: #fff;
           width: 27px;
           height: 27px;
         }
       }
-      .profile-icons-mask:first-child{
+      .profile-icons-mask1{
+        background-color: darkolivegreen;
+        .profile-img1{
+          mask-image: url("../images/admin.png");
+        }
+      }
+      .profile-icons-mask1_1{
+        background-color: yellowgreen;
+        .profile-img1_1{
+          mask-image: url("../images/seller.png");
+        }
+      }
+      .profile-icons-mask2{
         background-color: #ff2d91;
-        .profile-img{
+        .profile-img2{
           mask-image: url("../images/user (2).svg");
         }
       }
-      .profile-icons-mask:nth-child(2){
+      .profile-icons-mask3{
         background-color: #ac3bff;
-        .profile-img{
+        .profile-img3{
           mask-image: url("../images/files.svg");
         }
       }
-      .profile-icons-mask:nth-child(3){
+      .profile-icons-mask4{
         background-color: #ffaa43;
-        .profile-img{
+        .profile-img4{
           mask-image: url("../images/messenger (1).svg");
         }
       }
@@ -117,59 +135,59 @@
       display: none;
       margin: 0;
     }
-    .signInModalNone{
-      display: none;
-    }
-    .signInModalBlock{
-      display: block;
-      position: absolute;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.25);
-      .signInModalBlock1{
-        height: 100vh !important;
-        width: 100% !important;
-        .modalContent{
-          position: fixed;
-          z-index: 1200;
-          width: 32%;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background-color: #fff;
-          border-radius: 9px;
-        }
-        .modalBody{
-          position: relative;
-          padding: 30px 35px;
-          box-sizing: border-box;
-          h3{
-            text-align: center;
-          }
-          .logInLinks>a{
-            border-bottom: 2px solid transparent;
-          }
-          .logInLinks{
-            display: flex;
-            justify-content: center;
-            margin-bottom: 14px;
-            .active{
-              border-bottom-color:#ff4747;
-            }
-            a{
-              font-size: 15px;
-              color: #000;
-              font-weight: 500;
-              text-decoration: none;
-              margin: 0 15px;
-              padding: 10px 10px;
-            }
-          }
-        }
-      }
-    }
+    //.signInModalNone{
+    //  display: none;
+    //}
+    //.signInModalBlock{
+    //  display: block;
+    //  position: absolute;
+    //  z-index: 1000;
+    //  left: 0;
+    //  top: 0;
+    //  bottom: 0;
+    //  right: 0;
+    //  background: rgba(0, 0, 0, 0.25);
+    //  .signInModalBlock1{
+    //    height: 100vh !important;
+    //    width: 100% !important;
+    //    .modalContent{
+    //      position: fixed;
+    //      z-index: 1200;
+    //      width: 32%;
+    //      top: 50%;
+    //      left: 50%;
+    //      transform: translate(-50%, -50%);
+    //      background-color: #fff;
+    //      border-radius: 9px;
+    //    }
+    //    .modalBody{
+    //      position: relative;
+    //      padding: 30px 35px;
+    //      box-sizing: border-box;
+    //      h3{
+    //        text-align: center;
+    //      }
+    //      .logInLinks>a{
+    //        border-bottom: 2px solid transparent;
+    //      }
+    //      .logInLinks{
+    //        display: flex;
+    //        justify-content: center;
+    //        margin-bottom: 14px;
+    //        .active{
+    //          border-bottom-color:#ff4747;
+    //        }
+    //        a{
+    //          font-size: 15px;
+    //          color: #000;
+    //          font-weight: 500;
+    //          text-decoration: none;
+    //          margin: 0 15px;
+    //          padding: 10px 10px;
+    //        }
+    //      }
+    //    }
+    //  }
+    //}
   }
 }

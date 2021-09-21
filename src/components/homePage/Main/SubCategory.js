@@ -6,7 +6,10 @@ import {Link} from "react-router-dom";
 import {set_state} from "../../../redux/actions/categoryAction";
 
 const SubCategory = (props) => {
-    console.log(props.category)
+    // console.log(props.category)
+
+    const generateUrl = (text) => text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
 
     return (
         <div className="sub-category">
@@ -23,7 +26,9 @@ const SubCategory = (props) => {
 
                                   {
                                       props.category.map((item1)=>{
-                                          return item.id == item1.category_id ? <Link to="/"><p>{item1.category_uz}</p></Link> : ""
+                                          return item.id == item1.category_id ? <Link to={"/category/" + generateUrl(item1.category_uz)} onClick={()=>{
+                                              localStorage.setItem("categoryId", item1.id)
+                                          }}><p>{item1.category_uz}</p></Link>: ""
                                       })
                                   }
 

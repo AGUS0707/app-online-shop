@@ -57,14 +57,21 @@ function MainRightComponent(props) {
                 </div>
                 <div className={` profile ${props.userCheckReducer.userCheck===true? "profile-block":"profile-none"}`}>
                     <div className="profile-icons-content">
-                        <Link to={"/home/profile"} className="profile-icons-mask">
-                            <div className="profile-img"></div>
+                        {
+                            props.userReducer.userObject.role_id === "1" ?  <Link to="/admin/profile" className="profile-icons-mask1">
+                                <div className="profile-img1"></div>
+                            </Link> : props.userReducer.userObject.role_id === "3" ? <Link to="/seller" className="profile-icons-mask1_1">
+                                <div className="profile-img1_1"></div>
+                            </Link> : ""
+                        }
+                        <Link to={"/home/profile"} className="profile-icons-mask2">
+                            <div className="profile-img2"></div>
                         </Link>
-                        <Link to="/" className="profile-icons-mask">
-                            <div className="profile-img"></div>
+                        <Link to="/" className="profile-icons-mask3">
+                            <div className="profile-img3"></div>
                         </Link>
-                        <Link to="/" className="profile-icons-mask">
-                            <div className="profile-img"></div>
+                        <Link to="/" className="profile-icons-mask4">
+                            <div className="profile-img4"></div>
                         </Link>
                     </div>
                 </div>

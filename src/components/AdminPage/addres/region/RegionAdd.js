@@ -7,8 +7,13 @@ import {getCountry, saveRegion,} from "../../../../redux/actions/addresAction";
 
 const RegionAdd = (props) => {
 
+    let user=props.userReducer;
+
+
     useEffect(()=>{
-        props.getCountry()
+        if (user.role_id === "1"){
+            props.getCountry()
+        }
     }, [])
 
     return (
@@ -51,6 +56,8 @@ export const mapStateToProps = (state) => {
     return {
 
         country: state.address.country,
+        userReducer: state.userReducer.userObject
+
 
     }
 }

@@ -37,9 +37,9 @@
   padding-bottom:120px ;
   .container{
     .profileContentMenu{
-      display: flex;
+      font-family: Open Sans,Roboto,Arial,Helvetica,sans-serif,SimSun;
       .profileContentLeft{
-        width: 19.5%;
+        width: 22%;
         padding: 15px;
         background-color: #fff;
         .profile-menu-text{
@@ -67,7 +67,7 @@
 
       }
       .profileContentRight{
-        width: 80.5%;
+        width: 78%;
         margin-left: 20px;
         .profile-name{
           background-color: #fff;
@@ -1071,8 +1071,8 @@
         }
         .shippingAddressAdd{
           .container{
-            .row{
-              .col-md-12{
+
+              .toy{
                 a{
                   button{
                     background-color: #ff4747;
@@ -1111,7 +1111,6 @@
                   }
                 }
               }
-            }
           }
           .addresform{
             display: block;

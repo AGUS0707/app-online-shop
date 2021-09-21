@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from "react-router-dom";
-import "../../styles/search.scss"
+import "../../styles/search.scss";
+import axios from "axios";
+import {API_PATH} from "../../tools/constants";
+import Cookies from "js-cookie";
+import {connect} from "react-redux";
 
-
-const Search = () => {
-
+const Search = (props) => {
+    // useEffect(()=>{
+    //     axios.post(API_PATH+'cart', {id:props.userReducer.userObject.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
+    //         props.shoppingCardCountFunction(response.data.length);
+    //     })
+    // }, []);
     return (
         <div className="search">
             <div className="container d-flex align-items-center justify-content-between">
@@ -13,18 +20,18 @@ const Search = () => {
                     <Link to="/" className="text-decoration-none"><h1 className="text-dark">LOGOTIP</h1></Link>
                 </div>
 
-                <div className="navplus">
-                    <div className="d-flex align-items-center ">
-                        <div>
-                            <h1>Global laptop & monitor factory Store</h1>
-                            <p><b>92.5%</b>Positive feedback</p>
-                        </div>
-                        <div className="ml-3">
-                            <div className="follow">+ Follow</div>
-                            <p><b>830</b>Followers</p>
-                        </div>
-                    </div>
-                </div>
+                {/*<div className="navplus">*/}
+                {/*    <div className="d-flex align-items-center ">*/}
+                {/*        <div>*/}
+                {/*            <h1>Global laptop & monitor factory Store</h1>*/}
+                {/*            <p><b>92.5%</b>Positive feedback</p>*/}
+                {/*        </div>*/}
+                {/*        <div className="ml-3">*/}
+                {/*            <div className="follow">+ Follow</div>*/}
+                {/*            <p><b>830</b>Followers</p>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
               <div>
                   <div className="qidiruv d-flex align-items-center">
@@ -59,11 +66,23 @@ const Search = () => {
 
                 <Link to="/home/shopping" className="korzinka">
                         <span className="icon icon-cart"></span>
-                        <div className="count">0</div>
+                        <div className="count">{props.count}</div>
                 </Link>
             </div>
         </div>
     );
 };
-
-export default Search;
+function mapStateToProps(state) {
+    return state
+}
+function mapDispatchToProps(dispatch) {
+      return {
+          shoppingCardCountFunction:function (count) {
+              dispatch({
+                  type: "SHOPPING_CARD_COUNT",
+                  payload: count
+              })
+          }
+      }
+}
+export default connect(mapStateToProps, mapDispatchToProps) (Search);

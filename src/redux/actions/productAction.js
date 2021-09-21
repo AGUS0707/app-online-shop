@@ -5,6 +5,7 @@ import {API_PATH} from "../../tools/constants";
 import {toast} from "react-toastify";
 import {getCategory, set_state} from "./categoryAction";
 import {getDistrict, set_state2} from "./addresAction";
+import Cookies from "js-cookie";
 
 
 export function set_state1(data) {
@@ -21,7 +22,7 @@ export const getBrand = () => (dispatch) => {
         })
 };
 export const deleteBrand = () => (dispatch, getstate) => {
-    axios.post( API_PATH + "delbrand", {id: getstate().product.selectedIndex})
+    axios.post( API_PATH + "delbrand", {id: getstate().product.selectedIndex}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
         .then((res) => {
             toast.success("O'chdi")
             dispatch(set_state1({open1: false}))
@@ -34,7 +35,7 @@ export const deleteBrand = () => (dispatch, getstate) => {
 
 export const saveDetail = (event, errors, values, history) => (dispatch) => {
     if (values.detail_uz.length > 0 && values.detail_ru.length > 0 && values.category_id.length > 0 && values.is_active !== undefined){
-        axios.post(API_PATH + "crdetail", values)
+        axios.post(API_PATH + "crdetail", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=> {
                 toast.success("Saqlandi")
                 history.push("/admin/product/detail")
@@ -59,7 +60,7 @@ export const getDetail = () => (dispatch) => {
 // };
 export function upDetail(event, errors, values, history) {
     return function (dispatch) {
-        axios.post(API_PATH + "updetail", values)
+        axios.post(API_PATH + "updetail", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 toast.success("O'zgardi")
                 history.push("/admin/product/detail")
@@ -72,7 +73,7 @@ export function upDetail(event, errors, values, history) {
 
 export const saveModel = (event, errors, values, history) => (dispatch) => {
     if (values.model_name.length > 0 && values.brand_id !== undefined && values.is_active !== undefined){
-        axios.post(API_PATH + "crmodel", values)
+        axios.post(API_PATH + "crmodel", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=> {
                 toast.success("Saqlandi")
                 history.push("/admin/product/model")
@@ -91,7 +92,7 @@ export const getModel = () => (dispatch) => {
 }
 export function upModel(event, errors, values, history) {
     return function (dispatch) {
-        axios.post(API_PATH + "upmodel", values)
+        axios.post(API_PATH + "upmodel", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 toast.success("O'zgardi")
                 dispatch({type: ""})
@@ -105,7 +106,7 @@ export function upModel(event, errors, values, history) {
 
 export const saveValue = (event, errors, values, history) => (dispatch) => {
     if (values.value_uz.length > 0 && values.value_ru.length > 0 && values.detail_id !== undefined && values.is_active !== undefined){
-        axios.post(API_PATH + "crvalue", values)
+        axios.post(API_PATH + "crvalue", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=> {
                 toast.success("Saqlandi")
                 history.push("/admin/product/value")
@@ -131,7 +132,7 @@ export const getValue = () => (dispatch) => {
 // };
 export function upValue(event, errors, values, history) {
     return function (dispatch) {
-        axios.post(API_PATH + "upvalue", values)
+        axios.post(API_PATH + "upvalue", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 toast.success("O'zgardi")
                 dispatch({type: ""})

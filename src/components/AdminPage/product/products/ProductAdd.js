@@ -8,39 +8,28 @@ import axios from "axios";
 import {API_PATH} from "../../../../tools/constants";
 import {connect} from "react-redux";
 import Products from "./Products";
+import Cookies from "js-cookie";
+
 
 function ProductForm(props) {
     let { Editor } = require('@tinymce/tinymce-react');
 
+    let user1=props.userReducer.userObject;
+    let product=props.productReducerSeller.productObject;
 
-    const [count, setCount] = useState(1);
-    // id
-    // product_uz
-    // product_ru
-    // brand_id
-    // category_id
-    // description_uz
-    // description_ru
-    // photo_list
-    // price
-    // is_sale
-    // sale_price
-    // xarakteristika
-    // amount
-    // min_order
-    // serial_number
-    const [product, setProduct]=useState({
-        product_uz:"",
-        product_ru:"",
-        price:"",
-        sale_price:"",
-        xarakteristika:"",
-        amount:"",
-        min_order:"",
-        serial_number: ""
-    });
+    // const [product, setProduct]=useState({
+    //     product_uz:"",
+    //     product_ru:"",
+    //     price:"",
+    //     sale_price:"",
+    //     xarakteristika:"",
+    //     amount:"",
+    //     min_order:"",
+    //     serial_number: ""
+    // });
     const [name_uz, setName_uz]=useState("");  // uzb editor uchun
     const [name_ru, setName_ru]=useState("");  // ru editor uchun
+    const [count, setCount] = useState(1);
     const [imgList, setImgList]=useState([]);
     const [imgCheck, setImgCheck]=useState(false);
     const [categoryList, setCategoryList]=useState([]);
@@ -77,27 +66,39 @@ function ProductForm(props) {
     const [open, setOpen] = useState(false)
 
     const [data, setData] = useState([])
+    const [idObject, setIdObject]=useState([]);
+
 
 
     useEffect(()=>{
-        axios.get(API_PATH+'categorys').then((response)=>{
-            setCategoryList(response.data);
-        });
-        axios.get(API_PATH+'brand').then((response)=>{
-            setBrandList(response.data)
-            console.log(response.data)
-        })
-        axios.get(API_PATH + 'details').then((res)=>{
-            setDetail(res.data)
-        })
-        axios.get(API_PATH + 'values').then((res)=>{
-            setValue(res.data)
-        })
-        axios.get(API_PATH + "users").then((res)=>{
-            setUser(res.data)
-            // alert("asfd")
-        })
+       if (user1.role_id === "1"){
+           axios.get(API_PATH+'categorys').then((response)=>{
+               setCategoryList(response.data);
+           });
+           axios.get(API_PATH+'brand').then((response)=>{
+               setBrandList(response.data)
+           })
+           axios.get(API_PATH + 'details').then((res)=>{
+               setDetail(res.data)
+           })
+           axios.get(API_PATH + 'values').then((res)=>{
+               setValue(res.data)
+           })
+           axios.get(API_PATH + "users", {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((res)=>{
+               setUser(res.data)
+           })
+           function saleCheckFunction() {
+               if (product.is_sale==="1"){    // chegirmalar oynasi chiqishini tekshirdim
+                   setSaleCheck(true);
+               }else{
+                   setSaleCheck(false);
+               }
+           }
+           saleCheckFunction();
+       }
     }, []);
+
+
 
     function change(e) {
         setSelect1(true)
@@ -126,7 +127,6 @@ function ProductForm(props) {
         }
 
     }
-    console.log(data)
 
     function handleInputChange(e) {
         if (e.target.name==="is_sale"){    // chegirmalar oynasi chiqishini tekshirdim
@@ -149,7 +149,7 @@ function ProductForm(props) {
                     ...product,
                     [e.target.name]:e.target.value,
                 };
-                setProduct(newProduct);
+                props.changeProduct(newProduct);
             }
 
         }else{
@@ -157,12 +157,40 @@ function ProductForm(props) {
         }
     }
 
-    function imgListFunction() {
+    function deleteImg(id) {
+        let newArray;
+        newArray=imgList.filter((item, index)=>{
+            if (id!==index)
+                return item
+        });
+        setImgList(newArray);
+    }
+
+    function clickButton(e) {
+        imgList.forEach((item, index)=>{
+            if (e.currentTarget.id==index){
+                if (e.currentTarget.childNodes[0].className.includes("blockButton")){
+                    e.currentTarget.childNodes[0].classList.remove("blockButton")
+                }else {
+                    e.currentTarget.childNodes[0].classList.add("blockButton")
+                }
+            }
+        })
+
+    }
+
+    const imgListFunction=()=> {
         if (imgCheck){
             return <>
-                {imgList.map((item)=>{
-                    return <div className="productImgListItem">
-                        <img src={`${URL.createObjectURL(item)}`} alt="no image"/>
+                {imgList.map((item, index)=>{
+                    return <div id={index}  onClick={clickButton} className="productImgListItem">
+                        <div id={index}   className={" positionAbsolute"}>
+                            <div  className="positionRelative" onClick={()=>deleteImg(index)}>
+                                <i className="fas fa-trash-alt"></i>
+                                <div className="before"></div>
+                            </div>
+                        </div>
+                        <img  src={`${URL.createObjectURL(item)}`} alt="no image"/>
                     </div>
                 })}
             </>
@@ -171,7 +199,29 @@ function ProductForm(props) {
                 <img src="/images/page.webp" alt="no images"/>
             </div>
         }
+    };
+
+    function handleInputValueChange(e) {
+        if (e.target.checked===true){
+            setIdObject((prev)=>prev.concat(e.target.name));
+            props.updateValuesList(e.target.name);
+            // props.updateDetailsList(e.target.id)
+        }
+
+        if (e.target.checked===false){
+            let newArray=[];
+            let detailArray=[];
+            newArray=props.valueChangeListReducer.valueList.filter((item)=>{
+                if (e.target.name!==item){
+                    return item
+                }
+            });
+            props.deleteValueList(newArray);
+
+        }
     }
+
+
     function addProduct() {
         // product_uz niki, min_order, serial_numbuer 1
         // bulerni barchasi validatsiyani ishga tushirish uchun
@@ -245,8 +295,48 @@ function ProductForm(props) {
         if (imgList.length>0)
             setPhotosCheck(false);
 
+
+        let valueListThis=[];
+        value.forEach((item)=>{
+            props.valueChangeListReducer.valueList.forEach((item1)=>{
+                if (item.id==item1){
+                    valueListThis=valueListThis.concat(item);
+                }
+            });
+        });
+
+
+
+        let detailListArray=[];
+        valueListThis.forEach((item)=>{
+            detail.forEach((item1)=>{
+                if (item1.id==item.detail_id){
+                    detailListArray = detailListArray.concat(item1.id.toString());
+                }
+            })
+
+        });
+
+        let natija=[]
+
+        detail.forEach((item)=>{
+
+            let find = detailListArray.find(element => element == item.id)
+            if (find !== undefined){
+                natija=natija.concat(find)
+            }
+        })
+
+        console.log(natija)
+
+
         if (imgList.length>0&&product.product_uz.length>0&&product.product_ru.length>0&&product.price.length>0&&product.amount.length>0&&product.min_order.length>0&&name_uz.length>0&&name_ru.length>0&&product.category_id!==undefined&&product.brand_id!==undefined&&product.is_sale!==undefined&&product.sale_price.length>0&&product.serial_number.length>0&&product.xarakteristika.length>0&&imgList.length>0){
             const formDate=new FormData();
+            if (product.sale_price!==""){
+                formDate.append('sale_price', product.sale_price);
+            }else{
+                formDate.append('sale_price', "0" );
+            }
             formDate.append('id', product.user_id);
             formDate.append('product_uz', product.product_uz);
             formDate.append('product_ru', product.product_ru);
@@ -263,11 +353,13 @@ function ProductForm(props) {
             formDate.append('sale_price', product.sale_price);
             formDate.append('serial_number', product.serial_number);
             formDate.append('xarakteristika', product.xarakteristika);
+            formDate.append('detail', natija);
+            formDate.append('value', props.valueChangeListReducer.valueList);
             let a=[];
             imgList.forEach((item, index)=>{
                 formDate.append(`file${+index}`, item);
             });
-            axios.post(API_PATH+'crproduct', formDate)
+            axios.post(API_PATH+'crproduct', formDate, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                 .then((response)=>{
                     console.log(response)
                     toast.success("Muvofiqiyatli qoshildi")
@@ -277,6 +369,22 @@ function ProductForm(props) {
             toast.error("Malumotlarni toliq kiritishingiz shart")
         }
     }
+
+    const editorChangeUz=(e)=>{
+        let newObject={
+            ...product,
+            description_uz:e
+        };
+        props.changeProduct(newObject)
+    };
+
+    const editorChangeRu=(e)=>{
+        let newObject={
+            ...product,
+            description_ru:e
+        };
+        props.changeProduct(newObject)
+    };
 
 
     function menusContent() {
@@ -421,22 +529,22 @@ function ProductForm(props) {
                                 <div><span>*</span>Head Category_uz</div>
                             </div>
                             <div className="col-sm-10 mb-2">
-                                <select  className="form-control" onChange={change}>
+                                <select  className="form-control"   onChange={change}>
                                     <option>Choose</option>
                                     {categoryList.map((item)=>{
-                                        return item.category_id == 0 ? <option value={item.id}>{item.category_uz}</option> : ""
+                                        return item.category_id     == 0 ? <option value={item.id}>{item.category_uz}</option> : ""
                                     })}
                                 </select>
                             </div>
-
-
-                                    <div className="col-sm-2 d-flex align-items-center justify-content-end mb-2">
+                            {
+                                select1 ? <div className="col-sm-2 d-flex align-items-center justify-content-end mb-2">
                                     <div><span>*</span>Sub Category_uz</div>
-                                </div>
-
-                                    <div className="col-sm-10 mb-2">
+                                </div> : ""
+                            }
+                            {
+                                select1 ? <div className="col-sm-10 mb-2">
                                     <select  className="form-control" onChange={(e)=>{
-                                        setSelect2(true)
+                                        setSelect2(true);
                                         setSelect2id(e.target.value)
                                     }}>
                                         <option>Choose</option>
@@ -444,98 +552,34 @@ function ProductForm(props) {
                                             return item.category_id == select1id ? <option value={item.id}>{item.category_uz}</option> : ""
                                         })}
                                     </select>
-                                </div>
-
-                                    <div className="col-sm-2 d-flex align-items-center justify-content-end mb-2">
+                                </div> : ""
+                            }
+                            {
+                                select2 ? <div className="col-sm-2 d-flex align-items-center justify-content-end mb-2">
                                     <div><span>*</span>Sub sub Category_uz</div>
-                                </div>
-
-                                    <div className="col-sm-10 mb-2">
-                                    <select  className="form-control" name="category_id" onChange={handleInputChange}>
-                                        <option>Choose</option>
+                                </div> : ""
+                            }
+                            {
+                                select2 ? <div className="col-sm-10 mb-2">
+                                    <select  className="form-control" defaultValue={product.category_id}  name="category_id" onChange={handleInputChange}>
+                                        <option value="">Choose</option>
                                         {categoryList.map((item)=>{
                                             return item.category_id == select2id ? <option value={item.id}>{item.category_uz}</option> : ""
                                         })}
                                     </select>
-                                </div>
-
-                            <div className="col-2"></div>
-                            
-                            <div className="col-sm-2">
-                                <div onClick={()=>{}}>+</div>
-                            </div>
-                            <div className="col-8"></div>
-
-                            <div className="col-sm-2 d-flex align-items-center justify-content-end mb-2">
-                                <div><span>*</span>Detail</div>
-                            </div>
-
-                            <div className="col-sm-10 mb-2">
-                                <select name="detail_id" className="form-control" onChange={handleInputChange}>
-                                    <option>Choose</option>
-                                    {
-                                        detail.map((item)=>{
-                                            return <option value={item.id}>{item.detail_uz}</option>
-                                        })
-                                    }
-                                </select>
-                            </div>
-
-                            <div className="col-sm-2 d-flex align-items-center justify-content-end mb-2">
-                                <div><span>*</span>Value</div>
-                            </div>
-
-                            <div className="col-sm-10 mb-2 d-flex align-items-center">
-                                {/*<select name="value_id" className="form-control" onChange={handleInputChange}>*/}
-                                {/*    <option>Choose</option>*/}
-                                {/*    {*/}
-                                {/*        value.map((item)=>{*/}
-                                {/*            return item.detail_id === detailid ? <option value={item.id}>{item.value_uz}</option> : ""*/}
-                                {/*        })*/}
-                                {/*    }*/}
-                                {/*</select>*/}
-
-                                {
-                                    value.map((item, index)=>{
-                                        return item.detail_id === detailid ? <div className="mr-3 d-flex align-items-center">
-                                            <input type="checkbox" id={item.id} value={item.id} name="value_id" className="mr-2" onChange={Value}/>
-                                            <label className="mb-0" htmlFor={index}>{item.value_uz}</label>
-                                        </div> : ""
-                                    })
-                                }
-
-
-
-                            </div>
-
-
-
-                            {/*<div className="col-sm-2 d-flex align-items-center justify-content-end">*/}
-                            {/*    <div><span>*</span>Category_uz</div>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-sm-10">*/}
-                            {/*    <select  className="form-control" name="category_id" onChange={handleInputChange}>*/}
-                            {/*        {categoryList.map((item)=>{*/}
-                            {/*            return <option value={item.category_id}>{item.category_uz}</option>*/}
-                            {/*        })}*/}
-                            {/*    </select>*/}
-                            {/*</div>*/}
+                                </div> : ""
+                            }
                         </div>
                     </div>
                     <hr/>
-
-                </div>
-                break;
-            case 4 :
-                return <div className={`menu4`}>
                     <div className={`form-group ${brand_idCheck? "menusValid": " "}`}>
                         <div className="row">
                             <div className="col-sm-2 d-flex align-items-center justify-content-end">
                                 <div><span>*</span>Brand</div>
                             </div>
                             <div className="col-sm-10">
-                                <select  className="form-control" name="brand_id" onChange={handleInputChange}>
-                                    <option>Choose</option>
+                                <select  className="form-control" defaultValue={product.brand_id} name="brand_id" onChange={handleInputChange}>
+                                    <option value="">Choose</option>
                                     {brandList.map((item)=>{
                                         return <option value={item.id}>{item.brand_name}</option>
                                     })}
@@ -544,33 +588,79 @@ function ProductForm(props) {
                         </div>
                     </div>
                     <hr/>
-                    <div className={`form-group ${is_activeCheck? "menusValid": " "}`}>
+                    <div className="details">
+                        <div className="detailTable">
+                            <div className="row">
+                                <div className="col-4">
+                                    <h6>Details</h6>
+                                </div>
+                                <div className="col-8">
+                                    <h6>Values</h6>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-10">
+
+                                </div>
+                            </div>
+                            {
+                                detail.map((item)=>{
+                                    return <div className="row">
+                                        <div className="col-4">
+                                            {item.detail_uz}
+                                        </div>
+                                        <div className="col-8 d-flex align-items-center">
+                                            {
+                                                value.map((item2, index)=>{
+                                                    return item.id == item2.detail_id ?  <div className="input-group d-flex align-items-center">
+                                                        <label htmlFor={index}  className="mb-0">{item2.value_uz}</label>
+                                                        <input type="checkbox" id={item2.detail_id} name={item2.id} className="form-check-inline" onChange={handleInputValueChange}/>
+                                                    </div> : ""
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                })
+                            }
+                            {/*{props.detailsHtmlListReducer.detailsHtmlList.map((item)=>{*/}
+                            {/*    return item*/}
+                            {/*})}*/}
+                        </div>
+                    </div>
+                </div>
+                break;
+            case 4 :
+                return <div className={`menu4`}>
+                    <div className={`form-group ${xarakteristikaCheck? "menusValid": " "}`}>
                         <div className="row">
                             <div className="col-sm-2 d-flex align-items-center justify-content-end">
-                                <div><span>*</span>Is_active</div>
+                                <div><span>*</span>Harakteristika</div>
                             </div>
                             <div className="col-sm-10">
-                                <select name="is_active" onChange={handleInputChange} className="form-control">
-                                    <option>Choose</option>
-                                    <option value="1">activ</option>
-                                    <option value="0">activ emas</option>
-                                </select>
+                                <input type="text" defaultValue={product.xarakteristika} onChange={handleInputChange} name="xarakteristika" className="form-control" placeholder="xarakteristikasi"/>
                             </div>
                         </div>
                     </div>
                     <hr/>
-                </div>
-                break;
-            case 5 :
-                return <div className={`menu1`}>
+                    <div className={`form-group ${serial_numberCheck? "menusValid": " "}`}>
+                        <div className="row">
+                            <div className="col-sm-2 d-flex align-items-center justify-content-end">
+                                <div><span>*</span>Serial number</div>
+                            </div>
+                            <div className="col-sm-10">
+                                <input type="text" defaultValue={product.serial_number} onChange={handleInputChange} name="serial_number" className="form-control" placeholder="serial number" required={true}/>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
                     <div className={`form-group ${is_saleCheck? "menusValid": " "}`}>
                         <div className="row">
                             <div className="col-sm-2 d-flex align-items-center justify-content-end">
                                 <div><span>*</span>Chegirma qoshaszmi</div>
                             </div>
                             <div className="col-sm-10">
-                                <select  className="form-control" name="is_sale" defaultValue="0" onChange={handleInputChange}>
-                                    <option>Choose</option>
+                                <select  className="form-control" name="is_sale" defaultValue={product.is_sale} onChange={handleInputChange}>
+                                    <option value="">Choose</option>
                                     <option value="0" >yoq</option>
                                     <option value="1">ha </option>
                                 </select>
@@ -585,33 +675,10 @@ function ProductForm(props) {
                                     <div><span>*</span>Chegirma narxi</div>
                                 </div>
                                 <div className="col-sm-10">
-                                    <input type="number" onChange={handleInputChange} name="sale_price" className="form-control" placeholder="chegirma narxi"/>
+                                    <input type="text" defaultValue={product.sale_price} onChange={handleInputChange} name="sale_price" className="form-control" placeholder="chegirma narxi"/>
                                 </div>
                             </div>
                         </div>
-                        <hr/>
-                        <div className={`form-group ${xarakteristikaCheck? "menusValid": " "}`}>
-                            <div className="row">
-                                <div className="col-sm-2 d-flex align-items-center justify-content-end">
-                                    <div><span>*</span>Harakteristika</div>
-                                </div>
-                                <div className="col-sm-10">
-                                    <input type="text" onChange={handleInputChange} name="xarakteristika" className="form-control" placeholder="xarakteristikasi"/>
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div className={`form-group ${serial_numberCheck? "menusValid": " "}`}>
-                            <div className="row">
-                                <div className="col-sm-2 d-flex align-items-center justify-content-end">
-                                    <div><span>*</span>Serial number</div>
-                                </div>
-                                <div className="col-sm-10">
-                                    <input type="text" onChange={handleInputChange} name="serial_number" className="form-control" placeholder="serial number" required={true}/>
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
                     </div>
                 </div>
                 break
@@ -622,6 +689,7 @@ function ProductForm(props) {
                 break
         }
     }
+
     return (
         <Products history={props.history}>
             <div className="product">
@@ -672,11 +740,11 @@ function ProductForm(props) {
                                     <a  className={`nav-link ${count===3? "active": ""}`} data-toggle="tab" onClick={()=>setCount(3)} >Category</a>
                                 </li>
                                 <li className="nav-item" style={{cursor: "pointer"}}>
-                                    <a  className={`nav-link ${count===4? "active": ""}`} data-toggle="tab" onClick={()=>setCount(4)} >Brand</a>
+                                    <a  className={`nav-link ${count===4? "active": ""}`} data-toggle="tab" onClick={()=>setCount(4)} >Chegirma</a>
                                 </li>
-                                <li className="nav-item" style={{cursor: "pointer"}}>
-                                    <a  className={`nav-link ${count===5? "active": ""}`} data-toggle="tab" onClick={()=>setCount(5)} >Chegirma</a>
-                                </li>
+                                {/*<li className="nav-item" style={{cursor: "pointer"}}>*/}
+                                {/*    <a  className={`nav-link ${count===5? "active": ""}`} data-toggle="tab" onClick={()=>setCount(5)} >Chegirma</a>*/}
+                                {/*</li>*/}
                             </ul>
                             <div className="tab-content">
                                 {menusContent()}
@@ -688,8 +756,68 @@ function ProductForm(props) {
         </Products>
     );
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        changeProduct:function (product) {
+            dispatch({
+                type: "PRODUCT",
+                payload:product
+            })
+        },
+        detailsListFunction:function (details_list) {
+            dispatch({
+                type:"DETAILS_LIST",
+                payload:details_list
+            })
+        },
+        valuesListFunction:function (values_list) {
+            dispatch({
+                type:"VALUES_LIST",
+                payload:values_list
+            })
+        },
+        addDetailsHtmlList:function (detailListHtml) {
+            dispatch({
+                type:"DETAILS_HTML_LIST",
+                payload:detailListHtml
+            })
+        },
+        updateCountReducer:function (count) {
+            dispatch({
+                type:"COUNT_DETAILS",
+                payload:count
+            })
+        },
+        updateValuesList:function (valueId) {
+            dispatch({
+                type: "VALUE_CHANGE_LIST",
+                payload: valueId
+            })
+        },
+        deleteValueList:function (valueList) {
+            dispatch({
+                type: "VALUE_DELETE_LIST",
+                payload:valueList
+            })
+        },
+        updateDetailsList:function (detailsId) {
+            dispatch({
+                type: "DETAILS_CHANGE_LIST",
+                payload: detailsId
+            })
+        },
+        detailsChangeListUpdate:function (array) {
+            dispatch({
+                type:"DETAILS_UPDATE_CHANGE_LIST",
+                payload:array
+            })
+        }
+    }
+}
+
 function mapStateToProps(state) {
     return state
 }
 
-export default connect(mapStateToProps, null) (ProductForm);
+export default connect(mapStateToProps, mapDispatchToProps) (ProductForm);

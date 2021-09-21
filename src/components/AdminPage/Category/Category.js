@@ -11,9 +11,13 @@ import {Link} from "react-router-dom";
 
 const Category = (props) => {
 
+    let user=props.userReducer;
+
     useEffect(() => {
-        if (props.history.location.pathname === "/admin/category"){
-            props.getCategory()
+        if (user.role_id === "1"){
+            if (props.history.location.pathname === "/admin/category"){
+                props.getCategory()
+            }
         }
     }, [])
 
@@ -129,7 +133,8 @@ const mapStateToProps = (state) => {
         open3: state.category.open3,
         selectedIndex: state.category.selectedIndex,
         selectedItem: state.category.selectedItem,
-        category: state.category.category
+        category: state.category.category,
+        userReducer: state.userReducer.userObject
     }
 };
 

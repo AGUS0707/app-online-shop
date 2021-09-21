@@ -1,0 +1,16 @@
+.loading{
+  display: flex;
+  justify-content: center;
+  padding: 130px;
+  .loadingImg{
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
+}

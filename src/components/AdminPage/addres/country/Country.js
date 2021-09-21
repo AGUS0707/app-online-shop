@@ -11,9 +11,13 @@ import {Link} from "react-router-dom";
 
 const Country = (props) => {
 
+    let user=props.userReducer;
+
     useEffect(()=> {
-        if (props.history.location.pathname === "/admin/addres/country"){
-            props.getCountry()
+        if (user.role_id === "1"){
+            if (props.history.location.pathname === "/admin/addres/country"){
+                props.getCountry()
+            }
         }
     },[])
 
@@ -134,7 +138,8 @@ export const mapStateToProps = (state) => {
         open1: state.address.open1,
         country: state.address.country,
         selectedIndexCountry: state.address.selectedIndexCountry,
-        selectedItemCountry: state.address.selectedItemCountry
+        selectedItemCountry: state.address.selectedItemCountry,
+        userReducer: state.userReducer.userObject
 
     }
 }

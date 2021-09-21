@@ -2,6 +2,7 @@ import React from 'react';
 import axios from "axios";
 import {connect} from "react-redux";
 import {API_PATH} from "../../../tools/constants";
+import Cookies from "js-cookie";
 function UserAddPhotos(props) {
     const [checkButton, setCheckButton]=React.useState(false);
     const [check, setCheck]=React.useState(false);
@@ -23,7 +24,7 @@ function UserAddPhotos(props) {
        data.append('file', fff );
        let id=props.userReducer.userObject.id;
        data.append("id", id);
-       axios.post(API_PATH+'upphoto', data).then((response)=>{
+       axios.post(API_PATH+'upphoto', data, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
            props.updateUserPhoto(response.data);
            setCheck(true);
            props.history.push("/home/profile")

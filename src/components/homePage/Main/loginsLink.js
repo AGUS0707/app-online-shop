@@ -6,10 +6,10 @@ function LoginsLink(props) {
 
     return (
         <div className="unsubscribeButtons">
-            <Link className={"unsubscribeButtons1"} to={"/"} onClick={props.registrClick}>
+            <Link className="unsubscribeButtons1 text-decoration-none"   onClick={props.registrClick}>
                 Join
             </Link>
-            <Link className={"unsubscribeButtons2"} to={"/"} onClick={props.signInClick}>
+            <Link className="unsubscribeButtons2 text-decoration-none"  onClick={props.signInClick}>
                 Sign in
             </Link>
         </div>

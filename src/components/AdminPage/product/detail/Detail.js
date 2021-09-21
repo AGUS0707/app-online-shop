@@ -7,11 +7,14 @@ import {Link} from "react-router-dom";
 
 
 const Detail = (props) => {
+    let user=props.userReducer;
 
     useEffect(() => {
-        if (props.history.location.pathname === "/admin/product/detail"){
-            props.getDetail()
-        }
+       if (user.role_id === "1"){
+           if (props.history.location.pathname === "/admin/product/detail"){
+               props.getDetail()
+           }
+       }
     }, [])
 
     return (
@@ -105,7 +108,8 @@ const Detail = (props) => {
 const mapStateToProps = (state) => {
     return {
         detaildata: state.product.detaildata,
-        selectedItemDetail: state.product.selectedItemDetail
+        selectedItemDetail: state.product.selectedItemDetail,
+        userReducer: state.userReducer.userObject
     }
 }
 

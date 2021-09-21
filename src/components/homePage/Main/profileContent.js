@@ -16,7 +16,7 @@ function ProfileContent(props) {
     return (
         <div className="profileContent">
             <div className="container">
-                <div className="profileContentMenu">
+                <div className="profileContentMenu d-flex align-items-start ">
                     <div className="profileContentLeft">
                         <div className="profile-menu-text">
                             Menyu

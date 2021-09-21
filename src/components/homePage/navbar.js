@@ -6,9 +6,11 @@ import {connect} from "react-redux";
 import Modal from "./Main/modal"
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
+import Cookies from "js-cookie";
 function Navbar(props) {
     const [sign, setSign]=React.useState(true);
     const [modal, setModal]=useState(false);
+    let userCheck=props.userCheckReducer.userCheck;
     const openModal=()=>{
         setModal(true);
     };
@@ -26,7 +28,9 @@ function Navbar(props) {
     function clearUser() {
        props.clearUserCheck(false);
        props.clearUserRedux({});
-       axios.get(API_PATH+'logout')
+       localStorage.setItem("shoppingCardList", "");
+       props.shoppingCardCountFunction(0);
+       axios.get(API_PATH+'logout', {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
     }
 
     return (
@@ -50,9 +54,10 @@ function Navbar(props) {
                                 </li>
                             </ul>
                             <span>
-                            <img src="/images/arrow-down-filled-triangle.svg"
-                                 alt="no images"/>
-                        </span>
+                                <img src="/images/arrow-down-filled-triangle.svg"
+                                 alt="no images"
+                                />
+                            </span>
                         </Link>
                     </li>
                     <li className="nav-item">
@@ -86,7 +91,7 @@ function Navbar(props) {
                             </Link>
                         </div>
                         <div className="account">
-                            <Link to={"/"} className={"accountText"}>
+                            <Link to={userCheck? "/home/profile": "/"} className={"accountText"} onClick={userCheck?"": openModal}>
                                 <span></span>
                                 Account
                             </Link>
@@ -95,25 +100,25 @@ function Navbar(props) {
                             <div className="accountBar">
                                 <div className="userContact">
                                     <div className="userContactContent">
-                                        <div className={` ${props.userCheckReducer.userCheck?"userContactImg": "userContactImgNone"}`}>
+                                        <div className={` ${userCheck?"userContactImg": "userContactImgNone"}`}>
                                             <img src={`${props.userReducer.userObject.photo===null? "https://tezchange.ru/online-shop/storage/app/user/profile.png": props.userReducer.userObject.photo}`} alt=""/>
                                         </div>
-                                        <div className={`userNamee ${props.userCheckReducer.userCheck? "": "userNameNone"}`}>
+                                        <div className={`userNamee ${userCheck? "": "userNameNone"}`}>
                                             Xush kelibsiz <br/>
                                             {
-                                                props.userCheckReducer.userCheck===true? props.userReducer.userObject.email: " "
+                                                userCheck===true? props.userReducer.userObject.email: " "
                                             }
                                         </div>
                                     </div>
                                 </div>
-                                <Link to="/" onClick={clearUser} className={`${props.userCheckReducer.userCheck===true? "sign-out-block":"sign-out-none"}`}>Sign Out</Link>
-                                <hr className={props.userCheckReducer.userCheck? "": "hrNone"}/>
-                                <div className={` ${props.userCheckReducer.userCheck===true? "userBlock": "userNone"}`}>
+                                <Link to="/" onClick={clearUser} className={`${userCheck===true? "sign-out-block":"sign-out-none"}`}>Sign Out</Link>
+                                <hr className={userCheck? "": "hrNone"}/>
+                                <div className={` ${userCheck===true? "userBlock": "userNone"}`}>
                                     <p>Welcome to AliExpress</p>
                                     <LoginsLink registrClick={registrClick} signInClick={signInClick}/>
                                 </div>
                                 <ul className="accountMenu">
-                                    <li className="accountMenuItem"><Link className={"accountMenuItemLink"} to={"/"}>Muy Order</Link></li>
+                                    <li className="accountMenuItem"><Link className={"accountMenuItemLink"} to={userCheck?"/home/profile/orders": "/"} onClick={userCheck? "": openModal}>Mening buyurtmalarim</Link></li>
                                     <li className="accountMenuItem"><Link className={"accountMenuItemLink"} to={"/"}>Muy Massege</Link></li>
                                     <li className="accountMenuItem"><Link className={"accountMenuItemLink"} to={"/"}>Muy Order</Link></li>
                                     <li className="accountMenuItem"><Link className={"accountMenuItemLink"} to={"/"}>Muy Order</Link></li>
@@ -143,6 +148,12 @@ function mapDispatchToProps(dispatch) {
             dispatch({
                 type: "DELETE_USER",
                 payload: delete_user
+            })
+        },
+        shoppingCardCountFunction:function (count) {
+            dispatch({
+                type:"SHOPPING_CARD_COUNT",
+                payload:count
             })
         }
     }

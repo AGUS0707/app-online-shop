@@ -8,8 +8,13 @@ import {saveDetail} from "../../../../redux/actions/productAction";
 
 const DetailAdd = (props) => {
 
+
+    let user=props.userReducer;
+
     useEffect(()=>{
-        props.getCategory()
+       if (user.role_id === "1"){
+           props.getCategory()
+       }
     },[])
 
 
@@ -57,6 +62,7 @@ const DetailAdd = (props) => {
 const mapStateToProps = (state) => {
     return {
         category: state.category.category,
+        userReducer: state.userReducer.userObject
     }
 }
 

@@ -72,6 +72,7 @@
             }
             .categoryListItem{
               cursor: pointer;
+              position: relative;
               .categoryListItemLink{
                 text-decoration: none;
                 font-size: 13px;
@@ -89,6 +90,51 @@
                   letter-spacing: 1px;
                 }
               }
+
+              .sub-category{
+                background-color: white;
+                position: absolute;
+                z-index: 9999;
+                top: -25px;
+                right: -15px;
+                left: -15px;
+                padding: 10px;
+                box-shadow: 1px 1px 5px black;
+                border-radius: 10px;
+                b{
+                  color: black;
+                }
+                p{
+                  color: #333;
+                }
+
+                .closeDiv{
+                  position: absolute;
+                  z-index: 99999999999;
+                  right: -20px;
+                  top: -20px;
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background-color: darkgrey;
+                  cursor: pointer;
+
+
+                  &:hover{
+                    background-color: white;
+                    border: 1px solid darkgrey;
+                    box-shadow: 0 0 10px black;
+                    span{
+                      background-color: #d2d2d2;
+                    }
+                  }
+                }
+              }
+
+
             }
           }
         }
@@ -96,7 +142,6 @@
       .mainCenter{
         width: 58%;
         margin: 15px 15px;
-        position: relative;
         .aliceCarousel{
           &:hover{
             .alice-carousel{
@@ -216,47 +261,7 @@
               }
             }
           }
-        }
-        .sub-category{
-          background-color: white;
-          position: absolute;
-          z-index: 9999;
-          top: -25px;
-          right: -15px;
-          left: -15px;
-          padding: 10px;
-          box-shadow: 1px 1px 5px black;
-          border-radius: 10px;
-          b{
-            color: black;
-          }
-          p{
-            color: #333;
-          }
-
-          .closeDiv{
-            position: absolute;
-            z-index: 99999999999;
-            right: -20px;
-            top: -20px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: darkgrey;
-            cursor: pointer;
-
-            &:hover{
-              background-color: black;
-              span{
-                background-color: red;
-              }
-            }
-          }
-        }
-      }
+        } }
       .mainRight{
         width: 21%;
         background-color: #f2f2f2;

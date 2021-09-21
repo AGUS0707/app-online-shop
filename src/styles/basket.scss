@@ -78,6 +78,7 @@
                 display: flex;
                 .shoppingCardItemMainLeft{
                   width: 24%;
+                  padding-right: 5px;
                   .shoppingProductCheck{
                     .shoppingProductCheckk{
                       position: relative;
@@ -110,6 +111,17 @@
                         background-color: #fff;
                         width: 15px!important;
                         height: 15px!important;
+                      }
+                    }
+                    .shoppingProductImg{
+                      width: 120px;
+                      height: 120px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      img{
+                        width: 100%;
+                        height: 100%;
                       }
                     }
                   }
@@ -211,21 +223,21 @@
                   }
                 }
               }
-              .d-flex{
-                .purchaseButton{
-                  border-style: solid;
-                  background-color: #ff4747;
-                  border-color: transparent;
-                  display: block;
-                  border-radius: 4px;
-                  padding: 0 50px;
-                  line-height: 34px;
-                  font-size: 14px;
-                  border-width: 1px;
-                  color: #fff;
-                  margin-top: 40px;
-                }
-              }
+              //.d-flex{
+              //  .purchaseButton{
+              //    border-style: solid;
+              //    background-color: #ff4747;
+              //    border-color: transparent;
+              //    display: block;
+              //    border-radius: 4px;
+              //    padding: 0 50px;
+              //    line-height: 34px;
+              //    font-size: 14px;
+              //    border-width: 1px;
+              //    color: #fff;
+              //    margin-top: 40px;
+              //  }
+              //}
             }
           }
         }
@@ -292,10 +304,11 @@
         }
       }
       .col-md-3{
+        position: relative;
         padding: 0;
         .shoppingCardRight{
           position: sticky;
-          top: 0;
+          top: 20px;
           background-color: #fff;
           padding: 20px 20px;
           border-radius: 8px;
@@ -314,9 +327,9 @@
               color: #333;
             }
           }
-          .deliveryText{
-            font-size: 14px;
-          }
+          //.deliveryText{
+          //  font-size: 14px;
+          //}
           .total{
             margin-bottom: 25px;
             .totalText{
@@ -329,8 +342,10 @@
             }
           }
           .totalPurchaseButton{
+            text-decoration: none;
             display: flex;
             justify-content: center;
+            margin-bottom: 2px;
             button{
               line-height: 42px;
               font-size: 16px;
@@ -340,10 +355,74 @@
               border: none;
               border-radius: 8px;
               white-space: nowrap;
+              transition: all 0.04s;
+              margin-bottom: 20px;
+              &:hover{
+                opacity: 0.9;
+              }
             }
+          }
+          .validationText{
+            opacity: 0;
+            transition: all 0.19s;
+            button{
+              font-size: 12px;
+              text-align: center;
+              border:1px solid #e62e04 ;
+              border-radius: 4px;
+              white-space: nowrap;
+              padding: 11px 19px;
+              color: #e62e04;
+              max-width: 235px;
+              background-color: #fff;
+              position: absolute;
+              bottom: -26px;
+              left: 50%;
+              transform: translateX(-50%);
+              z-index: 100;
+            }
+            button:before{
+              content: '';
+              position: absolute;
+              width: 20px;
+              height: 20px;
+              background-color: white;
+              border: 1px solid #ff4747;
+              top: -10px;
+              left: 50%;
+              margin-left: -10px;
+              transform: rotate(45deg);
+              border-bottom-color: transparent;
+              border-right-color: transparent;
+              z-index: -1;
+
+              //transform: translateX(-50%);
+            }
+          }
+          .validationTextBlock{
+            opacity: 1;
           }
         }
       }
     }
+  }
+}
+.defaultCard{
+  padding: 20px 30px;
+  .basketImgDefault{
+    margin: 0 auto;
+    width: 220px;
+    height: 207px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .basketTextDefault{
+    font-size: 28px;
+    margin-top: 30px;
+    text-align: center;
+    font-weight: 700;
+    line-height: 38px;
   }
 }

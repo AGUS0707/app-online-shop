@@ -4,51 +4,62 @@ import axios from "axios";
 import {API_PATH} from "../../tools/constants";
 import {toast} from "react-toastify";
 import {connect} from "react-redux";
+import Cookies from "js-cookie";
 
 function BrandForm(props) {
+    const [brand, setBrand]=useState({
+        brand_name:"", is_active:""
+    });
+
     const [brandImg, setBranchImg]=useState('/images/page.webp');
     const [brandNameCheck, setBrandNameCheck]=useState(false);
     const [activeCheck, setActiveCheck]=useState(false);
     const [imgCheck, setImgCheck]=useState(false);
-    const handleInputChange= (e ) => {
+    function handleInputChange (e ) {
         if (e.target.name==="brand_name"&&e.target.value.length>0){
             setBrandNameCheck(false);
         }
-        if (e.target.name==="is_active"&&e.target.value.length>0)
+        if (e.target.name==="is_active"&&e.target.value.length>0) {
             setActiveCheck(false);
+        }
 
 
-        if (e.target.name==="file"&&e.target.files[0]!==undefined){
+
+        if (e.target.name === "file"){
+            if (e.target.files[0]!==undefined){
+                let newBrand;
+                let imgUrl;
+                imgUrl=URL.createObjectURL(e.target.files[0]);
+                setBranchImg(imgUrl);
+                newBrand={
+                    ...brand,
+                    [e.target.name]:e.target.files[0]
+                };
+                setBrand(newBrand);
                 setImgCheck(false);
-            let newUrl=URL.createObjectURL(e.target.files[0]);
-            setBranchImg(newUrl);
+            }
+        }else if (e.target.name !== "file") {
             let newBrand={
-                ...props.brandReducer.brandObject,
-                [e.target.name]:e.target.files[0]
-            };
-            props.changeBrandObject(newBrand)
-        }else {
-            let newBrand={
-                ...props.brandReducer.brandObject,
+                ...brand,
                 [e.target.name]:e.target.value
             };
-            props.changeBrandObject(newBrand)
+           setBrand(newBrand);
         }
-    };
+    }
     const addBrand=()=> {
         const formData= new FormData();
-        formData.append('brand_name', props.brandReducer.brandObject.brand_name);
-        formData.append('is_active', props.brandReducer.brandObject.is_active);
-        formData.append('file', props.brandReducer.brandObject.file);
-        if (props.brandReducer.brandObject.brand_name.length<=0){
+        formData.append('brand_name', brand.brand_name);
+        formData.append('is_active', brand.is_active);
+        formData.append('file', brand.file);
+        if (brand.brand_name.length<=0){
             setBrandNameCheck(true);
         }
-        if (props.brandReducer.brandObject.is_active.length<=0)
+        if (brand.is_active.length<=0)
             setActiveCheck(true);
-        if (props.brandReducer.brandObject.file===undefined)
+        if (brand.file===undefined)
             setImgCheck(true);
-        if (props.brandReducer.brandObject.brand_name.length>0&&props.brandReducer.brandObject.is_active.length>0&&props.brandReducer.brandObject.file!==undefined){
-            axios.post(API_PATH+'crbrand', formData).then((response)=>{
+        if (brand.brand_name.length>0&&brand.is_active.length>0&&brand.file!==undefined){
+            axios.post(API_PATH+'crbrand', formData, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
                 toast.success("Brand muvofiqiyatli qoshildi")
             })
         }else {
@@ -93,7 +104,7 @@ function BrandForm(props) {
                                     <span>*</span> Brand nomi
                                 </div>
                                 <div className="col-sm-10">
-                                    <input defaultValue={props.brandReducer.brandObject.brand_name} type="text"  placeholder="Brand nomi" onChange={handleInputChange} name="brand_name"  className="form-control"  />
+                                    <input  type="text"  placeholder="Brand nomi" onChange={handleInputChange} name="brand_name"  className="form-control"  />
                                 </div>
                             </div>
                         </div>
@@ -104,7 +115,7 @@ function BrandForm(props) {
                                     <span>*</span> Is_active
                                 </div>
                                 <div className="col-sm-10">
-                                    <select  name="is_active" defaultValue={props.brandReducer.brandObject.is_active}   className="form-control" onChange={handleInputChange}  >
+                                    <select  name="is_active"    className="form-control" onChange={handleInputChange}  >
                                         <option value="">choose</option>
                                         <option value="1">Activ</option>
                                         <option value="0">Activ emas</option>
@@ -136,7 +147,6 @@ function BrandForm(props) {
                                 </div>
                             </div>
                         </div>
-                        <hr/>
                     </div>
                 </div>
             </div>
@@ -145,12 +155,7 @@ function BrandForm(props) {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        changeBrandObject:function (object) {
-            dispatch({
-                type:"BRAND",
-                payload:object
-            })
-        }
+
     }
 }
 function mapStateToProps(state) {

@@ -3,6 +3,7 @@ import axios from "axios";
 import {API_PATH} from "../../tools/constants";
 import {toast} from "react-toastify";
 import {getRole} from "./categoryAction";
+import Cookies from "js-cookie";
 
 
 
@@ -16,11 +17,12 @@ export function set_state2(data) {
 export function saveCountry(event, errors, values, history) {
     return function (dispatch) {
         if (values.country_uz.length > 0 && values.country_ru.length > 0){
-            axios.post(API_PATH + "crcountry", values)
+            axios.post(API_PATH + "crcountry", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                 .then((res) => {
                     toast.success("Ma'lumotlar saqlandi")
                     dispatch({type: ""})
                     history.push("/admin/addres/country")
+                    dispatch(getCountry)
                 })
                 .catch((res) => {
                     toast.error("Ma'lumotlar saqlanmadi")
@@ -29,13 +31,13 @@ export function saveCountry(event, errors, values, history) {
     }
 }
 export const getCountry = () => (dispatch) => {
-    axios.get(API_PATH +"country")
+    axios.get(API_PATH +"country", {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
         .then((res) => {
             dispatch(set_state2({country: res.data}))
         })
 };
 export const deleteCountry = () => (dispatch,getsatte) => {
-    axios.post(API_PATH +"delcountry", {id:getsatte().address.selectedIndexCountry})
+    axios.post(API_PATH +"delcountry", {id:getsatte().address.selectedIndexCountry}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
         .then((res) => {
             dispatch(getCountry())
             dispatch(set_state2({open1:false}))
@@ -43,7 +45,7 @@ export const deleteCountry = () => (dispatch,getsatte) => {
 };
 export function upCountry(event, errors, values, history) {
     return function (dispatch) {
-        axios.post(API_PATH + "upcountry", values)
+        axios.post(API_PATH + "upcountry", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 toast.success("O'zgardi")
                 dispatch({type: ""})
@@ -58,11 +60,12 @@ export function upCountry(event, errors, values, history) {
 export function saveRegion(event, errors, values, history) {
     return function (dispatch) {
         if (values.region_uz.length > 0 && values.region_ru.length > 0 && values.country_id.length !== undefined){
-            axios.post(API_PATH + "crregion", values)
+            axios.post(API_PATH + "crregion", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                 .then((res) => {
                     toast.success("Ma'lumotlar saqlandi")
                     dispatch({type:""})
                     history.push("/admin/addres/region")
+                    dispatch(getRegion)
                 })
                 .catch((res) => {
                     toast.error("Ma'lumotlar saqlanmadi")
@@ -71,13 +74,13 @@ export function saveRegion(event, errors, values, history) {
     }
 }
 export const getRegion = () => (dispatch) => {
-    axios.get(API_PATH +"regions")
+    axios.get(API_PATH +"regions", {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
         .then((res) => {
             dispatch(set_state2({region: res.data}))
         })
 };
 export const deleteRegion = () => (dispatch,getsatte) => {
-    axios.post(API_PATH +"delregion", {id:getsatte().address.selectedIndexRegion})
+    axios.post(API_PATH +"delregion", {id:getsatte().address.selectedIndexRegion}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
         .then((res) => {
             dispatch(getRegion())
             dispatch(set_state2({open1:false}))
@@ -85,7 +88,7 @@ export const deleteRegion = () => (dispatch,getsatte) => {
 };
 export function upRegion(event, errors, values, history) {
     return function (dispatch) {
-        axios.post(API_PATH + "upregion", values)
+        axios.post(API_PATH + "upregion", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 toast.success("O'zgardi")
                 dispatch({type:""})
@@ -100,7 +103,7 @@ export function upRegion(event, errors, values, history) {
 export function saveDistrict(event, errors, values, history) {
     return function (dispatch) {
        if (values.district_uz.length > 0 && values.district_ru.length > 0 && values.region_id.length !== undefined){
-           axios.post(API_PATH + "crdistrict", values)
+           axios.post(API_PATH + "crdistrict", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                .then((res) => {
                    toast.success("Ma'lumotlar saqlandi")
                    dispatch({type: ""})
@@ -113,13 +116,13 @@ export function saveDistrict(event, errors, values, history) {
     }
 }
 export const getDistrict = () => (dispatch) => {
-    axios.get(API_PATH +"districts")
+    axios.get(API_PATH +"districts", {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
         .then((res) => {
             dispatch(set_state2({district: res.data}))
         })
 };
 export const deleteDistrict = () => (dispatch,getsatte) => {
-    axios.post(API_PATH +"deldistrict", {id:getsatte().address.selectedIndexDistrict})
+    axios.post(API_PATH +"deldistrict", {id:getsatte().address.selectedIndexDistrict}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
         .then((res) => {
             dispatch(getDistrict())
             dispatch(set_state2({open1:false}))
@@ -127,7 +130,7 @@ export const deleteDistrict = () => (dispatch,getsatte) => {
 };
 export function upDistrict(event, errors, values, history) {
     return function (dispatch) {
-        axios.post(API_PATH + "updistrict", values)
+        axios.post(API_PATH + "updistrict", values, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 toast.success("O'zgardi")
                 dispatch({type: ""})

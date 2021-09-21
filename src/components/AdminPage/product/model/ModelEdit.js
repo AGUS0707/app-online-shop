@@ -7,8 +7,12 @@ import {getBrand, upModel} from "../../../../redux/actions/productAction";
 const ModelEdit = (props) => {
     
     useEffect(()=>{
-        props.getBrand()
+        if (user.role_id === "1"){
+            props.getBrand()
+        }
     },[])
+
+    let user=props.userReducer;
 
     return (
         <Model history={props.history}>
@@ -54,7 +58,8 @@ const ModelEdit = (props) => {
 const mapStateToProps = (state) => {
     return{
         data:state.product.data,
-        selectedItemModel: state.product.selectedItemModel
+        selectedItemModel: state.product.selectedItemModel,
+        userReducer: state.userReducer.userObject
     }
 }
 

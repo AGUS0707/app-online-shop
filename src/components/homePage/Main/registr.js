@@ -6,6 +6,7 @@ import axios from "axios";
 import useStateRef from "react-usestateref";
 import {connect} from "react-redux";
 import {API_PATH} from "../../../tools/constants"
+import Cookies from 'js-cookie'
 
 function Registr(props) {
     const passwordRef=useRef(null);
@@ -79,6 +80,8 @@ function Registr(props) {
                 props.addUserCheck(true);
                 closeModall();
                 toast.success("Kirish muvofiqiyatli yakunlandi");
+                // localStorage.setItem("token", response.data.token)
+                Cookies.set('jwt', response.data.token)
             });
     }
 
@@ -101,7 +104,7 @@ function Registr(props) {
                             localstorageUser={
                                 id:response.data.id,
                                 email:response.data.email,
-                                phone:response.data.phone,
+                                phone:"",
                                 photo:response.data.photo,
                                 alt_name:response.data.alt_name,
                                 role_id:response.data.role_id
@@ -112,6 +115,8 @@ function Registr(props) {
                             passwordRef.current.value=null;
                             closeModall()
                         }
+                        // localStorage.setItem("token", response.data.token)
+                        Cookies.set('jwt', response.data.token)
                     });
             }else if (validate()){
                 setaFormCheck(true);
@@ -163,16 +168,16 @@ function Registr(props) {
                 </button>
                 <div className="signIcons">
                     <div className="signIcon">
-                        <img src="images/vkontakte.svg" alt="no images"/>
+                        <img src="/images/vkontakte.svg" alt="no images"/>
                     </div>
                     <div className="signIcon">
-                        <img src="images/facebook (1).svg" alt="no images"/>
+                        <img src="/images/facebook (1).svg" alt="no images"/>
                     </div>
                     <div className="signIcon">
-                        <img src="images/odnoklassniki.svg" alt="no images"/>
+                        <img src="/images/odnoklassniki.svg" alt="no images"/>
                     </div>
                     <div className="signIcon">
-                        <img src="images/google.svg" alt="no images"/>
+                        <img src="/images/google.svg" alt="no images"/>
                     </div>
                 </div>
             </div>

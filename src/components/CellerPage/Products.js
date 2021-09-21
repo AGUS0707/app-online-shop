@@ -10,7 +10,7 @@ const Products = (props) => {
         <>
             <Switch>
                 <Route path="/seller/products"  exact component={ProductList}/>
-                <Route path="/seller/products/form/edit" component={ProductFormEdit}/>
+                <Route path="/seller/products/form/edit" exact component={ProductFormEdit}/>
                 <Route path="/seller/products/form" exact  component={ProductForm}/>
             </Switch>
         </>

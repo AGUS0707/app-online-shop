@@ -5,6 +5,7 @@ import axios from "axios";
 import {API_PATH} from "../../../../tools/constants";
 import {toast} from "react-toastify";
 import {connect} from "react-redux";
+import Cookies from "js-cookie";
 
 const BrandEdit = (props) => {
 
@@ -28,7 +29,7 @@ const BrandEdit = (props) => {
            data1.append("id",props.selectedItem.id)
 
 
-           axios.post(API_PATH + "upbrand", data1)
+           axios.post(API_PATH + "upbrand", data1, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                .then((res) => {
                    toast.success("O'zgardi")
                    history.push("/admin/product/brand")

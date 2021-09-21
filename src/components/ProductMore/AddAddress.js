@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
+import Cookies from "js-cookie";
+import {toast} from "react-toastify";
 
 const AddAddress = (props) => {
 
     useEffect(()=>{
 
-        axios.post(API_PATH + "address", {id: data.id})
+        axios.post(API_PATH + "address", {id: data.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 props.setAddress(res.data)
             })
@@ -20,7 +22,8 @@ const AddAddress = (props) => {
 
         props.setOpen1(false)
 
-        console.log(props.address)
+        // console.log(props.address)
+
 
 
     }

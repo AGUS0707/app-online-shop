@@ -7,8 +7,11 @@ import {getBrand, saveModel} from "../../../../redux/actions/productAction";
 const ModelAdd = (props) => {
 
     useEffect(()=>{
-        props.getBrand()
+        if (user.role_id === "1"){
+            props.getBrand()
+        }
     },[])
+    let user=props.userReducer;
 
     return (
         <Model history={props.history}>
@@ -53,6 +56,7 @@ const ModelAdd = (props) => {
 const mapStateToProps = (state) => {
     return{
         data:state.product.data,
+        userReducer: state.userReducer.userObject
     }
 }
 

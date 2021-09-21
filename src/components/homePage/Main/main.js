@@ -16,12 +16,12 @@ function Main(props) {
             <div className="container p-0">
                 <div className="mainContent">
                     <div className="mainLeft">
-                       <Category/>
+                       <Category setIsLoadingCat={props.setIsLoadingCat}/>
                     </div>
                     <div className="mainCenter">
                        <AliceCarouselComponent/>
 
-                        {props.subCategoryOpen ?  <SubCategory/> : ""}
+                        {/*{props.subCategoryOpen ?  <SubCategory/> : ""}*/}
 
 
                     </div>

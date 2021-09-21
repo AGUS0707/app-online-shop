@@ -9,6 +9,15 @@ import brandReducer from "./brandReducer"
 import brandListReducer from "./brandListReducer"
 import productReducerSeller from "./productReducerSeller"
 import productListReducerSeller from "./productListReducerSeller"
+import detailsListReducer from "./detailsListReducer";
+import valuesListReducer from "./valuesListReducer";
+import detailsHtmlListReducer from "./detailstHtmlListReducer";
+import countReducer from "./countReducer";
+import detailsChangeListReducer from "./detailsChangeListReducer";
+import valueChangeListReducer from "./valueChangeList";
+import shoppingCardListReducer from "./shoppingCardListReducer";
+import shoppingCardCountReducer from "./shoppingCardCountReducer";
+
 
 
 export const rootReducer = combineReducers({
@@ -21,7 +30,16 @@ export const rootReducer = combineReducers({
     brandReducer,
     brandListReducer,
     productReducerSeller,
-    productListReducerSeller
+    productListReducerSeller,
+    detailsListReducer,
+    valuesListReducer,
+    detailsHtmlListReducer,
+    countReducer,
+    detailsChangeListReducer,
+    valueChangeListReducer,
+    shoppingCardListReducer,
+    shoppingCardCountReducer
+
 
 
 

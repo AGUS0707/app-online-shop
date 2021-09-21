@@ -5,15 +5,17 @@ import {API_PATH} from "../../../tools/constants";
 import ShippingAddressForm from "../../CellerPage/shippingAddressForm";
 import {Modal, ModalBody} from "reactstrap";
 import {toast} from "react-toastify";
+import Cookies from "js-cookie";
 
 
 
 function ShippingAddress(props) {
 
     useEffect(()=>{
-        axios.post(API_PATH + "address", {id: data.id})
+        axios.post(API_PATH + "address", {id: data.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 setAddress(res.data)
+                setLoader(false)
             })
 
     },[])
@@ -22,6 +24,8 @@ function ShippingAddress(props) {
     const [open, setOpen] = useState(false)
     const [open2, setOpen2] = useState(false)
     const [Id, setId] = useState("")
+    const [loader, setLoader] = useState(true)
+
 
     let data = JSON.parse(localStorage.getItem('user'))
 
@@ -33,11 +37,12 @@ function ShippingAddress(props) {
 
     }
     function deleteAddres() {
-        axios.post(API_PATH + "deladdress", {id: Id})
+        axios.post(API_PATH + "deladdress", {id: Id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 toast.success("O'chdi brat")
+                console.log(res)
                 setOpen2(false)
-                axios.post(API_PATH + "address", {id: data.id})
+                axios.post(API_PATH + "address", {id: data.id},{headers:{"Authorization": "Bearer " + Cookies.get('jwt')}} )
                     .then((res)=>{
                         setAddress(res.data)
                     })
@@ -90,7 +95,7 @@ function ShippingAddress(props) {
                                    </div>
                                })
                            }
-                       </div> : <div className="col-md-12">
+                       </div> : <div className="col-md-12 toy">
                            <Link to="/home/profile/shipping-address/form" className="addAddressLink">
                                <button>
                                    <div className="plusImg"></div>
@@ -116,10 +121,10 @@ function ShippingAddress(props) {
 
                     <Modal isOpen={open2} toggle={()=>{setOpen2(false)}}>
                         <ModalBody>
-                            <h3>Rostdan ham o'chirmoqchimisiz?</h3>
+                            <h3 className="text-center mb-3">Rostdan ham o'chirmoqchimisiz?</h3>
                             <div className="d-flex align-items-center justify-content-between">
-                                <button type="button" onClick={deleteAddres}>Ha</button>
-                                <button type="button" onClick={()=>setOpen2(false)}>Yo'q</button>
+                                <button type="button" className="btn btn-success" onClick={deleteAddres}>Ha</button>
+                                <button type="button" className="btn btn-danger" onClick={()=>setOpen2(false)}>Yo'q</button>
                             </div>
 
                         </ModalBody>

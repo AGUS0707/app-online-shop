@@ -8,19 +8,62 @@ import {getCategory, saveCategory, set_state} from "../../../redux/actions/categ
 
 const CategoryAdd = (props) => {
 
+
+    const [sub, setSub]=useState(false)
+    const [category, setCategory] = useState({})
+
     const filterList = (e) => {
         props.set_state({value: e.target.value})
         props.set_state({submenu1: !props.submenu1})
     }
+    let user=props.userReducer;
 
     useEffect(()=>{
-        props.getCategory()
+        if (user.role_id === "1"){
+            props.getCategory()
+        }
     }, [])
 
+    function handleInputChange(e) {
+
+        if (!sub){
+            // let newCategory2={
+            //     ...category,
+            //     category_id: 0
+            // };
+            // setCategory(newCategory2);
+
+            let newCategory={
+                ...category,
+                [e.target.name]:e.target.value,
+                category_id: 0
+            };
+            setCategory(newCategory);
+
+        } else
+        {
+            
+        }
+
+    }
+
+    function handleInputChangeCheck(e){
+
+        if (e.target.checked){
+
+            setSub(true)
+
+        } else
+        {
+            setSub(false)
+        }
+
+    }
+
+    console.log(category)
 
     return (
         <Category history={props.history}>
-            <AvForm onSubmit={(event, errors, values) => {props.saveCategory(event, errors, values, props.history)}}>
 
                 <div className="row">
                     <div className="col-10 offset-1">
@@ -34,57 +77,48 @@ const CategoryAdd = (props) => {
                 <div className="row mt-5">
                     <div className="col-10 offset-1">
 
-                        <AvField type="text" label="category-uz" name="category_uz" placeholder="Category-uz" className="form-control w-100" required/>
-                        <AvField type="text" label="category-ru" name="category_ru" placeholder="Category-ru" className="form-control w-100" required/>
-                        <AvField type="text" label="index" name="index" placeholder="Index" className="form-control w-100" required/>
-                        <AvField type="select" label="is_active" name="is_active" placeholder="Active" className="form-control w-100" required>
+                        <label htmlFor="1" className="mt-3">category-uz</label>
+                        <input type="text" id="1" className="form-control w-100"  name="category_uz" onChange={handleInputChange} placeholder="Category-uz" required/>
+
+                        <label htmlFor="2" className="mt-3">category-ru</label>
+                        <input type="text" id="2" className="form-control w-100"  name="category_ru" onChange={handleInputChange} placeholder="Category-ru" required/>
+
+                        <label htmlFor="3" className="mt-3">index</label>
+                        <input type="text" id="3" className="form-control w-100"  name="index" onChange={handleInputChange} placeholder="Index" required/>
+
+                        <label htmlFor="4" className="mt-3">is_active</label>
+                        <select id="4" className="form-control w-100"  name="is_active" onChange={handleInputChange} placeholder="Is_active" required>
                             <option>Choose</option>
                             <option value="1">Active</option>
                             <option value="0">NoActive</option>
-                        </AvField>
+                        </select>
 
 
-                        <AvField type="select" label="Which category" name="category_id" onChange={(e)=>
-                        {
-                            e.target.value !== "0" ? props.set_state({submenu: true}) : props.set_state({submenu: false})
-                            console.log(e.target.value)
-                        }
-                        }>
-                            <option>Choose</option>
-                            <option value="0">Bosh category</option>
-                            <option>Sub category</option>
-                        </AvField>
-                        {
-                            props.submenu ? <AvField type="select" label="Sub Category" name="category_id" onChange={filterList} className="form-control w-100">
-                                <option>Tanlang</option>
-                                {
-                                    props.category.map((item, index) => {
+                        <input type="checkbox" id="5" onChange={handleInputChangeCheck} placeholder="Index" required/>
+                        <label htmlFor="5" className="mt-3 ml-2">Sub category</label>
 
-                                        if (item.category_id === "0"){
-                                            return <option value={item.id}>{item.category_uz}</option>
-                                        }
+                       <div>
+                           {
+                               sub ? <>
+                                   <label htmlFor="6" className="mt-3">Sub Category</label>
+                                   <select id="6" className="form-control w-100"  name="category_id" onChange={handleInputChange} required>
+                                       <option>Choose</option>
+                                       {
+                                           props.category.map((item)=>{
+                                               return item.category_id === "0" ? <option value={item.id}>{item.category_uz}</option> : ""
+                                           })
+                                       }
+                                   </select>
+                               </> : ""
+                           }
 
-                                    })
-                                }
-                            </AvField> : "" }
-                        {props.submenu1 ? <input type="checkbox" id="5" onClick={() => props.set_state({submenu2: !props.submenu2})}/> : ""}
-                        {props.submenu1 ? <label htmlFor="5">Sub sub category</label> : ""}
-                        { props.submenu2 ? <AvField type="select" label="Sub sub Category" name="category_id" className="form-control w-100">
-                            <option>Tanlang</option>
-                            {
-                                props.category.map((item, index) => {
+                       </div>
 
-                                    if (item.category_id === props.value){
-                                        return <option value={item.id}>{item.category_uz}</option>
-                                    }
-                                })
-                            }
-                        </AvField> : ""}
+
 
                     </div>
                 </div>
 
-            </AvForm>
         </Category>
     );
 };
@@ -95,7 +129,8 @@ const mapStateToProps = (state) => {
         submenu: state.category.submenu,
         submenu1: state.category.submenu1,
         submenu2: state.category.submenu2,
-        value: state.category.value
+        value: state.category.value,
+        userReducer: state.userReducer.userObject
     }
 };
 

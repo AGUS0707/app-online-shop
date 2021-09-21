@@ -8,8 +8,6 @@ function SignIn(props) {
         if (props.history!==undefined)
             return props.history
     }
-    console.log(props)
-
     if (props.sign===true){
         return (
             <>
