@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 function ReceiveEmail(props) {
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    }, []);
     const [clickBtn, setClickBtn]=React.useState(false);
     function clickbtn() {
         setClickBtn(!clickBtn);

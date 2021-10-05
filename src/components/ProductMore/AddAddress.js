@@ -4,20 +4,26 @@ import {API_PATH} from "../../tools/constants";
 import Cookies from "js-cookie";
 import {toast} from "react-toastify";
 
-const AddAddress = (props) => {
+const   AddAddress = (props) => {
 
     useEffect(()=>{
 
         axios.post(API_PATH + "address", {id: data.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
             .then((res)=>{
                 props.setAddress(res.data)
+
             })
 
     }, [])
 
     function Add(id) {
-        props.address.map((item)=>{
-            return item.id === id ? props.setAddress1(item) : ""
+        props.address.filter((item)=>{
+            if (item.id === id) {
+                props.setAddress1(item)
+
+                props.setaddres(item)
+
+            }
         })
 
         props.setOpen1(false)

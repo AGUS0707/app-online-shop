@@ -21,7 +21,9 @@ function Main(props) {
                     <div className="mainCenter">
                        <AliceCarouselComponent/>
 
-                        {/*{props.subCategoryOpen ?  <SubCategory/> : ""}*/}
+                        {
+                            window.innerWidth > 576 ? props.subCategoryOpen ?  <SubCategory/> : "" : ""
+                        }
 
 
                     </div>

@@ -1,0 +1,31 @@
+
+.mediaproducts{
+  @media (max-width: 676px){
+    display: block!important;
+  }
+  @media (min-width: 676px){
+    display: none!important;
+  }
+  img{
+    @media (max-width: 676px){
+      height: 160px!important;
+    }
+  }
+}
+.nomediaproduct{
+  @media (max-width: 676px){
+    display: none!important;
+  }
+  @media (min-width: 676px){
+    display: block!important;
+  }
+}
+
+.searchdatabe{
+  @media (max-width: 576px){
+    min-width: 50% !important;
+    .media-img{
+      width: 80% !important;
+    }
+  }
+}

@@ -20,6 +20,9 @@
     transform: translate(-50%, -50%);
     opacity: 0;
     border-radius: 4px;
+    @media screen and (max-width: 576px){
+      width: 90%;
+    }
     &::-webkit-scrollbar{
       width: 1px;
       background-color: transparent;
@@ -28,7 +31,8 @@
       background: transparent;
     }
     .addressListCard{
-      padding: 20px 30px;
+      padding: 10px 15px;
+      opacity: 0;
       .cancelImg{
         position: relative;
         top: -10px;
@@ -41,37 +45,46 @@
         }
       }
       h3{
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 34px;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
       }
       .addressList{
         .addressListItem{
-          padding: 12px 20px;
+          padding: 8px 15px;
           margin-bottom: 20px;
           border: 0.7px solid #d7d7d7;
           border-radius: 4px;
           outline: 0;
           .row{
+            display: block !important;
             .col-8{
-              font-size: 14px;
+              min-width: 100%;
+              margin-bottom: 9px;
+              font-size: 12.5px !important;
               .name{
                 font-weight: 700;
-                margin-bottom: 6px;
+                margin-bottom: 0;
+                text-align: center;
               }
-              .village{
-
+              .village, .region{
+                text-align: center;
               }
             }
             .col-4{
-              padding-left: 50px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              min-width: 100%;
+              padding-left: 0;
               button{
+                white-space: nowrap;
                 border-style: solid;
                 background-color: #ff4747;
                 border-color: transparent;
                 border-radius: 4px;
-                padding: 0 25px;
-                line-height: 30px;
+                padding: 0 17px;
+                line-height: 27px;
                 font-size: 12px;
                 border-width: 1px;
                 color: #fff;
@@ -90,5 +103,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 1;
+    .addressListCard{
+      opacity: 1;
+    }
   }
 }

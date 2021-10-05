@@ -3,80 +3,50 @@ import Navbar from "./navbar";
 import Search from "./Search";
 import Footer from "./footer";
 import Basket from "./basket";
-import axios from "axios";
-import {API_PATH} from "../../tools/constants";
-import Cookies from "js-cookie";
-
-import {Spinner} from "reactstrap"
 import "../../styles/loader.scss"
-
-
+import axios from "axios";
+import Cookies from "js-cookie";
+import {API_PATH} from "../../tools/constants";
+import HomePageFixed from "./homePageFixed";
+import MediaCategory from "./MediaCategory";
 import {connect} from "react-redux";
+import {set_state1} from "../../redux/actions/productAction";
+
 
 function ShoppingCard(props) {
 
-    useEffect(()=>{
-        if (props.userCheckReducer.userCheck){
-            axios.post(API_PATH+'cart', {id:props.userReducer.userObject.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
-                props.shoppingCardListFunction(response.data);
+    const user = JSON.parse(localStorage.getItem("user"))
+
+    useEffect(()=> {
+        props.set_state1({category: false})
+        if (user !== null){
+            axios.post(API_PATH + 'cart', {id: user.id}, {headers: {"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response) => {
                 setCount(response.data.length);
-                setLoad(true);
-            }).catch((error)=>{
-                setLoad(true);
-                props.shoppingCardListUpdateFunction([]);
             })
-        }else {
-            setLoad(true);
-            props.shoppingCardListUpdateFunction([]);
         }
-    }, []);
+    },[])
 
-    const [load, setLoad] = useState(false);
-    const [count, setCount] = useState();
-
+    const [count, setCount] = useState(0);
 
     return (
         <>
-           {
-               !load ?  <div className="loader">
-                   <Spinner style={{ width: '10rem', height: '10rem' }} type="grow" />
-               </div> : <>
                    <Navbar/>
-                   <Search count={count}/>
-                   <Basket history={props.history} load={load}/>
+                   <Search count={count} history={props.history}/>
+                   <Basket/>
                    <Footer/>
-               </>
+                   {/*<MediaCategory/>*/}
+                   <HomePageFixed count={count}/>
            }
         </>
     );
+
 }
 
-function mapStateToProps(state) {
-    return state
-}
-
-function mapDispatchToProps(dispatch) {
+const mapStateToProps = (state) =>{
     return {
-        shoppingCardListFunction:function (shopping_list) {
-            dispatch({
-                type:"SHOPPING_CARD_LIST",
-                payload:shopping_list
-            })
-        },
-        shoppingCardListUpdateFunction:function (shopping_list) {
-            dispatch({
-                type: "UPDATE_SHOPPING_CARD_LIST",
-                payload: shopping_list
-            })
-        },
-        shoppingCardCountFunction:function (count) {
-            dispatch({
-                type:"SHOPPING_CARD_COUNT",
-                payload:count
-            })
-        }
+        category: state.product.category
     }
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShoppingCard) ;
+export default connect(mapStateToProps, {set_state1})(ShoppingCard) ;

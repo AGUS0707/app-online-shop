@@ -19,7 +19,8 @@ function ShippingAddressForm(props) {
         region_id: "",
         district_id: "",
         index: "",
-        street: ""
+        street: "",
+        home: ""
     })
 
     function handleInputChange (e) {
@@ -35,13 +36,32 @@ function ShippingAddressForm(props) {
     }
 
     function AddAddres () {
-       if (product.name.length > 0 && product.phone.length > 0 && product.region_id.length !== undefined && product.district_id.length !== undefined && product.index.length > 0 && product.street.length  > 0){
+       if (product.name.length > 0 && product.phone.length > 0 && product.region_id.length !== undefined && product.district_id.length !== undefined && product.index.length > 0 && product.street.length > 0  && product.home.length > 0){
            axios.post(API_PATH + "craddress", product, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                .then((res)=>{
                    props.setOpen(false)
                    props.setAddress(res.data)
                    props.setAddress1({})
+
+                   if (props.address1.name !==undefined){
+                       props.setaddres(props.address1)
+                   } if (res.data.length === 1){
+                       toast.success("ishladi")
+                       res.data.map((item)=>{
+                           return props.setaddres(item)
+                       })
+                   } if (res.data.length > 1){
+                       // toast.success("ishladi")
+                       res.data.map((item, index)=>{
+                           return index === res.data.length-1 ? props.setaddres(item) : ""
+                       })
+                   }
+
                })
+
+
+
+
        } else {
            toast.error("Ma'lumotlarni to'ldiring")
        }
@@ -117,6 +137,11 @@ function ShippingAddressForm(props) {
                         <div className="col-md-6">
                             <div className="addressInput">
                                 <input type="text" name="street" className="form-control" onChange={handleInputChange} placeholder={"Kocha uy/kvartira/birlik"}/>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="homeInput">
+                                <input type="text" name="home" className="form-control" onChange={handleInputChange} placeholder={"uy raqami"}/>
                             </div>
                         </div>
                         {/*<div className="col-md-6">*/}

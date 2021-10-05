@@ -49,7 +49,7 @@ function Carousel (props) {
             {filterList=productList.slice((index+1)*6-6, (index+1)*6)}
             return  <div className="item" data-value={index.toString()}>
                 {filterList.map((item2)=>{
-                    return <Link to={"/product/view/" + generateUrl(item2.product_uz)} onClick={(id, user_id)=>aa(item2.id, item2.user_id)} className="text-decoration-none"><Card img={item2.photo_list[0].url} price={item2.price}/></Link>
+                    return <Link to={"/product/view/" + generateUrl(item2.product_uz)} onClick={(id, user_id)=>aa(item2.id, item2.user_id)} className="text-decoration-none"><Card img={item2.photo_list[0].url} price={item2.price} amount={item.amount}/></Link>
 
                 })}
             </div>
@@ -66,15 +66,17 @@ function Carousel (props) {
         <div className="karusel">
             <div className="container">
                 <Sorts/>
-                <AliceCarousel
-                    mouseTracking
-                    infinite
-                    items={items}
-                    responsive={responsive}
-                    controlsStrategy="alternate"
-                    autoPlay
-                    autoPlayInterval={2000}
-                />
+                <div className="px-3">
+                    <AliceCarousel
+                        mouseTracking
+                        infinite
+                        items={items}
+                        responsive={responsive}
+                        controlsStrategy="alternate"
+                        autoPlay
+                        autoPlayInterval={2000}
+                    />
+                </div>
             </div>
         </div>
     );

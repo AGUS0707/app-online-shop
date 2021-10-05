@@ -71,35 +71,88 @@
         }
       }
       .profile-icons-mask1{
+        position: relative;
         background-color: darkolivegreen;
         .profile-img1{
           mask-image: url("../images/admin.png");
         }
+        &:before{
+          position: absolute;
+          content: 'Admin';
+          bottom: -27px;
+          font-size: 12.5px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #333;
+        }
       }
       .profile-icons-mask1_1{
+        position: relative;
         background-color: yellowgreen;
         .profile-img1_1{
           mask-image: url("../images/seller.png");
         }
+        &:before{
+          position: absolute;
+          content: 'Sotuvchi';
+          bottom: -27px;
+          font-size: 12.5px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #333;
+        }
       }
       .profile-icons-mask2{
         background-color: #ff2d91;
+        position: relative;
         .profile-img2{
           mask-image: url("../images/user (2).svg");
         }
+        &:before{
+          position: absolute;
+          content: 'Hisob';
+          bottom: -27px;
+          font-size: 12.5px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #333;
+        }
       }
       .profile-icons-mask3{
+        position: relative;
         background-color: #ac3bff;
         .profile-img3{
           mask-image: url("../images/files.svg");
         }
+        &:before{
+          position: absolute;
+          content: 'Buyurtmalar';
+          bottom: -27px;
+          font-size: 12.5px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #333;
+        }
       }
       .profile-icons-mask4{
+        position: relative;
         background-color: #ffaa43;
         .profile-img4{
           mask-image: url("../images/messenger (1).svg");
         }
+        &:before{
+          position: absolute;
+          content: 'Xabarlar';
+          bottom: -27px;
+          font-size: 12.5px;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #333;
+        }
       }
+    }
+    .padding{
+      padding: 0 53px !important;
     }
   }
   .profile-block{

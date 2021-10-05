@@ -1,6 +1,9 @@
 .topRanking{
   color: #222;
   padding: 15px 0;
+  @media (max-width: 676px) {
+    display: none;
+  }
   .container{
     .topRankingSection{
       display: flex;

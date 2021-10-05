@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from "react-redux";
 import axios from "axios";
-import {API_PATH} from '../../../tools/constants';
+import {API_PATH} from '../../tools/constants';
 import Cookies from "js-cookie";
 
 function EditProfile(props) {
@@ -23,11 +23,12 @@ function EditProfile(props) {
     const [lastNameValid, setLastNameValid]=useState(false);
     const [phoneValid, setPhoneValid]=useState(false);
     const [dateValid, setDateValid]=useState(false);
-    const [genderValid, setGenderValid]=useState(true);
+    const [genderValid, setGenderValid]=useState(false);
 
 
     useEffect(()=>{
         setEditUser(user);
+        window.scrollTo(0, 0);
     }, []);
     function handleInputChange(e) {
         const user={
@@ -43,6 +44,9 @@ function EditProfile(props) {
             setPhoneValid(false);
         if (dateRef.current.value.length>0)
             setDateValid(false);
+        if (editUser.gender!==undefined){
+            setGenderValid(false);
+        }
     }
 
     function updateUser() {
@@ -54,8 +58,14 @@ function EditProfile(props) {
             setPhoneValid(true);
         if (dateRef.current.value.length<=0)
             setDateValid(true);
+        if (editUser.gender===undefined){
+            setGenderValid(true);
+        }
+        if (editUser.gender!==undefined){
+            setGenderValid(false);
+        }
         let id=props.userReducer.userObject.id;
-        if (firstNameRef.current.value.length>0&&lastNameRef.current.value.length>0&&phoneRef.current.value.length>0&&dateRef.current.value.length>0&&(maleGenderRef.current.checked===true||femaleGenderRef.current.checked===true)){
+        if (firstNameRef.current.value.length>0&&lastNameRef.current.value.length>0&&phoneRef.current.value.length>0&&dateRef.current.value.length>0&&(editUser.gender!==undefined)){
             axios.post(API_PATH+'upuser', {id:id, fristname:editUser.fristname, lastname:editUser.lastname, gender:editUser.gender, phone:editUser.phone, birthdate:editUser.birthdate}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                 .then((response)=>{
                     console.log(response.data);
@@ -98,10 +108,10 @@ function EditProfile(props) {
                                 </div>
                                 <div className="checkboxRight">
                                     <label htmlFor="male">Erkak
-                                        <input  ref={maleGenderRef} type="radio" id="male" value="1" onChange={handleInputChange}   className="form-check-inline" name="gender" defaultChecked={user.gender===null? false: user.gender==="1"? true: false} />
+                                        <input  ref={maleGenderRef} type="radio" id="male" value="1" onChange={handleInputChange}   className="form-check-inline" name="gender" defaultChecked={user.gender===null? false: user.gender==="1"? true: false} required/>
                                     </label>
                                     <label htmlFor="female">Ayol
-                                        <input  ref={femaleGenderRef} type="radio" value="0" id="female" onChange={handleInputChange} className="form-check-inline" name="gender" defaultChecked={user.gender===null? false: user.gender==="0"? true: false} />
+                                        <input  ref={femaleGenderRef} type="radio" value="0" id="female" onChange={handleInputChange} className="form-check-inline" name="gender" defaultChecked={user.gender===null? false: user.gender==="0"? true: false}  required/>
                                     </label>
                                 </div>
                             </div>

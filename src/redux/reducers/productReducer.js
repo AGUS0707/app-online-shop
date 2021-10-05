@@ -19,6 +19,7 @@ const initialState  = {
     valuedata:[],
     formData: [],
     a:[],
+    orderProduct: [],
 
 //    homepage
 
@@ -29,7 +30,19 @@ const initialState  = {
     htmlString: "",
     onePhoto_list: [],
     detailList:[],
-    valueList:[]
+    valueList:[],
+    valueLength: [],
+
+    recProduct:[],
+    selProduct:[],
+    checkdetval: false,
+    category: false,
+    checkregister: false,
+
+    pay_id: "",
+    pay_name: ""
+
+
 };
 
 

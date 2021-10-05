@@ -7,12 +7,17 @@ import {Link} from "react-router-dom";
 import Card2 from "./CardCarousel/Card2";
 import {connect} from "react-redux";
 import {set_state1} from "../../redux/actions/productAction";
+import {set_state} from "../../redux/actions/categoryAction";
+
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
 
 import {Spinner} from "reactstrap"
 import "../../styles/loader.scss"
 import Cookies from "js-cookie";
+import HomePageFixed from "./homePageFixed";
+
+
 
 const Categories = (props) => {
 
@@ -20,11 +25,12 @@ const Categories = (props) => {
     const [category, setCategory] = useState()
     const [open1, setOpen1] = useState(true)
     const [open, setOpen] = useState(true)
-    const [count, setCount] = useState()
+    const [count, setCount] = useState(0)
     const [isLoadingCart, setIsLoadingCart] = useState(true)
 
 
     useEffect(()=>{
+        console.log(props.categoryId)
         window.scrollTo(0, 0)
         axios.get(API_PATH + "product")
             .then((res)=>{
@@ -36,7 +42,7 @@ const Categories = (props) => {
                     if (item.category_id == localStorage.getItem("categoryId")){
                         product = product.concat(item)
                     }
-                    setProduct1(product)
+                    props.set_state({product1media: product})
                 })
 
             })
@@ -45,15 +51,25 @@ const Categories = (props) => {
                 setOpen(false)
                 res.data.forEach((item)=>{
                     if (item.id == localStorage.getItem("categoryId")){
-                        setCategory(item.category_uz)
+                        props.set_state({categorymedia: item.category_uz})
                     }
                 })
             })
 
-        axios.post(API_PATH+'cart', {id: localStorage.getItem("user").user_id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
+        if (JSON.parse(localStorage.getItem("user")) !== null){
+            axios.post(API_PATH+'cart', {id: JSON.parse(localStorage.getItem("user")).id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
+                setIsLoadingCart(false)
+                setCount(response.data.length)
+            }) .catch(()=>{
+                setIsLoadingCart(false)
+
+            })
+        }  else {
             setIsLoadingCart(false)
-            setCount(response.data.length)
-        })
+        }
+
+        props.set_state1({})
+
     }, [])
 
     // console.log(product1)
@@ -83,13 +99,13 @@ const Categories = (props) => {
                     <Search count={count}/>
 
                     {
-                        product1.length > 0 ?  <div className="pt-3" style={{backgroundColor: "#f2f2f2"}}>
+                        props.product1media.length > 0 ?  <div className="pt-3 categoriesmedia" style={{backgroundColor: "#f2f2f2"}}>
                             <div className="container">
-                                <h3><b>{category}</b> categoriasi dagi productlar</h3>
+                                <h3><b>{props.categorymedia}</b> categoriasi dagi productlar</h3>
                                 <div className="row pb-3">
 
                                     {
-                                        product1.map((item, index)=>{
+                                        props.product1media.map((item, index)=>{
                                             return  <div className="col-2"> <Link
                                                 className="text-decoration-none"
                                                 to={"/product/view/" + generateUrl(item.product_uz)}
@@ -104,13 +120,17 @@ const Categories = (props) => {
                             </div>
                         </div> : <div className="pt-3" style={{backgroundColor: "#f2f2f2"}}>
                             <div className="container py-5">
-                                <h3 className="text-center"><b>{category}</b> categoriasida da productlar yoq</h3>
+                                <div className="d-flex justify-content-center">
+                                    <img src="/images/products-notfound.31b1733-removebg-preview.png" className="categoryimage" alt="no iamge"/>
+                                </div>
+                                <h3 className="text-center"><b className="text-danger">{props.categorymedia}</b> categoriasida productlar mavjud emas</h3>
 
                             </div>
                         </div>
                     }
 
                     <Footer/>
+                    <HomePageFixed count={count}/>
                 </>
             }
         </div>
@@ -127,8 +147,11 @@ const mapStateToProps = (state) => {
         htmlString: state.product.htmlString,
         valueList: state.product.valueList,
         detailList: state.product.detailList,
+        categoryId: state.category.categoryId,
+        product1media: state.category.product1media,
+        categorymedia: state.category.categorymedia,
     }
 }
 
 
-export default connect(mapStateToProps, {set_state1})(Categories) ;
+export default connect(mapStateToProps, {set_state1, set_state})(Categories) ;

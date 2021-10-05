@@ -54,12 +54,14 @@ let productList = props.product.slice(props.product.length-6, props.product.leng
             return  <div className="item" data-value={index.toString()}>
                 {filterList.map((item2)=>{
                     return <Link to={"/product/view/" + generateUrl(item2.product_uz)} className="text-decoration-none" onClick={(id, user_id)=>aa(item2.id, item2.user_id)}>
-                        <div className="itemContent">
-                            <div className="itemImgContent">
-                                <img src={item2.photo_list[0].url} alt={item2.photo_list[0].alt_name}/>
+                        <div className="card mx-2 border-0 itemContent1">
+                            <div className="itemContent">
+                                <div className="itemImgContent">
+                                    <img src={item2.photo_list[0].url} alt={item2.photo_list[0].alt_name}/>
+                                </div>
+                                <div className="price text-dark">{item2.price} so'm</div>
+                                <div className="sold text-dark mt-2">{item2.amount} ta</div>
                             </div>
-                            <div className="price text-dark">8.3$</div>
-                            <div className="sold text-dark">9 Sold</div>
                         </div>
                     </Link>
                 })}

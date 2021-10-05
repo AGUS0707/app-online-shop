@@ -28,8 +28,14 @@
   .container{
     .mainContent{
       display: flex;
+      @media  (max-width: 676px){
+        align-items: center;
+      }
       .mainLeft{
         width: 21%;
+        @media  (max-width: 676px){
+          display: none;
+        }
         .category{
           margin-top: -40px;
           border-radius: 5px;
@@ -91,48 +97,6 @@
                 }
               }
 
-              .sub-category{
-                background-color: white;
-                position: absolute;
-                z-index: 9999;
-                top: -25px;
-                right: -15px;
-                left: -15px;
-                padding: 10px;
-                box-shadow: 1px 1px 5px black;
-                border-radius: 10px;
-                b{
-                  color: black;
-                }
-                p{
-                  color: #333;
-                }
-
-                .closeDiv{
-                  position: absolute;
-                  z-index: 99999999999;
-                  right: -20px;
-                  top: -20px;
-                  width: 40px;
-                  height: 40px;
-                  border-radius: 50%;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  background-color: darkgrey;
-                  cursor: pointer;
-
-
-                  &:hover{
-                    background-color: white;
-                    border: 1px solid darkgrey;
-                    box-shadow: 0 0 10px black;
-                    span{
-                      background-color: #d2d2d2;
-                    }
-                  }
-                }
-              }
 
 
             }
@@ -142,6 +106,10 @@
       .mainCenter{
         width: 58%;
         margin: 15px 15px;
+        position: relative;
+        @media  (max-width: 676px){
+         width: 100%;
+        }
         .aliceCarousel{
           &:hover{
             .alice-carousel{
@@ -166,6 +134,12 @@
                   left: 0;
                   top: 38%;
                   transition: all 0.4s;
+                  @media (max-width: 676px){
+                    top: 35%;
+                  }
+                  @media (max-width: 400px){
+                    top: 30%;
+                  }
                   &:hover{
                     background-color: rgba(0, 0, 0, 0.5);
                   }
@@ -199,6 +173,12 @@
                   right: 0;
                   top: 38%;
                   transition: all 0.3s;
+                  @media (max-width: 676px){
+                    top: 35%;
+                  }
+                  @media (max-width: 400px){
+                    top: 30%;
+                  }
                   &:hover{
                     background-color: rgba(0, 0, 0, 0.5);
                   }
@@ -252,6 +232,10 @@
               position: absolute;
               bottom: 10%;
               left: 44.3%;
+              @media (max-width: 676px){
+               left: 30%;
+                right: 30%;
+              }
               .alice-carousel__dots-item{
                 margin-right: 10px;
                 background-color: rgba(0,0,0, 0.32);
@@ -262,11 +246,57 @@
             }
           }
         } }
+      .sub-category{
+        background-color: white;
+        position: absolute;
+        z-index: 9999;
+        top: -25px;
+        right: -15px;
+        left: -15px;
+        padding: 10px;
+        box-shadow: 1px 1px 5px black;
+        border-radius: 10px;
+        b{
+          color: black;
+        }
+        p{
+          color: #333;
+        }
+
+        .closeDiv{
+          position: absolute;
+          z-index: 99999999999;
+          right: -20px;
+          top: -20px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: darkgrey;
+          cursor: pointer;
+
+
+          &:hover{
+            background-color: white;
+            border: 1px solid darkgrey;
+            box-shadow: 0 0 10px black;
+            span{
+              background-color: #d2d2d2;
+            }
+          }
+        }
+      }
+
       .mainRight{
         width: 21%;
         background-color: #f2f2f2;
         border-radius: 5px;
         margin: 15px 0;
+        @media  (max-width: 676px){
+          display: none;
+        }
       }
     }
   }

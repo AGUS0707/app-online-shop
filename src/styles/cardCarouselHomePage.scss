@@ -1,0 +1,14 @@
+
+.cardCarousel{
+  background-color: #d7e3ff!important;
+  transition-duration: 400ms;
+  &:hover{
+    box-shadow: 0 0 10px darkgrey;
+  }
+  img{
+    @media (max-width: 676px){
+      width: 105px;
+      height: 105px;
+    }
+  }
+}

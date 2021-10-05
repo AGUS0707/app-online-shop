@@ -1,0 +1,126 @@
+.icon1 {
+  width: 25px;
+  height: 25px;
+  display: block;
+
+  mask-size: 100%;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-size: 100%;
+  -webkit-mask-repeat: no-repeat;
+
+
+  &.icon-home11{
+    mask-image: url("../images/home.png");
+    -webkit-mask-image: url("../images/home.png");
+    cursor: pointer;
+    background-color: red;
+  }
+  &.icon-profile11{
+    mask-image: url("../images/profile.png");
+    -webkit-mask-image: url("../images/profile.png");
+    cursor: pointer;
+    background-color: red;
+  }
+  &.icon-shopping-cart11{
+    mask-image: url("../images/shopping-cart3.png");
+    -webkit-mask-image: url("../images/shopping-cart3.png");
+    cursor: pointer;
+    background-color: red;
+  }
+  &.icon-category11{
+    mask-image: url("../images/categorys.png");
+    -webkit-mask-image: url("../images/categorys.png");
+    cursor: pointer;
+    background-color: red;
+  }
+  &.icon-register11{
+    mask-image: url("../images/register.png");
+    -webkit-mask-image: url("../images/register.png");
+    cursor: pointer;
+    background-color: red;
+  }
+}
+
+
+
+.homepagefixed{
+    padding: 15px 0;
+  position: fixed;
+  z-index: 9999999999;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 0 5px darkgrey;
+  @media (max-width: 676px){
+    display: block;
+  }
+  @media (min-width: 676px){
+    display: none;
+  }
+  p{
+    color: red;
+    font-size: 14px;
+  }
+  .korzinka{
+    position: relative;
+    .count{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      background-color: transparent!important;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      color: darkgrey;
+      position: absolute;
+      right: 0px;
+      top: -5px;
+    }
+  }
+  .sub-category{
+    background-color: white;
+    position: absolute;
+    z-index: 9999;
+    bottom: 80px;
+    right: 10px;
+    left: 10px;
+    padding: 10px;
+    box-shadow: 1px 1px 5px black;
+    border-radius: 10px;
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-top: 20px;
+    b{
+      color: black;
+    }
+    p{
+      color: #333;
+    }
+
+    .closeDiv{
+      position: absolute;
+      z-index: 99999999999;
+      right: -10px;
+      top: -20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: darkgrey;
+      cursor: pointer;
+      background-color: transparent;
+      color: black;
+      span{
+         background-color: black;
+       }
+
+
+
+    }
+  }
+}

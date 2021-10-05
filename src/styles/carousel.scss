@@ -23,6 +23,9 @@
 
 .karusel{
   margin-bottom: 20px;
+  @media  (max-width: 676px){
+    display: none;
+  }
  .container{
    background-color: white;
    border-radius: 10px;
@@ -31,6 +34,8 @@
  }
   .alice-carousel{
     .alice-carousel__wrapper{
+      padding: 10px 0;
+      padding-left: 10px;
       .alice-carousel__stage{
         .alice-carousel__stage-item{
           width: 100% !important;
@@ -124,40 +129,6 @@
       }
     }
   }
-  //.slick-slider{
-  //  .slick-prev{
-  //    background-color: rgba(0, 0, 0, 0.5);
-  //    height: 60px;
-  //    width: 30px;
-  //    left: 0;
-  //    z-index: 9999;
-  //
-  //    color: white;
-  //    &:before{
-  //     mask-image: url("../images/back.svg");
-  //      mask-size: 100%;
-  //      mask-repeat: no-repeat;
-  //      background-color: white;
-  //    }
-  //  }
-  //  .slick-next{
-  //    background-color: rgba(0, 0, 0, 0.5);
-  //    height: 60px;
-  //    width: 30px;
-  //    right: 0;
-  //    z-index: 9999;
-  //
-  //    &:before{
-  //      mask-image: url("../images/next.svg");
-  //      mask-size: 100%;
-  //      mask-repeat: no-repeat;
-  //      background-color: white;
-  //    }
-  //  }
-  //  .slick-dots{
-  //    display: none!important;
-  //  }
-  //}
     .price{
       background-color: red;
       padding: 2px 5px;
@@ -176,11 +147,11 @@
     }
     del{
       color: darkgray;
-      font-size: 14px;
+      font-size: 12px;
 
     }
     h3{
-      font-size: 20px;
+      font-size: 15px;
       font-weight: bold;
       color: black;
     }
@@ -206,7 +177,6 @@
     font-weight: bold;
     margin-left: 10px;
   }
-
   h6{
     color: darkgray;
     cursor: pointer;
@@ -214,6 +184,136 @@
     font-weight: 500!important;
     &:hover{
       color: red;
+    }
+  }
+}
+.karusel2{
+
+  @media (max-width: 676px){
+    margin: 0 15px 20px 15px;
+  }
+
+  margin-bottom: 20px;
+  .container{
+    background-color: white;
+    border-radius: 10px;
+    padding-left: 0;
+    padding-right: 0;
+
+    .slick-slider{
+      padding: 20px 0;
+      .slick-prev{
+        background-color: rgba(0, 0, 0, 0.25);
+        height: 48px;
+        width: 32px;
+        left: 20px;
+        z-index: 9999;
+        color: white;
+        transition: all 0.3s;
+        &:before{
+          mask-image: url("../images/back.svg");
+          mask-size: 100%;
+          mask-repeat: no-repeat;
+          background-color: white;
+        }
+        &:hover{
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+      }
+      .slick-next{
+        background-color: rgba(0, 0, 0, 0.25);
+        height: 48px;
+        width: 32px;
+        right: 17px;
+        z-index: 9999;
+        transition: all 0.3s;
+        &:before{
+          mask-image: url("../images/next.svg");
+          mask-size: 100%;
+          mask-repeat: no-repeat;
+          background-color: white;
+        }
+        &:hover{
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+      }
+      .slick-slide{
+        padding: 10px 20px;
+        .item{
+          .carouselimg{
+            margin-right: auto;
+            margin-left: auto;
+          }
+
+        }
+      }
+      .slick-dots{
+        display: none!important;
+      }
+    }
+  }
+
+  .price{
+    background-color: red;
+    padding: 2px 5px;
+    border-radius: 2px;
+    img{
+      width: 12px;
+      height: 8px;
+    }
+    p{
+      color: white;
+      margin-bottom: 0;
+      margin-left: 5px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+  }
+  del{
+    color: darkgray;
+    font-size: 13px;
+
+  }
+  h3{
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+  }
+  .diagramma{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+      width: 18px;
+      height: 12px;
+    }
+  }
+  .diagramma2{
+    background-color: #C7864D;
+  }
+  h4{
+    margin-bottom: 0;
+    font-size: 18px!important;
+    font-weight: bold;
+    margin-left: 10px;
+    @media (max-width: 676px){
+      font-size: 15px!important;
+    }
+  }
+  h6{
+    color: darkgray;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500!important;
+    &:hover{
+      color: red;
+    }
+    @media (max-width: 676px){
+      font-size: 13px!important;
     }
   }
 }

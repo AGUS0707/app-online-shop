@@ -5,11 +5,11 @@ import parse from 'html-react-parser'
 const Overview = (props) => {
     return (
         <div className="overview">
-            <h1>Dropshipping</h1>
+            <h1>{props.oneProduct.product_uz}</h1>
 
-            <h3>{props.oneProduct.product_uz}</h3>
 
-            {parse(props.htmlstring)}
+
+            <p>{parse(props.htmlstring)}</p>
 
             <div className="row">
                {

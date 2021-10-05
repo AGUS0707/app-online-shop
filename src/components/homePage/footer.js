@@ -5,6 +5,73 @@ function Footer() {
     return (
         <div className="footer">
             <div className="container">
+                <div className="mediafocon1">
+                    <div className="d-flex align-items-center">
+                        <div className="footerTopContent">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="cardIcon mx-auto">
+                                        <img src="/images/credit-card.svg" alt="no images"/>
+                                    </div>
+                                    <div className="cardTitle">Xavfsiz to'lov</div>
+                                    <div className="cardDescription">
+                                        Dunyodagi eng mashhur va xavfsiz to'lov usullari bilan to'lang.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="lines1">
+
+                        </div>
+                        <div className="footerTopContent">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="cardIcon mx-auto">
+                                        <img src="/images/verified.svg" alt="no images"/>
+                                    </div>
+                                    <div className="cardTitle">Ishonch bilan xarid qiling</div>
+                                    <div className="cardDescription">
+                                        Xaridorlarni himoya qilish siyosati sizning butun sayohatingizni qamrab oladi.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="mediafocon">
+                   <div className="d-flex align-items-center">
+                       <div className="footerTopContent">
+                           <div className="card">
+                               <div className="card-body">
+                                   <div className="cardIcon mx-auto">
+                                       <img src="/images/coin.svg" alt="no images"/>
+                                   </div>
+                                   <div className="cardTitle">Katta qiymat</div>
+                                   <div className="cardDescription">
+                                       Biz 100 milliondan ortiq mahsulotlarga raqobatbardosh narxlarni taklif qilamiz.
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div className="lines1">
+
+                       </div>
+                       <div className="footerTopContent">
+                           <div className="card">
+                               <div className="card-body">
+                                   <div className="cardIcon mx-auto">
+                                       <img src="/images/truck.svg" alt="no images"/>
+                                   </div>
+                                   <div className="cardTitle">Dunyo bo'ylab xaridlar</div>
+                                   <div className="cardDescription">
+                                       Biz 200 dan ortiq mamlakat va mintaqalarga jo'natamiz va bizning saytimiz 12 tilda keladi.
+                                   </div>
+                               </div>
+                           </div>
+
+                       </div>
+                   </div>
+                </div>
                 <div className="footerTop">
                     <div className="footerTopContent">
                         <div className="card">
@@ -99,31 +166,31 @@ function Footer() {
                                 </div>
                             </div>
                         </div>
-                        <div className="lines">
-
-                        </div>
                     </div>
                 </div>
+
                 <div className="footerBottom">
                     <div className="row">
                         <div className="col-md-5">
                             <h6>Aloqada boling</h6>
                             <div className="connectionIcon">
-                                <Link  to="/"className="connectionIconItem">
+                                <div className="connectionIcon1">
+                                    <Link  to="/"className="connectionIconItem">
 
-                                </Link>
-                                <Link  to="/" className="connectionIconItem">
+                                    </Link>
+                                    <Link  to="/" className="connectionIconItem">
 
-                                </Link>
-                                <Link  to="/" className="connectionIconItem">
+                                    </Link>
+                                    <Link  to="/" className="connectionIconItem">
 
-                                </Link>
-                                <Link  to="/" className="connectionIconItem">
+                                    </Link>
+                                    <Link  to="/" className="connectionIconItem">
 
-                                </Link>
-                                <Link  to="/" className="connectionIconItem">
+                                    </Link>
+                                    <Link  to="/" className="connectionIconItem">
 
-                                </Link>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                         <div className="col-md-7">

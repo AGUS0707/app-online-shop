@@ -57,7 +57,8 @@ const CustomerReviews = () => {
                         <span className="icon icon-stars1"></span>
                         <span className="icon icon-stars1"></span>
                     </div>
-                    <p><b>Color:</b>8G RAM 256G SSD             <b className="ml-4">Logistics:</b>Fedex IE</p>
+                    {/*<p><b>Color:</b>8G RAM 256G SSD   */}
+                        <p><b>Logistics:</b>Fedex IE</p>
 
                     <h6>Once it shipped it arrived timely. Seller claimed it shipped 8 days before it left factory.
                         Software is, of course, pirated. If that is important to you, you will have to buy a new
@@ -82,7 +83,7 @@ const CustomerReviews = () => {
                         <span className="icon icon-stars1"></span>
                         <span className="icon icon-stars1"></span>
                     </div>
-                    <p><b>Color:</b>8G RAM 256G SSD             <b className="ml-4">Logistics:</b>Fedex IE</p>
+                    <p><b>Logistics:</b>Fedex IE</p>
 
                     <h6>Once it shipped it arrived timely. Seller claimed it shipped 8 days before it left factory.
                         Software is, of course, pirated. If that is important to you, you will have to buy a new

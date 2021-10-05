@@ -18,6 +18,10 @@
     width: 22px;
     height: 22px;
     cursor: pointer;
+    @media (max-width: 576px){
+      width: 20px;
+      height: 20px;
+    }
   }
   &.icon-cart{
     mask-image: url("../images/shopping-cart.png");
@@ -27,6 +31,19 @@
     height: 40px;
     cursor: pointer;
   }
+  &.icon-burger{
+    mask-image: url("../images/burger.png");
+    -webkit-mask-image: url("../images/burger.png");
+    background-color: red;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    @media (max-width: 676px){
+      width: 30px;
+      height: 30px;
+    }
+  }
+
 
 }
 
@@ -34,21 +51,57 @@
   background-color: white;
   padding: 20px 0;
 
+
+
   .container{
     padding: 0;
-    h1{
-      cursor: pointer;
+    .h11{
+      @media (max-width: 676px){
+        display: none;
+      }
+      h1{
+        cursor: pointer;
+      }
+    }
+    .media-burger{
+      @media (max-width: 676px){
+        display: block;
+      }
+      @media (min-width: 676px){
+        display: none;
+      }
     }
     .qidiruv{
       background-color: red;
       padding: 2px;
       border-radius: 3px;
+      @media (min-width: 500px) and (max-width: 676px){
+        width: 350px !important;
+      }
+      @media (min-width: 450px) and (max-width: 500px){
+        width: 300px !important;
+      }
+      @media (max-width: 450px){
+        width: 240px !important;
+      }
 
       input{
         border-radius: 0;
         box-shadow: none;
         width: 500px!important;
         border: none;
+       @media (max-width: 576px){
+         height: 30px!important;
+       }
+        @media (min-width: 500px) and (max-width: 676px){
+          width: 305px !important;
+        }
+        @media (min-width: 450px) and (max-width: 500px){
+          width: 255px !important;
+        }
+        @media(max-width: 450px){
+          width: 200px !important;
+        }
         &::placeholder{
           font-size: 12px;
         }
@@ -100,6 +153,9 @@
     }
 
     .korzinka{
+      @media (max-width: 676px){
+        display: none;
+      }
       .icon{
         &:hover{
           background-color: red;
@@ -119,6 +175,14 @@
         position: absolute;
         right: -5px;
         top: -5px;
+      }
+    }
+    .media-til{
+      @media (max-width: 676px) {
+        display: block;
+      }
+      @media (min-width: 676px) {
+        display: none;
       }
     }
 
@@ -142,4 +206,11 @@
       }
     }
   }
+}
+.search1{
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 0 5px darkgrey;
+  background-color: white;
 }

@@ -10,6 +10,8 @@ function Modal(props) {
             return props.history
     }
 
+
+
     return (
         <>
             <div className={props.modal?"signInModalBlock": "signInModalNone"}>

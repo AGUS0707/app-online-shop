@@ -12,3 +12,34 @@
   justify-content: center;
   align-items: center;
 }
+.home1{
+  height: 0!important;
+}
+
+@media screen and (max-width: 576px){
+  .categoriesmedia{
+    .container{
+      h3{
+        text-align: center;
+        b{
+          color: red;
+        }
+      }
+      .row{
+        .col-2{
+          min-width: 50% !important;
+
+          .card{
+            h6{
+              margin: 5px 0 !important;
+            }
+          }
+        }
+      }
+    }
+    .categoryimage{
+      width: 75%;
+    }
+  }
+}
+

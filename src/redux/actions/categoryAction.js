@@ -11,6 +11,7 @@ export function set_state(data) {
         payload: data
     }
 }
+
 export function saveCategory(event, errors, values, history) {
     return function (dispatch) {
         console.log(values)

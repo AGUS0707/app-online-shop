@@ -5,12 +5,25 @@ import {AvField, AvForm} from "availity-reactstrap-validation"
 
 import {connect} from "react-redux";
 import {getCategory, saveCategory, set_state} from "../../../redux/actions/categoryAction";
+import axios from "axios";
+import {API_PATH} from "../../../tools/constants";
+import Cookies from "js-cookie";
+import {toast} from "react-toastify";
 
 const CategoryAdd = (props) => {
 
 
     const [sub, setSub]=useState(false)
-    const [category, setCategory] = useState({})
+    const [subsub, setSubsub]=useState(false)
+    const [category, setCategory] = useState({
+        category_uz: "",
+        category_ru: "",
+        index: "",
+        category_id: "",
+        is_active: "",
+    })
+    const [value, setValue] = useState()
+    const [value1, setValue1] = useState()
 
     const filterList = (e) => {
         props.set_state({value: e.target.value})
@@ -26,12 +39,15 @@ const CategoryAdd = (props) => {
 
     function handleInputChange(e) {
 
+        setValue(e.target.value)
+
         if (!sub){
             // let newCategory2={
             //     ...category,
             //     category_id: 0
             // };
             // setCategory(newCategory2);
+
 
             let newCategory={
                 ...category,
@@ -40,11 +56,26 @@ const CategoryAdd = (props) => {
             };
             setCategory(newCategory);
 
+
         } else
         {
-            
+            let newCategory1={
+                ...category,
+                category_id:e.target.value,
+
+            };
+            setValue1(e.target.value)
+            setCategory(newCategory1);
         }
 
+    }
+
+    function handleInputChange2(e) {
+        let newCategory={
+            ...category,
+            category_id: e.target.value
+        };
+        setCategory(newCategory);
     }
 
     function handleInputChangeCheck(e){
@@ -56,11 +87,47 @@ const CategoryAdd = (props) => {
         } else
         {
             setSub(false)
+            setSubsub(false)
+
+            let newCategory={
+                ...category,
+                [e.target.name]:e.target.value,
+                category_id: 0
+            };
+            setCategory(newCategory);
         }
 
     }
 
+    function handleInputChangeCheck2 (e) {
+        if (e.target.checked){
+            setSubsub(true)
+        } else {
+            setSubsub(false)
+            let newCategory={
+                ...category,
+                category_id: value
+            };
+            setCategory(newCategory);
+        }
+    }
+
     console.log(category)
+
+    function addCategory() {
+       if (category.category_uz.length > 0 && category.category_ru.length>0 && category.index.length>0 && category.category_id.length>0){
+           axios.post(API_PATH + "crcategory", category, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
+               .then((res) => {
+                   toast.success("qoshildi")
+                   props.history.push("/admin/category")
+               })
+               .catch((res) => {
+                   toast.error("Ma'lumotlar saqlanmadi")
+               })
+       } else {
+           toast.error("Ma'lumotlarni to'ldiring")
+       }
+    }
 
     return (
         <Category history={props.history}>
@@ -69,7 +136,7 @@ const CategoryAdd = (props) => {
                     <div className="col-10 offset-1">
                         <div className="d-flex align-items-center justify-content-between brand">
                             <div>Category</div>
-                            <div className="categoryadd"><button type="submit" className="btn btn-success d-block ml-auto"><span className="icon icon-save"></span></button></div>
+                            <div className="categoryadd"><button type="submit" onClick={addCategory} className="btn btn-success d-block ml-auto"><span className="icon icon-save"></span></button></div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +161,7 @@ const CategoryAdd = (props) => {
                         </select>
 
 
-                        <input type="checkbox" id="5" onChange={handleInputChangeCheck} placeholder="Index" required/>
+                        <input type="checkbox" id="5" onChange={handleInputChangeCheck}/>
                         <label htmlFor="5" className="mt-3 ml-2">Sub category</label>
 
                        <div>
@@ -105,10 +172,29 @@ const CategoryAdd = (props) => {
                                        <option>Choose</option>
                                        {
                                            props.category.map((item)=>{
-                                               return item.category_id === "0" ? <option value={item.id}>{item.category_uz}</option> : ""
+                                               return item.category_id == 0 ? <option value={item.id}>{item.category_uz}</option> : ""
                                            })
                                        }
                                    </select>
+                                   <input type="checkbox" id="7" onChange={handleInputChangeCheck2} required/>
+                                   <label htmlFor="7" className="mt-3 ml-2">Sub sub category</label>
+
+                                   <div>
+                                       {
+                                           subsub ? <>
+                                               <label htmlFor="8" className="mt-3">Sub sub Category</label>
+                                               <select id="8" className="form-control w-100"  name="category_id" onChange={handleInputChange2} required>
+                                                   <option>Choose</option>
+                                                   {
+                                                       props.category.map((item)=>{
+                                                           return item.category_id === value ? <option value={item.id}>{item.category_uz}</option> : ""
+                                                       })
+                                                   }
+                                               </select>
+                                           </> : ""
+                                       }
+                                   </div>
+
                                </> : ""
                            }
 

@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
 import {set_state1} from "../../redux/actions/productAction";
+import "../../styles/mediaproducts.scss"
 
 const Products = (props) => {
 
@@ -21,25 +22,65 @@ const Products = (props) => {
                 props.set_state1({oneProduct: item, photo_list: item.photo_list, onePhoto_list:item.photo_list[0].url, htmlString: item.description_uz, valueList: item.value, detailList: item.detail})
             }
         })
+
+        let recProduct1 = []
+        let selProduct1 = []
+
+        props.product.filter((item)=>{
+            if (item.user_id === JSON.parse(localStorage.getItem("id")).user_id && recProduct1.length < 3 && JSON.parse(localStorage.getItem("id")).id!==item.id){
+                // toast.success("asdf")
+                recProduct1 = recProduct1.concat(item)
+                // toast.success("asdf")
+                // console.log(recProduct)
+            }
+
+            if (item.user_id === JSON.parse(localStorage.getItem("id")).user_id && selProduct1.length < 5){
+                selProduct1 = selProduct1.concat(item)
+                // toast.success("asdf")
+            }
+
+            props.set_state1({recProduct: recProduct1})
+            props.set_state1({selProduct: selProduct1})
+        })
+
     }
 
     return (
         <div className="container">
-            <div className="row pb-3">
+           <div className="nomediaproduct">
+               <div className="row pb-3">
 
-                {
-                    props.product.map((item, index)=>{
-                        return <div className="col-2"> <Link
-                                                            className="text-decoration-none"
-                                                             to={"/product/view/" + generateUrl(item.product_uz)}
-                                                             onClick={(id, user_id)=>aa(item.id, item.user_id)}>
+                   {
+                       props.product.map((item, index)=>{
+                           return <div className="col-2"> <Link
+                               className="text-decoration-none"
+                               to={"/product/view/" + generateUrl(item.product_uz)}
+                               onClick={(id, user_id)=>aa(item.id, item.user_id)}>
 
-                            <Card2 key={index} name={item.product_uz} price={item.price} amount={item.amount} photo_list={item.photo_list[0]}/>
-                        </Link></div>
-                    })
-                }
+                               <Card2 key={index} name={item.product_uz} price={item.price} amount={item.amount} photo_list={item.photo_list[0]}/>
+                           </Link></div>
+                       })
+                   }
 
-            </div>
+               </div>
+           </div>
+           <div className="mediaproducts">
+               <div className="row pb-3">
+
+                   {
+                       props.product.map((item, index)=>{
+                           return <div className="col-6"> <Link
+                               className="text-decoration-none"
+                               to={"/product/view/" + generateUrl(item.product_uz)}
+                               onClick={(id, user_id)=>aa(item.id, item.user_id)}>
+
+                               <Card2 key={index} name={item.product_uz} price={item.price} amount={item.amount} photo_list={item.photo_list[0]}/>
+                           </Link></div>
+                       })
+                   }
+
+               </div>
+           </div>
         </div>
     );
 };
@@ -54,6 +95,8 @@ const mapStateToProps = (state) => {
         htmlString: state.product.htmlString,
         valueList: state.product.valueList,
         detailList: state.product.detailList,
+        recProduct: state.product.recProduct,
+        selProduct: state.product.selProduct,
     }
 }
 

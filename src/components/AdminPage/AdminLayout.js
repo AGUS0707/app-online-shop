@@ -422,12 +422,6 @@ const AdminLayout = (props) => {
                                         {/*<span className="icon icon-bottom ml-5"></span>*/}
                                     </Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link to="/" className="nav-link d-flex align-items-center">
-                                        <span className="icon icon-home1"></span>
-                                        <p className="mb-0">HomePage</p>
-                                    </Link>
-                                </li>
                                 <Collapse
                                     isOpen={collapse5}
                                     // onEntering={onEntering}
@@ -466,6 +460,12 @@ const AdminLayout = (props) => {
                                         </li>
                                     </ul>
                                 </Collapse>
+                                <li className="nav-item">
+                                    <Link to="/" className="nav-link d-flex align-items-center">
+                                        <span className="icon icon-home1"></span>
+                                        <p className="mb-0">HomePage</p>
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </div>

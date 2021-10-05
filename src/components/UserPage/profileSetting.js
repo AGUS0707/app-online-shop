@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 
 function ProfileSetting(props) {
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <>
             <div className="profile-name">
@@ -97,9 +100,9 @@ function ProfileSetting(props) {
                         <li className="personalCabinetItem">
                             <Link to={"/home/profile/edit-password"}>Kalit soz ozgartirish</Link>
                         </li>
-                        <li className="personalCabinetItem">
-                            <Link to={"/"}>Xavfszlik savolini berish</Link>
-                        </li>
+                        {/*<li className="personalCabinetItem">*/}
+                        {/*    <Link to={"/"}>Xavfszlik savolini berish</Link>*/}
+                        {/*</li>*/}
                     </ul>
                 </div>
                 <div className="editProfileContent">

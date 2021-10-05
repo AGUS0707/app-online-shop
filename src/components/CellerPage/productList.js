@@ -4,29 +4,30 @@ import {connect} from "react-redux";
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
 import Cookies from "js-cookie";
-import {Spinner} from "reactstrap";
+import useStateRef from 'react-usestateref';
 
 function ProductList(props) {
 
-    const [loader, setLoader] = useState(true)
 
+
+    // let a="wefffewffewfffw g erger sdgferwgrewg";
+    // console.log(a.search("wg"));
+    const [loader, setLoader] = useState(true)
     useEffect(()=>{
         axios.post(API_PATH+"slproduct", {user_id:props.userReducer.userObject.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((res)=>{
             props.updateProductList(res.data);
             setLoader(false)
-
         });
     }, []);
-    const [product, setProduct]=useState({
-       product_uz:" ",
-       brand_name:" ",
-       price:" ",
-       amount:" ",
-       category_uz:" "
+    const [product, setProduct, productRef]=useStateRef({
+        user_id:props.userReducer.userObject.id,
+       product_uz:"",
+       brand_name:"",
+       price:"",
+       category_uz:"",
+        date:""
     });
-    // let a="rtrkjbrtb";
-    // let b=a.includes(" ");
-    // console.log(b);
+
     const changeFilterProduct=(e)=>{
         let newObject={
             ...product,
@@ -36,48 +37,11 @@ function ProductList(props) {
     };
 
 
-
-    // const [sellerProductList, ]useState([])
     const productFilterListFunction=()=>{
-        let productFilterList=[];
-
-        let product_uzArray=[];
-        let brandNameArray=[];
-        let priceArray=[];
-        let amountArray=[];
-        let category_uzArray=[];
-
-        let max1=[];
-        let max2=[];
-        let max3=[];
-        let max4=[];
-        let max5=[];
-
-
-        let arrayCount=[]
-        axios.post(API_PATH+"slproduct", {user_id:props.userReducer.userObject.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((res)=>{
-            product_uzArray=res.data.filter((item)=>{
-                if (item.product_uz.includes(product.product_uz)){
-                    return item;
-                }
-            });
-            brandNameArray=res.data.filter((item)=>{
-                if (item.brand_name.includes(product.brand_name))
-                    return item
-            });
-            priceArray=res.data.filter((item)=>{
-                if (item.price.includes(product.price))
-                    return item
-            });
-            amountArray=res.data.filter((item)=>{
-                if (item.amount.includes(product.amount))
-                    return item
-            });
-            category_uzArray=res.data.filter((item)=>{
-                if (item.category_uz.includes(product.category_uz))
-                    return item
-            });
-        });
+        axios.post(API_PATH+'filter', product, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
+            props.updateProductList(response.data);
+            setLoader(false)
+        })
     };
 
 
@@ -159,7 +123,6 @@ function ProductList(props) {
            }
        }
     };
-    console.log(productIdList);
     function deleteValueListFunction() {
         // props.updateValueList([]);
     }
@@ -180,125 +143,130 @@ function ProductList(props) {
         })
     }
     return (
-        <div className="product">
-            <div className="productHeader d-flex justify-content-between">
-                <div className="productHeaderLeft d-flex align-items-center">
-                    <h2>Tovarlar</h2>
-                    <div className="homeIcon">
-                        <img src="/images/home.svg" alt="no image"/>
-                    </div>
-                    <div className="nextIcon">
-                        <img src="/images/next.svg" alt="no image"/>
-                    </div>
-                    <Link to="/">tovarlar</Link>
-                </div>
-                <div className="productHeaderRight d-flex justify-content-end">
-                    <div className="productHeaderRightContent d-flex ">
-                        <Link to="/seller/products/form"  onClick={productClear}  className="plusImg">
-                            <span className="img"></span>
-                        </Link>
-                        <Link className="deleteImg" onClick={deleteProducts}>
-                            <span className="img"></span>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <div className="productMain">
-                <div className="productList">
-                    <div className="row">
+        <>
 
-                        {
-                          loader ? <div className="col-9">
-                              <div className="d-flex align-items-center justify-content-center">
-                                  <img src="/images/loading.gif" width="200" height="200" alt=""/>
-                              </div>
-                          </div> : <div className="col-md-9">
-                              <div className="productListHeader d-flex">
-                                  <img src="/images/options-lines.svg" alt="no images"/>
-                                  <h4>Tovarlar</h4>
-                              </div>
-                              <div className="productListTable">
-                                  <table className="table table-bordered">
-                                      <thead>
-                                      <tr>
-                                          <th className="text-left"><input type="checkbox"  onChange={checkChange} id="bosh" className='form-control'/></th>
-                                          <th className="text-center">Rasmlar</th>
-                                          <th className="text-left">Mahsulot nomi</th>
-                                          <th className="text-left">Brand</th>
-                                          <th className="text-right">Saytdagi narx</th>
-                                          <th className="text-right">Miqdor</th>
-                                          <th className="text-left">Category</th>
-                                          <th>Harakat</th>
-                                      </tr>
-                                      </thead>
-                                      <tbody>
-                                      {props.productListReducerSeller.productList.map((item)=>{
-                                          return <tr>
-                                              <td className="text-left"><input onChange={checkChange} id={item.id} type="checkbox" className="form-control input" /></td>
-                                              <td className="text-center"><img src={item.photo_list[0].url} width={"45px"} height={"45px"} alt={item.photo_list[0].alt_name}/></td>
-                                              <td className="text-left ">{item.product_uz}</td>
-                                              <td>{item.brand_name}</td>
-                                              <td className="text-right">
-                                                  <div>{item.price}</div>
-                                                  <div>{item.price}</div>
-                                              </td>
-                                              <td className="text-right">{item.amount}</td>
-                                              <td className="text-left">{item.category_uz}</td>
-                                              <td><Link to="/seller/products/form/edit" onClick={()=>oldProductFunction(item.id)}><span className="editIcon"></span></Link></td>
-                                          </tr>
-                                      })}
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
+            {
+                loader ? <div className="vh-100 d-flex align-items-center justify-content-center">
+                    <div className="d-flex align-items-center justify-content-center">
+                        <img src="/images/loading.gif" width="120" height="120" alt=""/>
+                    </div>
+                </div> : <div className="product">
+                    <div className="productHeader d-flex justify-content-between">
+                        <div className="productHeaderLeft d-flex align-items-center">
+                            <h2>Tovarlar</h2>
+                            <div className="homeIcon">
+                                <img src="/images/home.svg" alt="no image"/>
+                            </div>
+                            <div className="nextIcon">
+                                <img src="/images/next.svg" alt="no image"/>
+                            </div>
+                            <Link to="/seller/products">tovarlar</Link>
+                        </div>
+                        <div className="productHeaderRight d-flex justify-content-end">
+                            <div className="productHeaderRightContent d-flex ">
+                                <Link to="/seller/products/form"  onClick={productClear}  className="plusImg">
+                                    <span className="img"></span>
+                                </Link>
+                                <Link className="deleteImg" onClick={deleteProducts}>
+                                    <span className="img"></span>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div className="productMain">
+                        <div className="productList">
+                            <div className="row">
 
-                        }
-                        
-                        <div className="col-md-3">
-                            <div className="filterContent">
-                                <div className="filterHeader d-flex">
-                                    <img src="/images/filtr.png" alt="no image"/>
-                                    <h3>Filterlash</h3>
+                                <div className="col-md-9">
+                                    <div className="productListHeader d-flex">
+                                        <img src="/images/options-lines.svg" alt="no images"/>
+                                        <h4>Tovarlar</h4>
+                                    </div>
+                                    <div className="productListTable">
+                                        <table className="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th className="text-left"><input type="checkbox"  onChange={checkChange} id="bosh" className='form-control'/></th>
+                                                <th className="text-center">Rasmlar</th>
+                                                <th className="text-left">Mahsulot nomi</th>
+                                                <th className="text-left">Brand</th>
+                                                <th className="text-right">Saytdagi narx</th>
+                                                <th className="text-right">Miqdor</th>
+                                                <th className="text-left">Category</th>
+                                                <th>Harakat</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {props.productListReducerSeller.productList.map((item)=>{
+                                                return <tr>
+                                                    <td className="text-left"><input onChange={checkChange} id={item.id} type="checkbox" className="form-control input" /></td>
+                                                    <td className="text-center"><img src={item.photo_list[0].url} width={"45px"} height={"45px"} alt={item.photo_list[0].alt_name}/></td>
+                                                    <td className="text-left ">{item.product_uz}</td>
+                                                    <td>{item.brand_name}</td>
+                                                    <td className="text-right">
+                                                        <div>{item.price}</div>
+                                                        <div>{item.price}</div>
+                                                    </td>
+                                                    <td className="text-right">{item.amount}</td>
+                                                    <td className="text-left">{item.category_uz}</td>
+                                                    <td><Link to="/seller/products/form/edit" onClick={()=>oldProductFunction(item.id)}><span className="editIcon"></span></Link></td>
+                                                </tr>
+                                            })}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <div className="filterMain">
-                                    <div className="filterForm">
-                                        <label htmlFor="reklama">Mahsulot  nomi
-                                            <input type="text" placeholder="Mahsulot   nomi" onChange={changeFilterProduct} name="product_uz" id="reklama" className="form-control"/>
-                                        </label>
-                                        <hr/>
-                                        <label htmlFor="kuzatuv_kodi">Brand
-                                            <input type="text" placeholder="Model" onChange={changeFilterProduct} name="brand_name" id="kuzatuv_kodi" className="form-control"/>
-                                        </label>
-                                        <hr/>
-                                        <label htmlFor="kuzatuv_kodi">Narx
-                                            <input type="text" placeholder="narx" onChange={changeFilterProduct} name="price" id="kuzatuv_kodi" className="form-control"/>
-                                        </label>
-                                        <hr/>
-                                        <label htmlFor="category"> Category
-                                            <input type="text" placeholder={"category"} onChange={changeFilterProduct} name="category_uz" id="category"/>
-                                        </label>
-                                        <hr/>
-                                        <label htmlFor="date">
-                                            Sana
-                                            <input type="date" name="birthday" id="date" className="form-control"/>
-                                        </label>
-                                        <hr/>
-                                        <div className="filterButton d-flex justify-content-end">
-                                            <button className="btn d-flex align-items-center" onClick={productFilterListFunction}>
-                                                <img src="/images/filtr.png" alt="no image"/>
-                                                Filtrlash
-                                            </button>
+
+
+                                <div className="col-md-3">
+                                    <div className="filterContent">
+                                        <div className="filterHeader d-flex">
+                                            <img src="/images/filtr.png" alt="no image"/>
+                                            <h3>Filterlash</h3>
+                                        </div>
+                                        <div className="filterMain">
+                                            <div className="filterForm">
+                                                <label htmlFor="reklama">Mahsulot  nomi
+                                                    <input type="text" placeholder="Mahsulot   nomi" onChange={changeFilterProduct} name="product_uz" id="reklama" className="form-control"/>
+                                                </label>
+                                                <hr/>
+                                                <label htmlFor="kuzatuv_kodi">Brand
+                                                    <input type="text" placeholder="Model" onChange={changeFilterProduct} name="brand_name" id="kuzatuv_kodi" className="form-control"/>
+                                                </label>
+                                                <hr/>
+                                                <label htmlFor="kuzatuv_kodi">Narx
+                                                    <input type="text" placeholder="narx" onChange={changeFilterProduct} name="price" id="kuzatuv_kodi" className="form-control"/>
+                                                </label>
+                                                <hr/>
+                                                <label htmlFor="category"> Category
+                                                    <input type="text" placeholder={"category"} onChange={changeFilterProduct} name="category_uz" id="category" className="form-control" />
+                                                </label>
+                                                <hr/>
+                                                <label htmlFor="date">
+                                                    Sana
+                                                    <input type="date" name="date" id="date" onChange={changeFilterProduct} className="form-control"/>
+                                                </label>
+                                                <hr/>
+                                                <div className="filterButton d-flex justify-content-end">
+                                                    <button className="btn d-flex align-items-center" onClick={productFilterListFunction}>
+                                                        <img src="/images/filtr.png" alt="no image"/>
+                                                        Filtrlash
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+            }
 
-            </div>
-        </div>
+        </>
+
     );
 }
 function mapStateToProps(state) {

@@ -15,7 +15,7 @@ import Buyurtmalar from "./components/CellerPage/Buyurtmalar";
 import AdminMenu from "./components/AdminPage/AdminMenu";
 import Category from "./components/AdminPage/Category/Category";
 import Brand from "./components/AdminPage/product/Brand/Brand";
-import Profile from "./components/homePage/Main/profile";
+import Profile from "./components/UserPage/profile";
 import Clients from "./components/AdminPage/Client/Clients";
 import Model from "./components/AdminPage/product/model/Model";
 import Detail from "./components/AdminPage/product/detail/Detail";
@@ -57,6 +57,9 @@ import NotFound from "./components/homePage/NotFound";
 import {connect} from "react-redux";
 import BasketOrders from "./components/homePage/basketOrders";
 import Categories from "./components/homePage/Categories";
+import SearchDatabe from "./components/homePage/searchDatabe";
+import Cabinet from "./components/homePage/Cabinet";
+import ProductEdit from "./components/AdminPage/product/products/ProductEdit";
 
 
 function App(props) {
@@ -72,10 +75,13 @@ function App(props) {
                   <Route path="/home/shopping/orders"  component={BasketOrders}/>
                   <Route path="/product/buynow" exact component={BuyNow}/>
                   <Route path="/home/profile" component={Profile}/>
+                  <Route path="/home/cabinet" component={Cabinet}/>
 
                   <Route path="/category/:url2" component={Categories}/>
 
                   <Route path="/seller"  component={CellerLayout}/>
+
+                  <Route path="/home/search"  component={()=><SearchDatabe/>}/>
 
                   {/*{*/}
                   {/*    user.role_id==="1" ? <>*/}
@@ -94,6 +100,7 @@ function App(props) {
                           <Route path="/admin/product/model/edit" exact component={ModelEdit}/>
                           <Route path="/admin/product/products" exact component={Products}/>
                           <Route path="/admin/product/products/add" exact component={ProductAdd}/>
+                          <Route path="/admin/product/products/edit" exact component={ProductEdit}/>
                           <Route path="/admin/product/detail" exact component={Detail}/>
                           <Route path="/admin/product/detail/add" exact component={DetailAdd}/>
                           <Route path="/admin/product/detail/edit" exact component={DetailEdit}/>

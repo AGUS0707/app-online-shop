@@ -21,3 +21,16 @@ body{
         margin-right: auto;
     }
 }
+
+
+@media (max-width: 576px){
+    .app .Toastify .Toastify__toast-container{
+        /*margin-top: 100px!important;*/
+        /*margin-left: 10px!important;*/
+        /*margin-right: 10px!important;*/
+        width: 90%;
+        margin-left: auto;
+        margin-top: 10px;
+        z-index: 999999999999999999999;
+    }
+}

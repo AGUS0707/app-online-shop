@@ -1,5 +1,6 @@
 
 import React, {useRef, useState, useEffect} from 'react';
+import {useHistory} from "react-router-dom"
 import {Link} from "react-router-dom";
 import {toast} from "react-toastify";
 import axios from "axios";
@@ -21,7 +22,7 @@ function Registr(props) {
     const [validEmail, setValidEmail]=useState(false);
     const [validPassword, setValidPassword]=useState(false);
 
-
+    const history = useHistory();
 
     const closeModall = () => {
         props.setModal(false);
@@ -67,6 +68,11 @@ function Registr(props) {
         setUser(newwUser);
         axios.post(API_PATH+'register', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
             .then((response)=>{
+                // if (window.innerWidth < 576){
+                //     history.push("/home/profile")
+                // } else {
+
+                // }
                 let localstorageUser;
                 localstorageUser={
                     id:response.data.id,
@@ -79,6 +85,7 @@ function Registr(props) {
                 props.addUserrr(localstorageUser);
                 props.addUserCheck(true);
                 closeModall();
+                history.push("/")
                 toast.success("Kirish muvofiqiyatli yakunlandi");
                 // localStorage.setItem("token", response.data.token)
                 Cookies.set('jwt', response.data.token)
@@ -100,6 +107,11 @@ function Registr(props) {
                             toast.error("bunday foydalanuvchi mavjud");
                         }else {
                             toast.success("Kirish muvofiqiyatli yakunlandi");
+                            // if (window.innerWidth < 576){
+                            //     history.push("/home/profile")
+                            // } else {
+
+                            // }
                             let localstorageUser;
                             localstorageUser={
                                 id:response.data.id,
@@ -114,6 +126,7 @@ function Registr(props) {
                             emailRef.current.value=null;
                             passwordRef.current.value=null;
                             closeModall()
+                            history.push("/home/profile")
                         }
                         // localStorage.setItem("token", response.data.token)
                         Cookies.set('jwt', response.data.token)

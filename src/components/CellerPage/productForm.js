@@ -308,6 +308,7 @@ function ProductForm(props) {
         };
         props.changeProduct(newObject)
     };
+
     function handleInputValueChange(e) {
         if (e.target.checked===true){
             setIdObject((prev)=>prev.concat(e.target.name));
@@ -391,6 +392,8 @@ function ProductForm(props) {
                                             onEditorChange={editorChangeUz}
                                             tagName="textarea"
                                             initialValue={product.description_uz}
+
+
                                         />
                                     </div>
                                 </div>

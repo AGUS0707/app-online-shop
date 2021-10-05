@@ -28,7 +28,13 @@ const initialState  = {
 
     subCategoryOpen: false,
     subCategoryId: "",
-    subCategory: []
+    subCategory: [],
+    category_name: "",
+    product1media: [],
+    categorymedia: "",
+    categoryId: "",
+    categoryfilter: [],
+    countCart: 0
 
 };
 
@@ -40,6 +46,17 @@ export const categoryReducer = (state = initialState, action) => {
             ...action.payload
         }
     }
+
     return state;
 };
+
+// export const categoryReducer1 = (state = initialState, action) => {
+//     if (action.type === "SET_STATE"){
+//         return{
+//             ...state,
+//             countCart:action.countCart
+//         }
+//     }
+//     return state;
+// };
 

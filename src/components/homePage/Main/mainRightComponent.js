@@ -40,7 +40,7 @@ function MainRightComponent(props) {
                     }
                 </div>
                 <Link to="/" className={` ${props.userCheckReducer.userCheck===true? "unsubscribeNone": "unsubscribe"}`}>
-                    Welcome to AliExpress
+                    Welcome to Online Shop
                 </Link>
                 <div className="unsubscribeButtons">
                     <div className={`${props.userCheckReducer.userCheck===true?"unsubscribeButtonContentNone": "unsubscribeButtonsContent"}`}>
@@ -56,7 +56,7 @@ function MainRightComponent(props) {
                     <Modal history={props.history} setSign={setSign} sign={sign} modal={modal} setModal={setModal}/>
                 </div>
                 <div className={` profile ${props.userCheckReducer.userCheck===true? "profile-block":"profile-none"}`}>
-                    <div className="profile-icons-content">
+                    <div className={`profile-icons-content pl-4 pr-4  ${props.userReducer.userObject.role_id==="4"? "padding": ""}`}>
                         {
                             props.userReducer.userObject.role_id === "1" ?  <Link to="/admin/profile" className="profile-icons-mask1">
                                 <div className="profile-img1"></div>
@@ -67,12 +67,12 @@ function MainRightComponent(props) {
                         <Link to={"/home/profile"} className="profile-icons-mask2">
                             <div className="profile-img2"></div>
                         </Link>
-                        <Link to="/" className="profile-icons-mask3">
+                        <Link to="/home/profile/orders" className="profile-icons-mask3">
                             <div className="profile-img3"></div>
                         </Link>
-                        <Link to="/" className="profile-icons-mask4">
-                            <div className="profile-img4"></div>
-                        </Link>
+                        {/*<Link to="/" className="profile-icons-mask4">*/}
+                        {/*    <div className="profile-img4"></div>*/}
+                        {/*</Link>*/}
                     </div>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import Modal from "./Main/modal"
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
 import Cookies from "js-cookie";
+import {SET_STATE} from "../../redux/types/Type";
 function Navbar(props) {
     const [sign, setSign]=React.useState(true);
     const [modal, setModal]=useState(false);
@@ -31,43 +32,13 @@ function Navbar(props) {
        localStorage.setItem("shoppingCardList", "");
        props.shoppingCardCountFunction(0);
        axios.get(API_PATH+'logout', {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
+        props.set_state({countCart: 0})
     }
 
     return (
         <div className="navbar-top">
             <div className="container">
                 <ul className="navbarNav">
-                    <li className="nav-item">
-                        <Link to={"/"}>Sell on AliExpress
-                            <ul>
-                                <li>
-                                    <Link to={"/"}>Log In</Link>
-                                </li>
-                                <li>
-                                    <Link to={"/"}>Sign In</Link>
-                                </li>
-                                <li>
-                                    <Link to={"/"}>Log In</Link>
-                                </li>
-                                <li>
-                                    <Link to={"/"}>Log In</Link>
-                                </li>
-                            </ul>
-                            <span>
-                                <img src="/images/arrow-down-filled-triangle.svg"
-                                 alt="no images"
-                                />
-                            </span>
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={"/"} className="help">Help
-                            <span>
-                                <img src="/images/arrow-down-filled-triangle.svg" alt="no images"/>
-                            </span>
-                        </Link>
-                        <Link to="/" >By Protection</Link>
-                    </li>
                     <li className="nav-item">
                         <button>
                             <div className="language">
@@ -84,12 +55,6 @@ function Navbar(props) {
                         </button>
                     </li>
                     <li className="nav-item">
-                        <div className="wishList">
-                            <Link to={"/"}>
-                                <span></span>
-                                Wish List
-                            </Link>
-                        </div>
                         <div className="account">
                             <Link to={userCheck? "/home/profile": "/"} className={"accountText"} onClick={userCheck?"": openModal}>
                                 <span></span>
@@ -155,6 +120,13 @@ function mapDispatchToProps(dispatch) {
                 type:"SHOPPING_CARD_COUNT",
                 payload:count
             })
+        },
+        set_state : function (data) {
+            dispatch({
+                type: SET_STATE,
+                payload: data
+            })
+
         }
     }
 }

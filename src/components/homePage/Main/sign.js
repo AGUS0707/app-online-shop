@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {API_PATH} from "../../../tools/constants"
 import {useHistory} from "react-router-dom"
 import Cookies from "js-cookie";
+import {SET_STATE} from "../../../redux/types/Type";
 
 
 function Sign(props) {
@@ -27,8 +28,8 @@ function Sign(props) {
 
     function closeModall  () {
         props.setModal(false);
-        emailRef.current.value=null;
-        passwordRef.current.value=null;
+        // emailRef.current.value=null;
+        // passwordRef.current.value=null;
         setValidEmail(false);
         setValidPassword(false);
     }
@@ -71,27 +72,45 @@ function Sign(props) {
         setUser(newwUser);
         axios.post(API_PATH+'login', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
             .then((response)=>{
+                // console.log(response.data)
                 if (response.data!==0){
-                    if (response.data.role_id === "1"){
-                        closeModall();
-                        history.push("/admin/profile");
-                    }
-                    if (response.data.role_id==="3"){
-                        closeModall();
-                        history.push("/seller")
-                    }
-                    if (response.data.role_id==="4"){
-                        closeModall();
-                        history.push("/")
+                    axios.post(API_PATH+'cart', {id: response.data.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((res)=>{
+                        props.set_state({countCart: res.data.length})
+                    })
+
+                    if (window.location.pathname === "/"){
+                        if (response.data.role_id === "1"){
+                            closeModall();
+                            history.push("/admin/profile");
+                        }
+                        if (response.data.role_id==="3"){
+                            closeModall();
+                            history.push("/seller")
+                        }
+                        if (response.data.role_id==="4"){
+                            closeModall();
+                            if (window.innerWidth < 576){
+                                history.push("/home/profile")
+                            } else {
+                                history.push("/")
+                            }
+                        }
+                    } else {
+                       closeModall()
                     }
                     let localstorageUser;
                     localstorageUser={
                         id:response.data.id,
-                        email:response.data.email,
+                        email:response.data.phone,
                         photo:response.data.photo,
                         phone:response.data.phone,
                         alt_name:response.data.alt_name,
-                        role_id:response.data.role_id
+                        role_id:response.data.role_id,
+                        lastname:response.data.lastname,
+                        fristname:response.data.fristname,
+                        gender:response.data.gender,
+                        birthdate:response.data.birthdate
+
                     };
                     props.addUserrr(localstorageUser);
                     props.addUserCheck(true);
@@ -114,26 +133,42 @@ function Sign(props) {
                 axios.post(API_PATH+'login', {email:userRef.current.email, password:userRef.current.password, phone:userRef.current.phone})
                     .then((response)=>{
                         if (response.data!==0){
-                            if (response.data.role_id === "1"){
-                                closeModall();
-                                history.push("/admin/profile");
-                            }
-                            if (response.data.role_id==="3"){
-                                closeModall();
-                                history.push("/seller")
-                            }
-                            if (response.data.role_id==="4"){
-                                closeModall();
-                                history.push("/")
+                            console.log(response.data)
+                            axios.post(API_PATH+'cart', {id: response.data.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((res)=>{
+                                props.set_state({countCart: res.data.length})
+                            })
+                            if (window.location.pathname === "/"){
+                                if (response.data.role_id === "1"){
+                                    closeModall();
+                                    history.push("/admin/profile");
+                                }
+                                if (response.data.role_id==="3"){
+                                    closeModall();
+                                    history.push("/seller")
+                                }
+                                if (response.data.role_id==="4"){
+                                    closeModall();
+                                    if (window.innerWidth < 576){
+                                        history.push("/home/profile")
+                                    } else {
+                                        history.push("/")
+                                    }
+                                }
+                            } else {
+                                closeModall()
                             }
                             let localstorageUser;
                             localstorageUser={
                                 id:response.data.id,
                                 email:response.data.email,
                                 photo:response.data.photo,
-                                phone:"",
+                                phone:response.data.phone,
                                 alt_name:response.data.alt_name,
-                                role_id:response.data.role_id
+                                role_id:response.data.role_id,
+                                lastname:response.data.lastname,
+                                fristname:response.data.fristname,
+                                gender:response.data.gender,
+                                birthdate:response.data.birthdate
                             };
                             props.addUserCheck(true);
                             props.addUserrr(localstorageUser);
@@ -227,6 +262,13 @@ function mapDispatchToProps(dispatch) {
                type: "USER",
                payload: user
            })
+        },
+        set_state : function (data) {
+            dispatch({
+                type: SET_STATE,
+                payload: data
+            })
+
         }
     }
 }
