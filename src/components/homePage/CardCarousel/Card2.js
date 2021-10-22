@@ -7,7 +7,7 @@ const Card2 = (props) => {
 
                 <div className="card border-0 bg-transparent h-100 pb-3">
                     <div className="card-body bg-white p-2">
-                       <div> <img src={props.photo_list.url} height="200" className="w-100" alt=""/></div>
+                       <div> <img src={props.photo_list.url} height="180" className="w-100" alt=""/></div>
                         <div className="pl-2 mt-2">
                             <p>{props.name}</p>
                             <h6>UZS {props.price} </h6>

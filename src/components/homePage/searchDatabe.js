@@ -6,35 +6,19 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import Card2 from "./CardCarousel/Card2";
 import {set_state1} from "../../redux/actions/productAction";
+import HomePageFixed from "./homePageFixed";
+import "../../styles/mediaproducts.scss"
+import MediaCategory from "./MediaCategory";
+import Modal from "./Main/modal";
 import axios from "axios";
 import {API_PATH} from "../../tools/constants";
 import Cookies from "js-cookie";
-import {useHistory} from "react-router-dom"
-import HomePageFixed from "./homePageFixed";
-import "../../styles/mediaproducts.scss"
 
 function SearchDatabe(props) {
 
     const generateUrl = (text) => text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-    const [count, setCount] = useState(0);
-    let user = JSON.parse(localStorage.getItem("user"))
-    let history = useHistory();
-
-
-    useEffect(()=>{
-        window.scrollTo(0, 0);
-        if (window.localStorage.length === 0){
-            history.push("/")
-        }
-
-        if (user !== null){
-            axios.post(API_PATH+'cart', {id: user.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
-                setCount(response.data.length)
-            }).catch(()=>{
-            })
-        }
-
-    },[])
+    const [sign, setSign]=React.useState(true);
+    const [modal, setModal]=useState(false);
 
     function aa(id, user_id) {
         window.scrollTo(0, 0);
@@ -42,27 +26,34 @@ function SearchDatabe(props) {
             id: id,
             user_id: user_id
         }));
-        props.productListSearchReducer.productList.forEach((item)=>{
+        props.searchProductListReducer.searchProductList.forEach((item)=>{
             if (id===item.id){
                 props.set_state1({oneProduct: item, photo_list: item.photo_list, onePhoto_list:item.photo_list[0].url, htmlString: item.description_uz, valueList: item.value, detailList: item.detail})
             }
         })
     }
+
+    const openModal=()=>{
+        setModal(true)
+    };
+    const registrClick=()=>{
+        openModal();
+        setSign(false)
+    };
     return (
         <div>
             <Navbar/>
-            <Search count={count} history={props.history}/>
+            <Search history={props.history}/>
             <>
-                {props.productListSearchReducer.productList.length>0? <div style={{backgroundColor:"#f2f2f2"}} className="pt-4">
+                {props.searchProductListReducer.searchProductList.length>0? <div style={{backgroundColor:"#f2f2f2"}} className="pt-4">
                     <div className="container">
                         <div className="row pb-3">
                             {
-                                props.productListSearchReducer.productList.map((item, index)=>{
+                                props.searchProductListReducer.searchProductList.map((item, index)=>{
                                     return <div className="col-2 searchdatabe"> <Link
                                         className="text-decoration-none"
                                         to={"/product/view/" + generateUrl(item.product_uz)}
                                         onClick={(id, user_id)=>aa(item.id, item.user_id)}>
-
                                         <Card2 key={index} name={item.product_uz} price={item.price} amount={item.amount} photo_list={item.photo_list[0]}/>
                                     </Link></div>
                                 })
@@ -76,7 +67,76 @@ function SearchDatabe(props) {
                     <h4 className="text-center">Bu parametrlar uchun hech qanday mahsulot topilmadi</h4>
                 </div>}
             </>
-            <HomePageFixed count={count}/>
+            <div className="homepagefixed">
+                <div className="container position-relative">
+                    <div className="d-flex align-items-center justify-content-between">
+                        <Link to="/" className="text-decoration-none">
+                            <div className="home">
+
+                                <div className="d-flex align-items-center justify-content-center">
+                                    <span className="icon1 icon-home11"></span>
+                                </div>
+                                <p className="text-center">Bosh sahifa</p>
+
+                            </div>
+                        </Link>
+
+                        <div className="home" onClick={()=>{props.set_state1({category: !props.product.category})}}>
+
+                            <div className="d-flex align-items-center justify-content-center">
+                                <span className="icon1 icon-category11"></span>
+                            </div>
+                            <p className="text-center">Category</p>
+
+
+
+                        </div>
+
+                        {
+                            props.product.category ? <MediaCategory/> : ""
+
+                        }
+
+                        {/*{ props.category.subCategoryOpen ? <SubCategory/> : ""}*/}
+
+                        <Link to="/home/shopping" className="text-decoration-none">
+                            <div className="home">
+
+                                <div className="d-flex align-items-center justify-content-center korzinka">
+                                    <span className="icon1 icon-shopping-cart11"></span>
+                                    <div className="count"><p className="text-danger">{props.category.countCart}</p></div>
+                                </div>
+                                <p className="text-center">Savatcha</p>
+
+                            </div>
+                        </Link>
+
+                        {
+                            props.userCheckReducer.userCheck ? <Link to="/home/profile" className="text-decoration-none">
+                                <div className="home">
+
+                                    <div className="d-flex align-items-center justify-content-center">
+                                        <span className="icon1 icon-profile11"></span>
+                                    </div>
+                                    <p className="text-center">Profile</p>
+
+                                </div>
+                            </Link> : <div className="home" onClick={registrClick}>
+
+                                <div className="d-flex align-items-center justify-content-center">
+                                    <span className="icon1 icon-register11"></span>
+                                </div>
+                                <p className="text-center">Register</p>
+
+                            </div>
+                        }
+
+
+
+                    </div>
+                </div>
+                <Modal history={props.history} setSign={setSign} sign={sign} modal={modal} setModal={setModal}/>
+            </div>
             <Footer/>
         </div>
     );

@@ -65,7 +65,7 @@ function BasketOrdersComponent(props) {
             });
             console.log(newArray);
             axios.post(API_PATH+'crorder', newArray, {headers: {"Authorization": "Bearer " + Cookies.get('jwt')}}).then((res)=>{
-                console.log(res);
+                window.open(`${res.data}`)
             })
         }else {
             setPaymentCheck(true);

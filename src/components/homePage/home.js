@@ -87,7 +87,9 @@ function Home(props) {
                     <div style={{backgroundColor: "#f2f2f2"}}>
                         <Content1/>
                         <Carousel/>
-                        <Carousel2/>
+                        {
+                            props.product.length > 6 ? <Carousel2/> : ""
+                        }
                         <Products/>
                         <Footer/>
                         <HomePageFixed count={props.countCart}/>

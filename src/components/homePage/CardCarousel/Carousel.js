@@ -24,7 +24,8 @@ function Carousel (props) {
 
     // const [productList, setProductList]=React.useState(props.product)
 
-    let productList = props.product.slice(props.product.length-18, props.product.length)
+    // let productList = props.product.slice(props.product.length-18, props.product.length)
+    let productList = props.product
 
     let filterList=[]
     let items=[]

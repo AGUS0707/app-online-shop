@@ -52,6 +52,7 @@ export function saveUpCategory(event, errors, values, history) {
     }
 }
 export const deleteCategory = () => (dispatch, getstate) => {
+    console.log(getstate().category.selectedIndex)
     axios.post(API_PATH +"delcategory", {id: getstate().category.selectedIndex}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
         .then((res) => {
             toast.success("o'chdi");

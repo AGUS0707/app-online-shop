@@ -34,7 +34,8 @@ const initialState  = {
     categorymedia: "",
     categoryId: "",
     categoryfilter: [],
-    countCart: 0
+    countCart: 0,
+    sellers: []
 
 };
 

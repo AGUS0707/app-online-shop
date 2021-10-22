@@ -18,7 +18,7 @@ import valueChangeListReducer from "./valueChangeList";
 import shoppingCardListReducer from "./shoppingCardListReducer";
 import shoppingCardCountReducer from "./shoppingCardCountReducer";
 import productListSearchReducer from "./productListSearchReducer";
-
+import searchProductListReducer from "./searchProductListReducer";
 
 
 
@@ -42,7 +42,7 @@ export const rootReducer = combineReducers({
     shoppingCardListReducer,
     shoppingCardCountReducer,
     productListSearchReducer,
-
+    searchProductListReducer
 
 
 

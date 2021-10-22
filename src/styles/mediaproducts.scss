@@ -24,8 +24,19 @@
 .searchdatabe{
   @media (max-width: 576px){
     min-width: 50% !important;
-    .media-img{
-      width: 80% !important;
+  }
+}
+@media (max-width: 576px){
+  //min-width: 50% !important;
+  .media-img{
+    width: 80% !important;
+  }
+}
+.notProduct{
+  h4{
+    @media screen and (max-width: 576px){
+      font-size: 14px;
+      padding: 0 50px;
     }
   }
 }

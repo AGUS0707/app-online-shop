@@ -43,9 +43,11 @@ const BuyNow = (props) => {
 
     let detail12 = [];
     let value12 = [];
-
     useEffect(()=>{
         window.scrollTo(0, 0)
+        if (window.localStorage.length === 0){
+            props.history.push("/")
+        }
         axios.get(API_PATH + "product")
             .then((res)=>{
                 setLoading(false)
@@ -139,7 +141,8 @@ const BuyNow = (props) => {
 
             axios.post(API_PATH + "crorder", order, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}})
                 .then((res)=>{
-                    // console.log(res.data)
+                    console.log(props)
+                    window.open(`${res.data}`)
                     toast.success("To'lovni amalga oshirishingiz mumkin!")
                 })
         // console.log(order)
@@ -186,12 +189,10 @@ const BuyNow = (props) => {
                     if (address1.name !==undefined){
                         setaddres(address1)
                     } if (res.data.length === 1){
-                        toast.success("ishladi")
                         res.data.map((item)=>{
                             return setaddres(item)
                         })
                     } if (res.data.length > 1){
-                        // toast.success("ishladi")
                         res.data.map((item, index)=>{
                             return index === res.data.length-1 ? setaddres(item) : ""
                         })

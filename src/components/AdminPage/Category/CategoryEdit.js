@@ -38,34 +38,6 @@ const CategoryEdit = (props) => {
                             <option value={props.selectedItem.category_id}>Bosh category</option>
                         </AvField>
 
-                        <input type="checkbox" id="3" onClick={() => props.set_state({submenu: !props.submenu})}></input>
-                        <label htmlFor="3">Sub Categories</label>
-                        {
-                            props.submenu ? <AvField type="select" label="Sub Category" name="category_id" onChange={filterList} className="form-control w-100">
-                                <option>Tanlang</option>
-                                {
-                                    props.category.map((item, index) => {
-
-                                        if (item.category_id === "0"){
-                                            return <option value={item.id}>{item.category_uz}</option>
-                                        }
-
-                                    })
-                                }
-                            </AvField> : "" }
-                        {props.submenu1 ? <input type="checkbox" id="5" onClick={() => props.set_state({submenu2: !props.submenu2})}/> : ""}
-                        {props.submenu1 ? <label htmlFor="5">Sub sub category</label> : ""}
-                        { props.submenu2 ? <AvField type="select" label="Sub sub Category" name="category_id" className="form-control w-100">
-                            <option>Tanlang</option>
-                            {
-                                props.category.map((item, index) => {
-
-                                    if (item.category_id === props.value){
-                                        return <option value={item.id}>{item.category_uz}</option>
-                                    }
-                                })
-                            }
-                        </AvField> : ""}
                 </div>
             </div>
 

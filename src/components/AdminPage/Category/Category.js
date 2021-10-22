@@ -93,7 +93,7 @@ const Category = (props) => {
                                                <td>{item.index}</td>
                                                <td className="d-flex align-items-center border-0">
                                                   <Link to="/admin/category/edit"> <button className="btn btn-info" onClick={()=>props.set_state({selectedItem: item})}><span className="icon icon-edit"></span></button></Link>
-                                                   <button className="btn btn-danger ml-2" onClick={() => props.set_state({open3: true, selectedIndex: item.id})}><span className="icon icon-delete"></span></button>
+                                                   {/*<button className="btn btn-danger ml-2" onClick={() => props.set_state({open3: true, selectedIndex: item.id})}><span className="icon icon-delete"></span></button>*/}
                                                </td>
                                            </tr>
                                        })

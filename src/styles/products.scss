@@ -7,7 +7,6 @@
       .card-body{
         border-radius: 10px;
         transition-duration: 400ms;
-
         &:hover{
           box-shadow: 0 0 10px darkgrey;
         }
@@ -21,7 +20,7 @@
           }
         }
         h6{
-          margin: 20px 0!important;
+          margin: 5px 0!important;
           font-size: 16px!important;
         }
         h5{

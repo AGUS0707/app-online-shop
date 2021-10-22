@@ -34,7 +34,6 @@ const HomePageFixed = (props) => {
                 props.set_state({countCart: response.data.length})
             })
         }
-       if (window.location.pathname !== "/"){
            axios.get( API_PATH + "categorys")
                .then((res) => {
                    props.set_state({category: res.data})
@@ -51,18 +50,6 @@ const HomePageFixed = (props) => {
                    })
 
                })
-       } else {
-           props.category.category.forEach((item)=>{
-
-               let newArray = {
-                   ...item,
-                   checked: false
-               }
-
-               headCtegory = headCtegory.concat(newArray)
-               props.set_state({categoryfilter: headCtegory})
-           })
-       }
 
 
     },[])

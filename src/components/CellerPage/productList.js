@@ -8,17 +8,19 @@ import useStateRef from 'react-usestateref';
 
 function ProductList(props) {
 
-
-
-    // let a="wefffewffewfffw g erger sdgferwgrewg";
-    // console.log(a.search("wg"));
     const [loader, setLoader] = useState(true)
+
     useEffect(()=>{
         axios.post(API_PATH+"slproduct", {user_id:props.userReducer.userObject.id}, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((res)=>{
             props.updateProductList(res.data);
             setLoader(false)
+        })
+        .catch(()=>{
+            setLoader(false)
         });
+
     }, []);
+
     const [product, setProduct, productRef]=useStateRef({
         user_id:props.userReducer.userObject.id,
        product_uz:"",
@@ -36,17 +38,12 @@ function ProductList(props) {
         setProduct(newObject)
     };
 
-
     const productFilterListFunction=()=>{
         axios.post(API_PATH+'filter', product, {headers:{"Authorization": "Bearer " + Cookies.get('jwt')}}).then((response)=>{
             props.updateProductList(response.data);
             setLoader(false)
         })
     };
-
-
-
-
 
     function oldProductFunction(id) {
         let updateProduct;
@@ -64,6 +61,7 @@ function ProductList(props) {
         props.editValueChangeList(valueArray);
         props.updateProduct(updateProduct)
     }
+
     function productClear(){
         props.updateValueList([]);
         props.clearProductRedux({
@@ -82,7 +80,6 @@ function ProductList(props) {
             description_ru:""
         });
     };
-
 
     const [productIdList, setProductIdList]=useState([]);
     function checkChange(e){
@@ -139,7 +136,10 @@ function ProductList(props) {
                 inputList.forEach((item)=>{
                     item.checked=false
                 })
-            });
+            })
+                .catch(()=>{
+                    props.updateProductList([]);
+                })
         })
     }
     return (

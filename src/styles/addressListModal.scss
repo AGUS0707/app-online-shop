@@ -57,26 +57,33 @@
           border-radius: 4px;
           outline: 0;
           .row{
-            display: block !important;
             .col-8{
-              min-width: 100%;
+              @media screen and (max-width: 576px){
+                min-width: 100%;
+              }
               margin-bottom: 9px;
               font-size: 12.5px !important;
               .name{
                 font-weight: 700;
                 margin-bottom: 0;
-                text-align: center;
+                @media screen and (max-width: 576px){
+                  text-align: center;
+                }
               }
-              .village, .region{
-                text-align: center;
+              @media screen and (max-width: 576px){
+                .village, .region{
+                  text-align: center;
+                }
               }
             }
             .col-4{
               display: flex;
               align-items: center;
               justify-content: center;
-              min-width: 100%;
-              padding-left: 0;
+              @media screen and (max-width: 576px){
+                min-width: 100%;
+                padding-left: 0;
+              }
               button{
                 white-space: nowrap;
                 border-style: solid;
@@ -89,6 +96,11 @@
                 border-width: 1px;
                 color: #fff;
               }
+            }
+          }
+          @media screen and (max-width: 576px){
+            .row{
+              display: block !important;
             }
           }
         }
